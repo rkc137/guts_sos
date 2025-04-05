@@ -2,18 +2,10 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "../../core/DefaultWindowWrap.hpp"
+
 namespace ui
 {
-
-class DefaultWindowWrap
-{
-public:
-    static void set_window_wrap_ptr(sf::RenderWindow *window) { win = window; }
-protected:
-    static sf::RenderWindow& get_window() { return *win; }
-private:
-    inline static sf::RenderWindow *win = nullptr; 
-};
 
 template <typename WWT>
 class BaseWidget : public sf::Drawable, public sf::Transformable, public WWT
