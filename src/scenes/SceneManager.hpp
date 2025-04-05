@@ -4,10 +4,13 @@
 
 #include <queue>
 
-class SceneManager
+#include "../core/DefaultWindowWrap.hpp"
+
+template <typename WWT>
+class BaseSceneManager : public WWT
 {
 public:
-    class Scene : public sf::Drawable
+    class Scene : public sf::Drawable, public WWT
     {
     public:
         /// @brief makes avery change per frame
@@ -31,3 +34,7 @@ private:
     // static sf::RenderWindow *window;
     inline static std::queue<sc_shptr> scenes;//TODO: its must be not queue
 };
+
+using SceneManager = BaseSceneManager<DefaultWindowWrap>;
+
+#include "SceneManager.tpp"

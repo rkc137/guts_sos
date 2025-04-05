@@ -24,7 +24,7 @@ int main()
         res::app_name,
         sf::State::Windowed
     );
-    ui::DefaultWindowWrap::set_window_wrap_ptr(&window);
+    DefaultWindowWrap::set_window_wrap_ptr(&window);
 
     window.setFramerateLimit(60);
     

@@ -1,11 +1,13 @@
 #include "SceneManager.hpp"
 
-SceneManager::sc_shptr SceneManager::get_current()
+template <typename WWT>
+BaseSceneManager<WWT>::sc_shptr BaseSceneManager<WWT>::get_current()
 {
     return scenes.front();
 }
 
-void SceneManager::Scene::quit()
+template <typename WWT>
+void BaseSceneManager<WWT>::Scene::quit()
 {
     scenes.pop(); 
     if(scenes.empty())

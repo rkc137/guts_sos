@@ -12,12 +12,6 @@ MainMenu::~MainMenu() {}
 
 void MainMenu::update(double delta_time)
 {
-    shape.setRadius(100 + delta_time * 0);
-    shape.setPosition({
-        double(int(shape.getPosition().x + 1) % 100),
-        0
-    });
-    // if(shape.getPosition().x > 100)
     //     quit();
 }
 
