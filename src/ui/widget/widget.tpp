@@ -3,11 +3,15 @@
 namespace ui
 {
 
-Widget::Widget(const sf::RenderWindow &window) : window(window)
+template <typename WWT>
+BaseWidget<WWT>::BaseWidget()
 {}
 
-void Widget::update(double delta_time)
+template <typename WWT>
+void BaseWidget<WWT>::update(double delta_time)
 {
+    auto &window = this->get_window();
+
     sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
     sf::Vector2f mouse_world_pos = window.mapPixelToCoords(mouse_pos, window.getView()) - getPosition();
 

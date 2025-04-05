@@ -6,6 +6,16 @@
 #include "res/res.hpp"
 
 #include "Scenes/MainMenu.hpp"
+#include "ui/widget/widget.hpp"
+
+class W : public ui::Widget
+{
+public:
+    W()
+    {
+        // this->
+    }
+};
 
 int main()
 {
@@ -14,7 +24,10 @@ int main()
         res::app_name,
         sf::State::Windowed
     );
+    ui::DefaultWindowWrap::set_window_wrap_ptr(&window);
+
     window.setFramerateLimit(60);
+    
     
     res::load();
     SceneManager::add_scene<MainMenu>(window);
@@ -33,9 +46,10 @@ int main()
             window.draw(*scene);
         }
         catch(...) {
+            dbg << "add new main menu scene";
             SceneManager::add_scene<MainMenu>(window);
         }
-        
+
         window.display();
         window.clear();
         

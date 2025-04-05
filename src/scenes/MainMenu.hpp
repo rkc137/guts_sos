@@ -4,7 +4,6 @@
 #include "../Logger/Logger.hpp"
 #include "../ui/label/label.hpp"
 
-
 class MainMenu : public SceneManager::Scene
 {
 public:
@@ -18,7 +17,7 @@ private:
 
     sf::CircleShape shape{50.f};
 
-    ui::Label logo;//{res::cybersomething, res::app_name, 80, sf::Color::Black};
+    ui::Label logo{res::app_name, sf::Color::White, 80, res::cybersomething};//{res::cybersomething, res::app_name, 80, sf::Color::Black};
     
     // sf::Text
     // ui::Label logo{res::cybersomething, res::app_name, 80, sf::Color::Black};

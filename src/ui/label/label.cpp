@@ -3,12 +3,11 @@
 namespace ui
 {
 
-Label::Label(const sf::RenderWindow &window,
-            const std::string str_text, 
+Label::Label(const std::string str_text, 
             const sf::Color &color,
             int ch_size,
             const sf::Font &font)
-            : Widget(window), text(str_text, font, ch_size)
+            : text(font, str_text, ch_size)
 {
     text.setFillColor(color);
     update_origin();
@@ -20,8 +19,10 @@ void Label::update_origin()
     sf::FloatRect text_rect = text.getLocalBounds();
     auto pos = text_rect.position;
     auto size = text_rect.size;
-    text.setOrigin(pos.x + size.x / 2.0f,
-                   pos.y  + size.y / 2.0f);
+    text.setOrigin({
+        pos.x + size.x / 2.0f,
+        pos.y + size.y / 2.0f
+    });
 }
 
 void Label::draw(sf::RenderTarget& target, sf::RenderStates states) const
