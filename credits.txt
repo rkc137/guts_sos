@@ -1,0 +1,31 @@
+*************************************
+guts:s.o.s
+
+by rkc137
+*************************************
+
+Credits:
+    programmer and "artist" - rkc137
+    
+    special thx to
+    - Pepsi a.k.a sanya
+    - Danya 
+    
+Textures:
+    all textures are created with Krita (https://krita.org/en/) 
+   
+Sound Files:
+    https://freesound.org/people/Garuda1982/sounds/530429/
+    https://freesound.org/people/CGEffex/sounds/93845/
+    https://freesound.org/people/gkillhour/sounds/267222/
+    https://freesound.org/people/guitarguy1985/sounds/57808/
+    https://freesound.org/people/TheBuilder15/sounds/404334/
+    https://freesound.org/people/EvanBoyerman/sounds/530886/
+   
+Fonts:
+    https://kgpaints.itch.io/cybersomething
+    Bitstream Vera Fonts (Copyright (c) 2003 by Bitstream, Inc. All Rights Reserved.)
+    Arev Fonts (Copyright (c) 2006 by Tavmjong Bah. All Rights Reserved.)
+
+engine:
+    C++20 SFML3
