@@ -11,8 +11,7 @@ namespace ui
 class Label : public Widget
 {
 public:
-    explicit Label(const sf::RenderWindow &window,
-                   const std::string str_text = "", 
+    explicit Label(const std::string str_text = "", 
                    const sf::Color &color = sf::Color::Black,
                    int ch_size = 30,
                    const sf::Font &font = res::default_font);
