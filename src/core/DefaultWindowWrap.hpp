@@ -2,6 +2,14 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <type_traits>
+#include <concepts>
+
+template <typename T>
+concept WindowWrapTC = requires {
+    { T::get_window() } -> std::same_as<sf::RenderWindow&>; 
+};
+
 class DefaultWindowWrap
 {
 public:
@@ -11,3 +19,5 @@ protected:
 private:
     inline static sf::RenderWindow *win = nullptr; 
 };
+
+using namespace std::literals::string_literals;

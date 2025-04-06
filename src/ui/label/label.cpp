@@ -4,14 +4,28 @@ namespace ui
 {
 
 Label::Label(const std::string str_text, 
+            const sf::Font &font,
             const sf::Color &color,
-            int ch_size,
-            const sf::Font &font)
-            : text(font, str_text, ch_size)
+            unsigned int ch_size)
+            : Label({font, str_text, ch_size}, color)
+{}
+
+Label::Label(sf::Text &&text, const sf::Color &color) 
+    : text(text)
 {
     text.setFillColor(color);
     update_origin();
     text.setPosition({0, 0});
+}
+
+void Label::set_fill_color(sf::Color color)
+{
+    text.setFillColor(color);
+}
+
+sf::Color Label::get_fill_color()
+{
+    return text.getFillColor();
 }
 
 void Label::update_origin()

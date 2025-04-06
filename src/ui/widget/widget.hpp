@@ -7,7 +7,7 @@
 namespace ui
 {
 
-template <typename WWT>
+template <typename WWT = DefaultWindowWrap>
 class BaseWidget : public sf::Drawable, public sf::Transformable, public WWT
 {
 public:
@@ -30,8 +30,6 @@ protected:
     bool is_in_focus = false;
     bool is_clicked = false;
 };
-
-using Widget = BaseWidget<DefaultWindowWrap>;
 
 }
 

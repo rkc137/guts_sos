@@ -8,18 +8,25 @@
 namespace ui
 {
 
-class Label : public Widget
+class Label : public BaseWidget<>
 {
 public:
     explicit Label(const std::string str_text = "", 
-                   const sf::Color &color = sf::Color::Black,
-                   int ch_size = 30,
-                   const sf::Font &font = res::default_font);
-    void update_origin();
-    sf::Text text;
+                    const sf::Font &font = res::default_font,
+                    const sf::Color &color = sf::Color::Black,
+                    unsigned int ch_size = 30);
+               
+    explicit Label(sf::Text&& text, const sf::Color &color = sf::Color::Black);
 
+    void set_fill_color(sf::Color color);
+    sf::Color get_fill_color();
+    void update_origin();
+    
     sf::FloatRect get_global_bounds() const override;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
+private:
+    sf::Text text;
 };
 
 }
