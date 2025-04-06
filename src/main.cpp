@@ -30,7 +30,7 @@ int main()
     
     
     res::load();
-    SceneManager::add_scene<MainMenu>(window);
+    SceneManager::add_scene<MainMenu>();
  
     sf::Clock clock;
     double delta_time = 0;
@@ -47,7 +47,7 @@ int main()
         }
         catch(...) {
             dbg << "add new main menu scene";
-            SceneManager::add_scene<MainMenu>(window);
+            SceneManager::add_scene<MainMenu>();
         }
 
         window.display();

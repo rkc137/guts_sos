@@ -1,7 +1,6 @@
 #include "MainMenu.hpp"
 
-MainMenu::MainMenu(sf::RenderWindow &window) 
-    : window(window)    
+MainMenu::MainMenu()    
     //   logo(window, res::app_name, sf::Color::Black, 80, res::cybersomething) //(res::cybersomething, res::app_name, 80, sf::Color::Black})
 {
     shape.setFillColor(sf::Color(100, 250, 50));

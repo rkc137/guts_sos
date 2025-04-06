@@ -7,13 +7,12 @@
 class MainMenu : public SceneManager::Scene
 {
 public:
-    explicit MainMenu(sf::RenderWindow &window);
+    explicit MainMenu();
     ~MainMenu();
     void update(double delta_time) override;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 private:
     sf::View main_view;
-    sf::RenderWindow &window;
 
     sf::CircleShape shape{50.f};
 
