@@ -23,9 +23,9 @@ public:
     using sc_shptr = std::shared_ptr<Scene>;
 
     template <typename scene_t>
-    static void add_scene(sf::RenderWindow &window)
+    static void add_scene()
     {
-        sc_shptr scene(new scene_t(window));
+        sc_shptr scene(new scene_t);
         scenes.push(scene);
     }
     
