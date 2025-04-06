@@ -8,14 +8,6 @@
 #include "Scenes/MainMenu.hpp"
 #include "ui/widget/widget.hpp"
 
-class W : public ui::Widget
-{
-public:
-    W()
-    {
-        // this->
-    }
-};
 
 int main()
 {
@@ -39,6 +31,8 @@ int main()
         while(const std::optional event = window.pollEvent())
             if(event->is<sf::Event::Closed>())
                 window.close();
+            // else if(event->is<sf::Event::Resized>())
+            //     window.setView(sf::View{sf::Vector2u{}, window.getSize()});
         
         try {
             auto scene = SceneManager::get_current();
