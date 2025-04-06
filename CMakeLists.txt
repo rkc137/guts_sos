@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.28)
 project(sos LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -Wall -Wextra")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2")
@@ -27,6 +27,7 @@ add_executable(sos
     src/res/res.cpp
     # src/ui/widget/widget.cpp
     src/ui/label/label.cpp
+    src/ui/Buttons/LabelButton.cpp
     # src/Scenes/SceneManager.cpp
     src/Scenes/MainMenu.cpp
     src/main.cpp

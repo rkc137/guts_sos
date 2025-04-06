@@ -2,11 +2,12 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <type_traits>
 #include <queue>
 
 #include "../core/DefaultWindowWrap.hpp"
 
-template <typename WWT>
+template <typename WWT = DefaultWindowWrap>
 class BaseSceneManager : public WWT
 {
 public:
@@ -18,23 +19,29 @@ public:
         virtual void update(double delta_time) = 0;
         virtual ~Scene() = default;
     protected:
+        /// @brief must be called to exit from current scene and step to the next
         void quit();
     };
     using sc_shptr = std::shared_ptr<Scene>;
 
+    /// @brief add scene in queue of executing
+    /// @tparam scene_t requires be delivered by Scene of manager 
     template <typename scene_t>
-    static void add_scene()
+    static void add_scene() requires std::is_base_of<Scene, scene_t>::value 
     {
         sc_shptr scene(new scene_t);
         scenes.push(scene);
     }
     
+    /// @brief gets front scene of manager that currently (should be) running
+    /// @return shared_ptr on current scene
     static sc_shptr get_current();
 private:
-    // static sf::RenderWindow *window;
-    inline static std::queue<sc_shptr> scenes;//TODO: its must be not queue
+    /// @brief queue that manage all scenes of manager
+    inline static std::queue<sc_shptr> scenes;
 };
 
-using SceneManager = BaseSceneManager<DefaultWindowWrap>;
+/// @brief default scene manager
+using SceneManager = BaseSceneManager<>;
 
 #include "SceneManager.tpp"
