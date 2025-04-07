@@ -18,6 +18,8 @@ public:
                
     explicit Label(sf::Text&& text, const sf::Color &color = sf::Color::Black);
 
+    void set_char_size(unsigned int ch_size);
+    unsigned int get_char_size();
     void set_fill_color(sf::Color color);
     sf::Color get_fill_color();
     void update_origin();
