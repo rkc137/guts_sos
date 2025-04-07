@@ -17,6 +17,8 @@ public:
         /// @brief makes avery change per frame
         /// @param delta_time time is seconds after last frame
         virtual void update(double delta_time) = 0;
+        /// @brief called when window change resolution
+        virtual void resize() = 0;
         virtual ~Scene() = default;
     protected:
         /// @brief must be called to exit from current scene and step to the next
@@ -27,11 +29,8 @@ public:
     /// @brief add scene in queue of executing
     /// @tparam scene_t requires be delivered by Scene of manager 
     template <typename scene_t>
-    static void add_scene() requires std::is_base_of<Scene, scene_t>::value 
-    {
-        sc_shptr scene(new scene_t);
-        scenes.push(scene);
-    }
+    static void add_scene() 
+    requires std::is_base_of<Scene, scene_t>::value;
     
     /// @brief gets front scene of manager that currently (should be) running
     /// @return shared_ptr on current scene
