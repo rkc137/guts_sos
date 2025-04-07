@@ -28,22 +28,21 @@ int main()
     double delta_time = 0;
     for(; window.isOpen(); delta_time = clock.restart().asSeconds())
     {
+        auto scene = SceneManager::get_current();
+
         while(const std::optional event = window.pollEvent())
             if(event->is<sf::Event::Closed>())
                 window.close();
-            // else if(event->is<sf::Event::Resized>())
-            //     window.setView(sf::View{sf::Vector2u{}, window.getSize()});
-        
-        try {
-            auto scene = SceneManager::get_current();
-            scene->update(delta_time);
-            window.draw(*scene);
-        }
-        catch(...) {
-            dbg << "add new main menu scene";
-            SceneManager::add_scene<MainMenu>();
-        }
+            else if(const auto* resized = event->getIf<sf::Event::Resized>())
+            {
+                auto size = resized->size; 
+                window.setView(sf::View{{size.x / 2.f, size.y / 2.f}, sf::Vector2f{size}});
+                scene->resize();
+            }
 
+            
+        scene->update(delta_time);
+        window.draw(*scene);
         window.display();
         window.clear();
         

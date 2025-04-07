@@ -3,19 +3,6 @@
 MainMenu::MainMenu()
 {
     shape.setFillColor(sf::Color(100, 250, 50));
-    auto ws = get_window().getSize();
-    logo.setPosition({
-        ws.x / 2.f,
-        ws.y / 3.f
-    });
-    start.setPosition({
-        ws.x / 2.f,
-        (ws.y / 3.f) * 2
-    });
-    exit.setPosition({
-        ws.x / 2.f,
-        (ws.y / 3.f) * 2 + start.get_global_bounds().size.y
-    });
 
     start.on_release = [&](){
         // SceneManager::add_scene<MainMenu>();
@@ -32,6 +19,28 @@ void MainMenu::update([[maybe_unused]] double delta_time)
     start.update(delta_time);
     exit.update(delta_time);
     //     quit();
+}
+
+void MainMenu::resize()
+{
+    auto ws = get_window().getSize();
+    
+    logo.set_char_size(ws.y / 7);
+    exit.set_char_size(ws.y / 15);
+    start.set_char_size(ws.y / 15);
+
+    logo.setPosition({
+        ws.x / 2.f,
+        ws.y / 3.f
+    });
+    start.setPosition({
+        ws.x / 2.f,
+        (ws.y / 3.f) * 2
+    });
+    exit.setPosition({
+        ws.x / 2.f,
+        (ws.y / 3.f) * 2 + start.get_global_bounds().size.y * 2
+    });
 }
 
 void MainMenu::draw(sf::RenderTarget &target, sf::RenderStates states) const
