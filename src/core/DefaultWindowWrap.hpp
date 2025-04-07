@@ -19,5 +19,3 @@ protected:
 private:
     inline static sf::RenderWindow *win = nullptr; 
 };
-
-using namespace std::literals::string_literals;

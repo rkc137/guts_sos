@@ -14,17 +14,11 @@ public:
     void resize() override;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 private:
-    sf::View main_view;
-
-    sf::CircleShape shape{50.f};
-
     ui::Label logo{res::app_name, res::cybersomething, sf::Color::White, 100};
-    ui::LabelButton start{ui::Label{"start"s, res::cybersomething, sf::Color::White, 50}};
-    ui::LabelButton exit{ui::Label{"exit"s, res::cybersomething, sf::Color::White, 50}};
+    ui::Label author{L"сделанно by rkc137", res::cybersomething, sf::Color::Black, 50};
+    ui::LabelButton start{ui::Label{L"start", res::cybersomething, sf::Color::White, 50}};
+    ui::LabelButton exit{ui::Label{L"exit", res::cybersomething, sf::Color::White, 50}};
 
-    // Label buttons{res::cybersomething, L"start\noptions\nexit", 50, sf::Color::Black};
     // Label buttons_codes{res::default_font, L"•••\n———\n•", 50, sf::Color::Black};
-    // Label author{res::cybersomething, L"made by rkc137", 50, sf::Color::Black};
     // sf::Sprite blocknote{res::blocknote};
-
 };

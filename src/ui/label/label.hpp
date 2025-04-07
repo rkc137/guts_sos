@@ -11,7 +11,7 @@ namespace ui
 class Label : public BaseWidget<>
 {
 public:
-    explicit Label(const std::string str_text = "", 
+    explicit Label(const sf::String str_text = "", 
                     const sf::Font &font = res::default_font,
                     const sf::Color &color = sf::Color::Black,
                     unsigned int ch_size = 30);

@@ -3,14 +3,14 @@
 namespace ui
 {
 
-Label::Label(const std::string str_text, 
+Label::Label(const sf::String str_text, 
             const sf::Font &font,
             const sf::Color &color,
             unsigned int ch_size)
             : Label({font, str_text, ch_size}, color)
 {}
 
-Label::Label(sf::Text &&text, const sf::Color &color) 
+Label::Label(sf::Text &&text, const sf::Color &color)
     : text(text)
 {
     text.setFillColor(color);
