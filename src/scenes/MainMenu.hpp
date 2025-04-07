@@ -11,6 +11,7 @@ public:
     explicit MainMenu();
     ~MainMenu() = default;
     void update(double delta_time) override;
+    void resize() override;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 private:
     sf::View main_view;
@@ -21,8 +22,6 @@ private:
     ui::LabelButton start{ui::Label{"start"s, res::cybersomething, sf::Color::White, 50}};
     ui::LabelButton exit{ui::Label{"exit"s, res::cybersomething, sf::Color::White, 50}};
 
-    // sf::Text 
-    // ui::Label logo{res::cybersomething, res::app_name, 80, sf::Color::Black};
     // Label buttons{res::cybersomething, L"start\noptions\nexit", 50, sf::Color::Black};
     // Label buttons_codes{res::default_font, L"•••\n———\n•", 50, sf::Color::Black};
     // Label author{res::cybersomething, L"made by rkc137", 50, sf::Color::Black};
