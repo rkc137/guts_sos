@@ -2,8 +2,6 @@
 
 MainMenu::MainMenu()
 {
-    shape.setFillColor(sf::Color(100, 250, 50));
-
     start.on_release = [&](){
         // SceneManager::add_scene<MainMenu>();
         // dbg << __func__;
@@ -45,11 +43,9 @@ void MainMenu::resize()
 
 void MainMenu::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-    auto drw = [&](auto s){
+    auto drw = [&](this auto&& self, auto s, auto... d){
         target.draw(s, states);
+        self(d);
     };
-    drw(logo);
-    drw(start);
-    drw(exit);
-    drw(shape);
+    drw(logo, start, exit);
 }
