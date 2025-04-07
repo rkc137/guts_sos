@@ -45,7 +45,8 @@ void MainMenu::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
     auto drw = [&](this auto&& self, auto s, auto... d){
         target.draw(s, states);
-        self(d);
+        if constexpr (sizeof...(d) > 0)
+            self(d...);
     };
     drw(logo, start, exit);
 }
