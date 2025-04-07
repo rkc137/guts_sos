@@ -18,6 +18,17 @@ Label::Label(sf::Text &&text, const sf::Color &color)
     text.setPosition({0, 0});
 }
 
+void Label::set_char_size(unsigned int ch_size)
+{
+    text.setCharacterSize(ch_size);
+    update_origin();
+}
+
+unsigned int Label::get_char_size()
+{
+    return text.getCharacterSize();
+}
+
 void Label::set_fill_color(sf::Color color)
 {
     text.setFillColor(color);
