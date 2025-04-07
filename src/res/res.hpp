@@ -16,8 +16,11 @@ class res
 {
 private:
     using fspath = std::filesystem::path;
-    // inlstc const fspath res_path = "../res/";
+#ifndef DEBUG
     inlstc const fspath res_path = "D:/projects/S.O.S/res/";
+#elif
+    inlstc const fspath res_path = "../res/";
+#endif
     struct TextureMetaInfo
     {
         sf::Vector2i frame_size;
