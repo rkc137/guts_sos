@@ -5,7 +5,7 @@
 #include <type_traits>
 #include <queue>
 
-#include "../core/DefaultWindowWrap.hpp"
+#include "../core/WindowWrap.hpp"
 
 template <typename WWT = DefaultWindowWrap>
 class BaseSceneManager : public WWT

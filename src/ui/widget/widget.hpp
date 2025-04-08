@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../../core/DefaultWindowWrap.hpp"
+#include "../../core/WindowWrap.hpp"
 
 namespace ui
 {

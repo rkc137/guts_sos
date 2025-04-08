@@ -3,6 +3,12 @@
 template <typename WWT>
 BaseSceneManager<WWT>::sc_shptr BaseSceneManager<WWT>::get_current()
 {
+    // var exist only for executing validate window once 
+    [[maybe_unused]] static bool init_win_check = [&](){ 
+        WWT::check_window();
+        return true;
+    }();
+
     if(scenes.empty())
         throw std::runtime_error("no more scenes for executing");
     return scenes.front();
@@ -16,9 +22,10 @@ void BaseSceneManager<WWT>::Scene::quit()
 
 template <typename WWT>
 template <typename scene_t>//, typename scene_t>
-void BaseSceneManager<WWT>::add_scene()
+void BaseSceneManager<WWT>::add_scene() 
 requires std::is_base_of<Scene, scene_t>::value
 {
+    WWT::check_window();
     sc_shptr scene(new scene_t);
     scene->resize();
     scenes.push(scene);
