@@ -23,6 +23,7 @@ FetchContent_MakeAvailable(SFML)
 set(SFML_STATIC_LIBRARIES TRUE)
 
 add_executable(sos 
+    src/core/WindowWrap.cpp
     src/Logger/Logger.cpp
     src/res/res.cpp
     # src/ui/widget/widget.cpp

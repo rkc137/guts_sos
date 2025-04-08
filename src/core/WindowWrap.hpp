@@ -13,9 +13,10 @@ concept WindowWrapTC = requires {
 class DefaultWindowWrap
 {
 public:
-    static void set_window_wrap_ptr(sf::RenderWindow *window) { win = window; }
+    static void set_window_wrap_ptr(sf::RenderWindow *window);
+    static void check_window();
 protected:
-    static sf::RenderWindow& get_window() { return *win; }
+    static sf::RenderWindow& get_window();
 private:
     inline static sf::RenderWindow *win = nullptr; 
 };
