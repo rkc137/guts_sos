@@ -11,28 +11,35 @@
 
 int main()
 {
+    res::load();
     sf::RenderWindow window(
         sf::VideoMode({1280, 720}),
         res::app_name,
         sf::State::Windowed
     );
-    DefaultWindowWrap::set_window_wrap_ptr(&window);
-
     window.setFramerateLimit(60);
-    
-    
-    res::load();
+    window.setTitle(res::app_name);
+    window.setIcon(res::default_texture.copyToImage());
+    DefaultWindowWrap::set_window_wrap_ptr(&window);
+    // if(sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::F11))
+    // {
+    //     auto *wp = &window;
+    //     window.create(
+    //         sf::VideoMode::getFullscreenModes().front(),
+    //             res::app_name,
+    //             sf::State::Fullscreen);
+    //     assert(wp == &window);
+    // }
     SceneManager::add_scene<MainMenu>();
- 
     sf::Clock clock;
     double delta_time = 0;
     for(; window.isOpen(); delta_time = clock.restart().asSeconds())
     {
         auto scene = SceneManager::get_current();
-
+            
         while(const std::optional event = window.pollEvent())
             if(event->is<sf::Event::Closed>())
-                window.close();
+            window.close();
             else if(const auto* resized = event->getIf<sf::Event::Resized>())
             {
                 auto size = resized->size; 
