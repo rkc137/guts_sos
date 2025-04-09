@@ -19,7 +19,7 @@ void BaseWidget<WWT>::update(double delta_time)
     if(get_global_bounds().contains(mouse_world_pos) || is_in_focus)
     {
         m_on_touch(delta_time);
-        if(sf::Mouse::isButtonPressed(mouse_button) || (sf::Keyboard::isKeyPressed(enter) && is_in_focus))
+        if(sf::Mouse::isButtonPressed(mouse_button) || (sf::Keyboard::isKeyPressed(key_button) && is_in_focus))
         {
             is_clicked = true;
             m_on_press(delta_time);

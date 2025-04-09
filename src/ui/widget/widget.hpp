@@ -24,7 +24,7 @@ protected:
     virtual sf::FloatRect get_global_bounds() const = 0;
 
     sf::Mouse::Button mouse_button = sf::Mouse::Button::Left;
-    sf::Keyboard::Key enter = sf::Keyboard::Key::Enter;
+    sf::Keyboard::Key key_button = sf::Keyboard::Key::Enter;
     
     // const sf::RenderWindow &window;
     bool is_in_focus = false;
