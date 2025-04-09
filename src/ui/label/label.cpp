@@ -81,7 +81,13 @@ void Label::update_origin()
             pos.y
         });
         break;
+    case OriginState::left_down:
+        text.setOrigin({
+            pos.x,
+            pos.y + size.y
+        });
     default:
+        throw std::runtime_error("bad origin state");
         break;
     }
 }

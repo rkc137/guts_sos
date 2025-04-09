@@ -14,7 +14,8 @@ public:
     enum class OriginState
     {
         center,
-        left_up
+        left_up,
+        left_down
     };
 
     explicit Label(const sf::String str_text = "", 
@@ -41,8 +42,8 @@ public:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:
-    OriginState origin_state;
     sf::Text text;
+    OriginState origin_state;
 };
 
 }
