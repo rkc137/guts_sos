@@ -3,7 +3,7 @@
 template <typename WWT>
 BaseSceneManager<WWT>::sc_shptr BaseSceneManager<WWT>::get_current()
 {
-    // var exist only for executing validate window once 
+    // var exist only for executing validation of window once 
     [[maybe_unused]] static bool init_win_check = [&](){ 
         WWT::check_window();
         return true;
