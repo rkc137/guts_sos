@@ -23,8 +23,9 @@ protected:
     virtual void m_on_afk([[maybe_unused]] double delta_time){};
     virtual sf::FloatRect get_global_bounds() const = 0;
 
+    //TODO: multibale choise of buttons
     sf::Mouse::Button mouse_button = sf::Mouse::Button::Left;
-    sf::Keyboard::Key key_button = sf::Keyboard::Key::Enter;
+    sf::Keyboard::Scan key_button = sf::Keyboard::Scan::Enter;
     
     // const sf::RenderWindow &window;
     bool is_in_focus = false;
