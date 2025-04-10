@@ -11,13 +11,6 @@ namespace ui
 class Label : public BaseWidget<>
 {
 public:
-    enum class OriginState
-    {
-        center,
-        left_up,
-        left_down
-    };
-
     explicit Label(const sf::String str_text = "", 
                     const sf::Font &font = res::default_font,
                     const sf::Color &color = sf::Color::Black,
@@ -28,14 +21,14 @@ public:
                     const sf::Color &color = sf::Color::Black,
                     OriginState state = OriginState::center);
     
+    [[nodiscard]] sf::String      get_string() const;
+    [[nodiscard]] OriginState     get_origin_state() const;
+    [[nodiscard]] unsigned int    get_char_size() const;
+    [[nodiscard]] sf::Color       get_fill_color() const;
     void set_string(sf::String &&str);
-    sf::String get_string();
     void set_origin_state(OriginState state);
-    OriginState get_origin_state();
     void set_char_size(unsigned int ch_size);
-    unsigned int get_char_size();
     void set_fill_color(sf::Color color);
-    sf::Color get_fill_color();
     void update_origin();
     
     sf::FloatRect get_global_bounds() const override;
@@ -43,7 +36,6 @@ public:
 
 private:
     sf::Text text;
-    OriginState origin_state;
 };
 
 }

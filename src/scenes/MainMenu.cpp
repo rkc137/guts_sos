@@ -2,7 +2,7 @@
 
 MainMenu::MainMenu()
 {
-    start.on_release = [&](this auto&& self){
+    start.on_release = [&](){
         // if(res::is_no_save)
         // {
         //     SceneManager::add_scene<Intro>();

@@ -12,8 +12,9 @@ Label::Label(const sf::String str_text,
 {}
 
 Label::Label(sf::Text &&text, const sf::Color &color, OriginState state)
-    : text(text), origin_state(state)
+    : text(text)
 {
+    origin_state = state;
     text.setFillColor(color);
     update_origin();
     text.setPosition({0, 0});
@@ -25,7 +26,7 @@ void Label::set_string(sf::String &&str)
     update_origin();
 }
 
-sf::String Label::get_string()
+sf::String Label::get_string() const
 {
     return text.getString();
 }
@@ -36,7 +37,7 @@ void Label::set_origin_state(OriginState state)
     update_origin();
 }
 
-Label::OriginState Label::get_origin_state()
+Label::OriginState Label::get_origin_state() const
 {
     return origin_state;
 }
@@ -47,7 +48,7 @@ void Label::set_char_size(unsigned int ch_size)
     update_origin();
 }
 
-unsigned int Label::get_char_size()
+unsigned int Label::get_char_size() const
 {
     return text.getCharacterSize();
 }
@@ -57,7 +58,7 @@ void Label::set_fill_color(sf::Color color)
     text.setFillColor(color);
 }
 
-sf::Color Label::get_fill_color()
+sf::Color Label::get_fill_color() const
 {
     return text.getFillColor();
 }
@@ -86,6 +87,7 @@ void Label::update_origin()
             pos.x,
             pos.y + size.y
         });
+        break;
     default:
         throw std::runtime_error("bad origin state");
         break;
