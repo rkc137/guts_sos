@@ -31,4 +31,5 @@ void res::load()
     for(auto &[music, path] : music_load_list)
         if(!music.openFromFile(res_path / path))
             throw std::runtime_error("bruh wha");
+    loaded = true;
 }

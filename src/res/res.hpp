@@ -29,9 +29,10 @@ private:
 
 public:
 
-    struct Texture : public sf::Texture, public TextureMetaInfo {};
     res() = delete;
     static void load();
+
+    struct Texture : public sf::Texture, public TextureMetaInfo {};
 
     inlstc Texture 
         default_texture, blocknote, blocknote_morse,
@@ -41,8 +42,11 @@ public:
     inlstc sf::Music distance_explosions, distance_battle, carterattack, voice;
     
     inlstc const sf::String app_name = "guts:s.o.s";
+    inlstc bool is_loaded() { return loaded; }
 
-private: 
+private:
+    inlstc bool loaded = false;
+
     struct TextureSetup
     {
         TextureSetup(Texture &texture, fspath &&path, TextureMetaInfo &&info);
