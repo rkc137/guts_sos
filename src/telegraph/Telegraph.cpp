@@ -21,14 +21,14 @@ void Telegraph::resize()
 {
     auto ws = get_window().getSize();
     input.set_char_size(ws.y / 10);
-    input.set_char_size(ws.y / 10);
+    output.set_char_size(ws.y / 10);
     input.setPosition({
         ws.x / 2.f,
         ws.y / 2.f
     });
-    input.setPosition({
+    output.setPosition({
         ws.x / 2.f,
-        ws.y / 2.f
+        ws.y / 2.f + input.get_global_bounds().size.y * 1.5f
     });
 }
 
