@@ -1,7 +1,7 @@
 #include "Window.hpp"
 
 Window::Window() : sf::RenderWindow(
-    sf::VideoMode({1280, 720}),//idk why but with video_mode its faild assert on / by 0
+    default_video_mode,
     res::app_name,
     sf::State::Windowed)
 {
@@ -23,7 +23,7 @@ void Window::change_fullscreen()
         );
     else
         create(
-            video_mode,
+            default_video_mode,
             res::app_name,
             sf::State::Windowed
         );
