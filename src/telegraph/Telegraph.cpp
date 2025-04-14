@@ -13,12 +13,16 @@ Telegraph::AllwaysFocusButton::AllwaysFocusButton(Telegraph &parent)
     on_click = [&](){   
         clock_since_press.restart();
         press_noise.play();
-        dbg << "press";
     };
     on_release = [&](){
         auto time_since_press = clock_since_press.getElapsedTime();
-        dbg << "release";
         press_noise.stop();
+
+        auto signal = time_since_press < dash_time;
+        parent.letter_bits.push_back(signal);
+        parent.input_label.set_string(
+            parent.input_label.get_string() + (signal ? L"•" : L"—")
+        );
     };
 }
 

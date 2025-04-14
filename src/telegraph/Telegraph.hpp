@@ -2,6 +2,8 @@
 
 #include <SFML/Window.hpp>
 
+#include <vector>
+
 #include "../logger/Logger.hpp"
 
 #include "../scenes/SceneManager.hpp"
@@ -15,10 +17,9 @@ public:
     void update(double delta_time) override;
     void resize() override;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-    ui::Label input_label{L"1___1", res::cybersomething, sf::Color::White, 80, ui::Label::OriginState::center};//••—•——
-    ui::Label output_label{input_label};//text
-    sf::String input;
-    sf::String output;
+    ui::Label input_label{L"", res::default_font, sf::Color::White, 80, ui::Label::OriginState::center};//••—•——
+    ui::Label output_label{L"", res::cybersomething, sf::Color::White, 80, ui::Label::OriginState::center};//text
+    std::vector<bool> letter_bits;
 private:
     inline static const sf::Time dash_time = sf::seconds(0.25);
     inline static const sf::Time letter_time = sf::seconds(1.70);
