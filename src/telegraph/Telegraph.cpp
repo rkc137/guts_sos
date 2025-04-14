@@ -10,7 +10,7 @@ Telegraph::AllwaysFocusButton::AllwaysFocusButton(Telegraph &parent)
     key_button = sf::Keyboard::Scancode::Space;
     is_in_focus = true;
     press_noise.setLooping(true);
-    on_press = [&](){
+    on_click = [&](){   
         clock_since_press.restart();
         press_noise.play();
         dbg << "press";

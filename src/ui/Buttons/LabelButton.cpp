@@ -9,6 +9,11 @@ LabelButton::LabelButton(Label&& label,
     : Label(label), on_press(on_press), on_release(on_release)
 {}
 
+void LabelButton::m_on_click(double delta_time)
+{
+    on_click();
+}
+
 void LabelButton::m_on_press([[maybe_unused]] double delta_time)
 {
     on_press();

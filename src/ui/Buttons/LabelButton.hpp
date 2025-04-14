@@ -18,7 +18,9 @@ public:
     
     callback_t on_press;
     callback_t on_release;
+    callback_t on_click;
 protected:
+    void m_on_click(double delta_time) override;
     void m_on_press(double delta_time) override;
     void m_on_release(double delta_time) override;
     void m_on_touch(double delta_time) override;
