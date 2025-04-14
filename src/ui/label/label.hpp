@@ -25,6 +25,7 @@ public:
     [[nodiscard]] OriginState     get_origin_state() const;
     [[nodiscard]] unsigned int    get_char_size() const;
     [[nodiscard]] sf::Color       get_fill_color() const;
+    void append_string(sf::String &&str);
     void set_string(sf::String &&str);
     void set_origin_state(OriginState state);
     void set_char_size(unsigned int ch_size);

@@ -63,6 +63,11 @@ sf::Color Label::get_fill_color() const
     return text.getFillColor();
 }
 
+void Label::append_string(sf::String &&str)
+{
+    text.setString(text.getString() + str);
+}
+
 void Label::update_origin()
 {
     sf::FloatRect text_rect = text.getLocalBounds();
