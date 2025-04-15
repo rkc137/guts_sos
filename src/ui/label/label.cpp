@@ -65,7 +65,7 @@ sf::Color Label::get_fill_color() const
 
 void Label::append_string(sf::String &&str)
 {
-    text.setString(text.getString() + str);
+    set_string(get_string() + str);
 }
 
 void Label::update_origin()

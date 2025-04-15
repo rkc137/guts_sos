@@ -38,8 +38,8 @@ add_executable(sos
     # src/pauseble_clock/PausebleClock.cpp
     # src/entitys/entity/Entity.cpp
 )
-# target_link_options(sos PRIVATE "-mwindows")
 target_link_libraries(sos PRIVATE SFML::Graphics SFML::Audio)
 target_compile_features(sos PRIVATE cxx_std_17)
 # target_compile_definitions(sos PRIVATE SFML_STATIC)
+# target_link_options(sos PRIVATE "-mwindows")
 # target_link_options(sos PRIVATE -static)

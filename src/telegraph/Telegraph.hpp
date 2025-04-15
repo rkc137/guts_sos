@@ -31,7 +31,7 @@ private:
         AllwaysFocusButton(Telegraph &parent);
         sf::Sound press_noise{res::morse_noise};
         sf::Clock clock_since_press;
-        // sf::Clock last_press_clock;
+        sf::Clock last_press_clock;
         Telegraph &parent;
     } button;
 };

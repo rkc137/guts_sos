@@ -20,9 +20,9 @@ Telegraph::AllwaysFocusButton::AllwaysFocusButton(Telegraph &parent)
 
         auto signal = time_since_press < dash_time;
         parent.letter_bits.push_back(signal);
-        parent.input_label.set_string(
-            parent.input_label.get_string() + (signal ? L"•" : L"—")
-        );
+        parent.input_label.append_string(signal ? L"•" : L"—");
+        parent.input_label.update_origin();
+        last_press_clock.restart();
     };
 }
 
