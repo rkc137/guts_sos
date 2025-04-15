@@ -10,15 +10,15 @@ namespace ui
 class LabelButton : public Label
 {
 public:
-    using callback_t = std::function<void()>;
+    using callback_t = std::function<void()>;//should be void(delta)
     
     explicit LabelButton(Label&& label,
                          callback_t on_press = [](){},
                          callback_t on_release = [](){});
     
-    callback_t on_press;
-    callback_t on_release;
-    callback_t on_click;
+    callback_t on_press = [](){};
+    callback_t on_release = [](){};
+    callback_t on_click = [](){};
 protected:
     void m_on_click(double delta_time) override;
     void m_on_press(double delta_time) override;

@@ -9,7 +9,7 @@ LabelButton::LabelButton(Label&& label,
     : Label(label), on_press(on_press), on_release(on_release)
 {}
 
-void LabelButton::m_on_click(double delta_time)
+void LabelButton::m_on_click([[maybe_unused]] double delta_time)
 {
     on_click();
 }
@@ -32,7 +32,6 @@ void LabelButton::m_on_touch([[maybe_unused]] double delta_time)
 void LabelButton::m_on_afk([[maybe_unused]] double delta_time)
 {
     set_fill_color(color_afk);
-    update_origin();
 }
 
 }
