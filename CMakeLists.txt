@@ -29,6 +29,7 @@ add_executable(sos
     src/res/res.cpp
     # src/ui/widget/widget.cpp
     src/ui/label/label.cpp
+    src/ui/Buttons/BaseButton.cpp
     src/ui/Buttons/LabelButton.cpp
     src/telegraph/Telegraph.cpp
     # src/Scenes/SceneManager.cpp

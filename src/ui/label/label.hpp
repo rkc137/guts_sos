@@ -8,7 +8,7 @@
 namespace ui
 {
 
-class Label : public BaseWidget<>
+class Label : public virtual BaseWidget<>
 {
 public:
     explicit Label(const sf::String str_text = "", 

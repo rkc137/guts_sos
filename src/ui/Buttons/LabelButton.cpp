@@ -6,8 +6,9 @@ namespace ui
 LabelButton::LabelButton(Label&& label,
                          callback_t on_press,
                          callback_t on_release) 
-    : Label(label), on_press(on_press), on_release(on_release)
-{}
+    : Label(std::move(label)), on_press(on_press), on_release(on_release)
+{
+}
 
 void LabelButton::m_on_click([[maybe_unused]] double delta_time)
 {

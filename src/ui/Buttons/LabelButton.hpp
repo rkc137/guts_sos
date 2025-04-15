@@ -3,11 +3,12 @@
 #include <functional>
 
 #include "../label/label.hpp"
+#include "../Buttons/BaseButton.hpp"
 
 namespace ui
 {
 
-class LabelButton : public Label
+class LabelButton : public BaseButton, public Label
 {
 public:
     using callback_t = std::function<void()>;//should be void(delta)

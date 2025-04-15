@@ -1,20 +1,17 @@
-#include "widget.hpp"
+#include "BaseButton.hpp"
 
 namespace ui
 {
 
-template <typename WWT>
-BaseWidget<WWT>::BaseWidget()
-{}
-
-template <typename WWT>
-void BaseWidget<WWT>::update(double delta_time)
+void BaseButton::update(double delta_time)
 {
     auto &window = this->get_window();
 
-    sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
-    sf::Vector2f mouse_world_pos = window.mapPixelToCoords(mouse_pos, window.getView()) - getPosition();
-
+    sf::Vector2f mouse_world_pos = 
+        window.mapPixelToCoords(
+            sf::Mouse::getPosition(window),
+            window.getView()
+        ) - getPosition();
 
     if(get_global_bounds().contains(mouse_world_pos) || is_in_focus)
     {
