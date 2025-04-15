@@ -5,25 +5,34 @@ Telegraph::Telegraph() : button(*this)
 }
 
 Telegraph::AllwaysFocusButton::AllwaysFocusButton(Telegraph &parent)
-    : ui::LabelButton{ui::Label{}}, parent(parent)
+    : parent(parent)
 {
     key_button = sf::Keyboard::Scancode::Space;
     is_in_focus = true;
     press_noise.setLooping(true);
-    on_click = [&](){   
-        clock_since_press.restart();
-        press_noise.play();
-    };
-    on_release = [&](){
-        auto time_since_press = clock_since_press.getElapsedTime();
-        press_noise.stop();
+}
 
-        auto signal = time_since_press < dash_time;
-        parent.letter_bits.push_back(signal);
-        parent.input_label.append_string(signal ? L"•" : L"—");
-        parent.input_label.update_origin();
-        last_press_clock.restart();
-    };
+void Telegraph::AllwaysFocusButton::m_on_click([[maybe_unused]] double delta_time)
+{
+    clock_since_press.restart();
+    press_noise.play();
+}
+
+void Telegraph::AllwaysFocusButton::m_on_release([[maybe_unused]] double delta_time)
+{
+    auto time_since_press = clock_since_press.getElapsedTime();
+    press_noise.stop();
+    
+    auto signal = time_since_press < dash_time;
+    parent.letter_bits.push_back(signal);
+    parent.input_label.append_string(signal ? L"•" : L"—");
+    parent.input_label.update_origin();
+    last_press_clock.restart();
+}
+
+bool Telegraph::AllwaysFocusButton::press_conditions()
+{
+    return is_in_focus && sf::Keyboard::isKeyPressed(key_button);
 }
 
 void Telegraph::update([[maybe_unused]] double delta_time)

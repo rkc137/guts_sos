@@ -8,7 +8,7 @@
 
 #include "../scenes/SceneManager.hpp"
 #include "../ui/label/label.hpp"
-#include "../ui/Buttons/LabelButton.hpp"
+#include "../ui/Buttons/BaseButton.hpp"
 
 class Telegraph : public SceneManager::Scene
 {
@@ -25,7 +25,7 @@ private:
     inline static const sf::Time letter_time = sf::seconds(1.70);
     inline static const sf::Time word_time = sf::seconds(2);
     
-    class AllwaysFocusButton : public ui::LabelButton
+    class AllwaysFocusButton : public ui::BaseButton
     {
     public: 
         AllwaysFocusButton(Telegraph &parent);
@@ -33,5 +33,13 @@ private:
         sf::Clock clock_since_press;
         sf::Clock last_press_clock;
         Telegraph &parent;
+
+        void draw(sf::RenderTarget& target, sf::RenderStates states) const override {}
+        sf::FloatRect get_global_bounds() const {return {};};
+
+        void m_on_click(double delta_time) override;
+        void m_on_release(double delta_time) override;
+
+        bool press_conditions() override;
     } button;
 };
