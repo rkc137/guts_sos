@@ -16,7 +16,7 @@ void BaseButton::update(double delta_time)
     if(get_global_bounds().contains(mouse_world_pos) || is_in_focus)
     {
         m_on_touch(delta_time);
-        if(sf::Mouse::isButtonPressed(mouse_button) || (sf::Keyboard::isKeyPressed(key_button) && is_in_focus))
+        if(press_conditions())
         {
             if(!is_clicked)
                 m_on_click(delta_time);
@@ -34,6 +34,12 @@ void BaseButton::update(double delta_time)
         m_on_afk(delta_time);
         is_clicked = false;
     }
+}
+
+bool BaseButton::press_conditions()
+{
+    return sf::Mouse::isButtonPressed(mouse_button)
+            || (sf::Keyboard::isKeyPressed(key_button) && is_in_focus);
 }
 
 }
