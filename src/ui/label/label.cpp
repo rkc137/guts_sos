@@ -63,6 +63,16 @@ sf::Color Label::get_fill_color() const
     return text.getFillColor();
 }
 
+bool Label::empty()
+{
+    return text.getString().isEmpty();
+}
+
+void Label::clear()
+{
+    set_string({});
+}
+
 void Label::append_string(sf::String &&str)
 {
     set_string(get_string() + str);
@@ -72,6 +82,7 @@ void Label::erase(std::size_t position, std::size_t count)
 {
     auto s = get_string();
     s.erase(position, count);
+    dbg << s.toAnsiString();
     set_string(std::move(s));
 }
 
