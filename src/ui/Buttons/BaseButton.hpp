@@ -13,11 +13,11 @@ public:
     void update(double delta_time) override;
 
 protected:
-    virtual void m_on_press([[maybe_unused]] double delta_time){};
-    virtual void m_on_click([[maybe_unused]] double delta_time){};
-    virtual void m_on_release([[maybe_unused]] double delta_time){};
-    virtual void m_on_touch([[maybe_unused]] double delta_time){};
-    virtual void m_on_afk([[maybe_unused]] double delta_time){};
+    virtual void m_on_press(unused double delta_time){};
+    virtual void m_on_click(unused double delta_time){};
+    virtual void m_on_release(unused double delta_time){};
+    virtual void m_on_touch(unused double delta_time){};
+    virtual void m_on_afk(unused double delta_time){};
     virtual bool press_conditions();
 
     bool is_clicked = false;

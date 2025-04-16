@@ -12,7 +12,7 @@ class BaseWidget : public sf::Drawable, public sf::Transformable, public WWT
 {
 public:
     virtual ~BaseWidget() = default;
-    virtual void update([[maybe_unused]] double delta_time) {};
+    virtual void update(unused double delta_time) {};
     virtual sf::FloatRect get_global_bounds() const = 0;
 
     enum class OriginState

@@ -5,6 +5,8 @@
 #include <type_traits>
 #include <concepts>
 
+#define unused [[maybe_unused]]
+
 template <typename T>
 concept WindowWrapTC = requires {
     { T::get_window() } -> std::same_as<sf::RenderWindow&>; 

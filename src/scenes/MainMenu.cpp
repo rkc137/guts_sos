@@ -16,7 +16,7 @@ MainMenu::MainMenu()
     };
 }
 
-void MainMenu::update([[maybe_unused]] double delta_time)
+void MainMenu::update(unused double delta_time)
 {
     start.update(delta_time);
     exit.update(delta_time);
