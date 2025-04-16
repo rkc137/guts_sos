@@ -25,7 +25,7 @@ set(SFML_STATIC_LIBRARIES TRUE)
 add_executable(sos 
     src/core/WindowWrap.cpp
     src/core/Window.cpp
-    src/Logger/Logger.cpp
+    src/core/Logger/Logger.cpp
     src/res/res.cpp
     # src/ui/widget/widget.cpp
     src/ui/label/label.cpp

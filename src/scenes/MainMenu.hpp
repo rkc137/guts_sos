@@ -1,7 +1,6 @@
 #pragma once
 
 #include "SceneManager.hpp"
-#include "../Logger/Logger.hpp"
 #include "../ui/label/label.hpp"
 #include "../ui/Buttons/LabelButton.hpp"
 #include "../telegraph/Telegraph.hpp"

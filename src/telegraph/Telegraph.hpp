@@ -4,8 +4,6 @@
 
 #include <vector>
 
-#include "../logger/Logger.hpp"
-
 #include "../scenes/SceneManager.hpp"
 #include "../ui/label/label.hpp"
 #include "../ui/Buttons/BaseButton.hpp"
@@ -24,6 +22,7 @@ private:
     inline static const sf::Time dash_time = sf::seconds(0.25);
     inline static const sf::Time letter_time = sf::seconds(1.70);
     inline static const sf::Time word_time = sf::seconds(2);
+    sf::Clock last_press_clock;
     
     class AllwaysFocusButton : public ui::BaseButton
     {
@@ -31,10 +30,9 @@ private:
         AllwaysFocusButton(Telegraph &parent);
         sf::Sound press_noise{res::morse_noise};
         sf::Clock clock_since_press;
-        sf::Clock last_press_clock;
         Telegraph &parent;
 
-        void draw(sf::RenderTarget& target, sf::RenderStates states) const override {}
+        void draw(unused sf::RenderTarget& target, unused sf::RenderStates states) const override {}
         sf::FloatRect get_global_bounds() const {return {};};
 
         void m_on_click(double delta_time) override;
