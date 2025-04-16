@@ -82,7 +82,6 @@ void Label::erase(std::size_t position, std::size_t count)
 {
     auto s = get_string();
     s.erase(position, count);
-    dbg << s.toAnsiString();
     set_string(std::move(s));
 }
 

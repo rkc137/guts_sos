@@ -12,22 +12,20 @@ Telegraph::AllwaysFocusButton::AllwaysFocusButton(Telegraph &parent)
     press_noise.setLooping(true);
 }
 
-void Telegraph::AllwaysFocusButton::m_on_click([[maybe_unused]] double delta_time)
+void Telegraph::AllwaysFocusButton::m_on_click(unused double delta_time)
 {
     clock_since_press.restart();
     press_noise.play();
 }
 
-void Telegraph::AllwaysFocusButton::m_on_release([[maybe_unused]] double delta_time)
-{
-    auto time_since_press = clock_since_press.getElapsedTime();
-    press_noise.stop();
-    
-    auto signal = time_since_press < dash_time;
+void Telegraph::AllwaysFocusButton::m_on_release(unused double delta_time)
+{   
+    auto signal = clock_since_press.getElapsedTime() >= dash_time;
     parent.letter_bits.push_back(signal);
-    parent.input_label.append_string(signal ? L"•" : L"—");
-    parent.input_label.update_origin();
-    last_press_clock.restart();
+    parent.input_label.append_string(signal ? L"—" : L"•");
+    
+    press_noise.stop();
+    parent.last_press_clock.restart();
 }
 
 bool Telegraph::AllwaysFocusButton::press_conditions()
@@ -35,9 +33,26 @@ bool Telegraph::AllwaysFocusButton::press_conditions()
     return is_in_focus && sf::Keyboard::isKeyPressed(key_button);
 }
 
-void Telegraph::update([[maybe_unused]] double delta_time)
+void Telegraph::update(unused double delta_time)
 {
     button.update(delta_time);
+    auto time = last_press_clock.getElapsedTime();
+    //you searching them every fkg frame
+
+    if(time > letter_time)
+    {
+        if(auto it = res::morse_codes.find(letter_bits); it != res::morse_codes.end())
+        {
+            if(auto letr = it->second; letr != '\b')
+                output_label.append_string({it->second});
+            else if(!output_label.empty())
+                output_label.erase(output_label.get_string().getSize() - 1);
+            letter_bits.clear();
+            input_label.clear();
+        }
+    }
+    else if(time > word_time)
+    {}
 }
 
 void Telegraph::resize()
