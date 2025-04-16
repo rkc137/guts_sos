@@ -68,6 +68,13 @@ void Label::append_string(sf::String &&str)
     set_string(get_string() + str);
 }
 
+void Label::erase(std::size_t position, std::size_t count)
+{
+    auto s = get_string();
+    s.erase(position, count);
+    set_string(std::move(s));
+}
+
 void Label::update_origin()
 {
     sf::FloatRect text_rect = text.getLocalBounds();
