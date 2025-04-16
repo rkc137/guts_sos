@@ -26,6 +26,8 @@ void Telegraph::AllwaysFocusButton::m_on_release(unused double delta_time)
     
     press_noise.stop();
     parent.last_press_clock.restart();
+    parent.is_letter_said = false;
+    parent.is_word_said = false;
 }
 
 bool Telegraph::AllwaysFocusButton::press_conditions()
@@ -39,20 +41,27 @@ void Telegraph::update(unused double delta_time)
     auto time = last_press_clock.getElapsedTime();
     //you searching them every fkg frame
 
-    if(time > letter_time)
+    if(is_word_said) return;
+
+    if(!is_letter_said && time > letter_time)
     {
         if(auto it = res::morse_codes.find(letter_bits); it != res::morse_codes.end())
         {
             if(auto letr = it->second; letr != '\b')
-                output_label.append_string({it->second});
+                output_label.append_string({letr});
             else if(!output_label.empty())
                 output_label.erase(output_label.get_string().getSize() - 1);
-            letter_bits.clear();
-            input_label.clear();
         }
+        letter_bits.clear();
+        input_label.clear();
+        is_letter_said = true;
     }
     else if(time > word_time)
-    {}
+    {
+        if(!output_label.empty())
+            output_label.append_string(" ");
+        is_word_said = true;
+    }
 }
 
 void Telegraph::resize()
@@ -66,7 +75,7 @@ void Telegraph::resize()
     });
     output_label.setPosition({
         ws.x / 2.f,
-        ws.y / 2.f + input_label.get_global_bounds().size.y * 1.5f
+        ws.y / 2.f + input_label.get_char_size() * 1.5f
     });
 }
 
