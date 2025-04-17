@@ -31,7 +31,6 @@ void MainMenu::resize()
     logo.set_char_size(ws.y / 7);
     exit.set_char_size(ws.y / 15);
     start.set_char_size(ws.y / 15);
-    author.set_char_size(ws.y / 17); 
 
     logo.setPosition({
         ws.x / 2.f,
@@ -45,7 +44,6 @@ void MainMenu::resize()
         ws.x / 2.f,
         (ws.y / 3.f) * 2 + start.get_global_bounds().size.y * 2
     });
-    author.setPosition({0, static_cast<float>(ws.y)});
     
     telegraph.resize();
 }
@@ -57,5 +55,5 @@ void MainMenu::draw(sf::RenderTarget &target, sf::RenderStates states) const
         if constexpr (sizeof...(d) > 0)
             self(d...);
     };
-    drw(logo, start, exit, author, telegraph);
+    drw(logo, start, exit, telegraph);
 }

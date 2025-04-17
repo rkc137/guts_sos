@@ -25,7 +25,7 @@ private:
     
     std::vector<bool> letter_bits;
     bool is_letter_said = false;
-    bool is_word_said = false;
+    bool is_word_said = true;
 
     class AllwaysFocusButton : public ui::BaseButton
     {
