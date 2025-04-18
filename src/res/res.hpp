@@ -37,7 +37,7 @@ public:
     inlstc Texture 
         default_texture, blocknote, blocknote_morse,
         bunker, troop, commander, light;
-    inlstc sf::Font default_font, cybersomething;
+    inlstc sf::Font default_font, cybersomething, too_much_ink;
     inlstc sf::SoundBuffer morse_noise, stamp, incoming;
     inlstc sf::Music distance_explosions, distance_battle, carterattack, voice;
     
@@ -80,6 +80,7 @@ private:
     inlstc const std::vector<std::pair<sf::Font&, fspath>> fonts_load_list = {
         {default_font, "fonts/dejavu-sans/DejaVuSans.ttf"},
         {cybersomething, "fonts/Cybersomething.ttf"},
+        {too_much_ink, "fonts/TooMuchInk.ttf"}
     };
 
 public:

@@ -24,6 +24,7 @@ Sound Files:
    
 Fonts:
     https://kgpaints.itch.io/cybersomething
+    https://kgpaints.itch.io/too-much-ink
     Bitstream Vera Fonts (Copyright (c) 2003 by Bitstream, Inc. All Rights Reserved.)
     Arev Fonts (Copyright (c) 2006 by Tavmjong Bah. All Rights Reserved.)
 
