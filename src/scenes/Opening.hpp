@@ -1,7 +1,7 @@
 #pragma once
 
 #include "SceneManager.hpp"
-#include "Curtain.hpp"
+#include "local_scenes/Curtain.hpp"
 #include "../ui/label/label.hpp"
 
 class Opening : public SceneManager::Scene

@@ -3,7 +3,7 @@
 #include "SceneManager.hpp"
 #include "../ui/label/label.hpp"
 #include "../ui/Buttons/LabelButton.hpp"
-#include "../telegraph/Telegraph.hpp"
+#include "local_scenes/Telegraph.hpp"
 
 class MainMenu : public SceneManager::Scene
 {

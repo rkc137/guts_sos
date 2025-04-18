@@ -31,9 +31,9 @@ add_executable(sos
     src/ui/label/label.cpp
     src/ui/Buttons/BaseButton.cpp
     src/ui/Buttons/LabelButton.cpp
-    src/telegraph/Telegraph.cpp
+    src/Scenes/local_scenes/Telegraph.cpp
     # src/Scenes/SceneManager.cpp
-    src/Scenes/Curtain.cpp
+    src/Scenes/local_scenes/Curtain.cpp
     src/Scenes/Opening.cpp
     src/Scenes/MainMenu.cpp
     src/main.cpp

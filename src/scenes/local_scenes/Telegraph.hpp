@@ -4,9 +4,9 @@
 
 #include <vector>
 
-#include "../scenes/SceneManager.hpp"
-#include "../ui/label/label.hpp"
-#include "../ui/Buttons/BaseButton.hpp"
+#include "../SceneManager.hpp"
+#include "../../ui/label/label.hpp"
+#include "../../ui/Buttons/BaseButton.hpp"
 
 class Telegraph : public SceneManager::Scene
 {
