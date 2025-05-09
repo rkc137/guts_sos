@@ -13,7 +13,6 @@ int main()
     res::load();
     Window window;
     SceneManager::add_scene<Opening>();
-    SceneManager::add_scene<MainMenu>();
     sf::Clock clock;
     double delta_time = 0;
     for(; window.isOpen(); delta_time = clock.restart().asSeconds())

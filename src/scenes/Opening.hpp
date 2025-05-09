@@ -1,8 +1,9 @@
 #pragma once
 
-#include "SceneManager.hpp"
-#include "local_scenes/Curtain.hpp"
 #include "../ui/label/label.hpp"
+#include "SceneManager.hpp"
+#include "MainMenu.hpp"
+#include "local_scenes/Curtain.hpp"
 
 class Opening : public SceneManager::Scene
 {
