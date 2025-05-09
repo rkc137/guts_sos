@@ -26,7 +26,7 @@ private:
 
     float alpha = 0;
     bool is_waiting = true;
-    bool should_waiting_response;
+    bool should_wait_response;
     std::optional<std::function<void()>> on_exit;
     sf::Time uppear_duration;
     sf::Time showing_duration;

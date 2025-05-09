@@ -1,10 +1,10 @@
 #include "Curtain.hpp"
 
-Curtain::Curtain(bool should_waiting_response,
+Curtain::Curtain(bool should_wait_response,
                  sf::Time uppear_duration,
                  sf::Time showing_duration,
                  sf::Time disapear_duration) 
-  : should_waiting_response(should_waiting_response), 
+  : should_wait_response(should_wait_response), 
     uppear_duration(uppear_duration),
     showing_duration(showing_duration),
     disappear_duration(disapear_duration)
@@ -34,15 +34,7 @@ void Curtain::update(unused double delta_time)
         }
         break;
     case showing:
-        if(should_waiting_response)
-        {
-            if(!is_waiting)
-            {
-                clock.restart();
-                state = disappearing;
-            }
-        }
-        else if(time > showing_duration)
+        if((should_wait_response && !is_waiting) || (!should_wait_response && time > showing_duration))
         {
             clock.restart();
             state = disappearing;
@@ -53,7 +45,7 @@ void Curtain::update(unused double delta_time)
         if(time > disappear_duration && alpha > 254.f)
         {
             state = done;
-            if(on_exit.has_value()) on_exit.value()();
+            on_exit.value_or([]{})();
         }
         break;
     case done:
