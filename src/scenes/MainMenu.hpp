@@ -4,6 +4,7 @@
 #include "../ui/label/label.hpp"
 #include "../ui/Buttons/LabelButton.hpp"
 #include "local_scenes/Telegraph.hpp"
+#include "local_scenes/Curtain.hpp"
 
 class MainMenu : public SceneManager::Scene
 {
@@ -14,6 +15,7 @@ public:
     void resize() override;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 private:
+    Curtain curtain{true};
     Telegraph telegraph;
     ui::Label logo{res::app_name, res::cybersomething, sf::Color::White, 100};
     ui::LabelButton start{ui::Label{L"start", res::cybersomething, sf::Color::White, 50}};

@@ -3,16 +3,20 @@
 MainMenu::MainMenu()
 {
     start.on_release = [&](){
+        curtain.let_go([this](){
+            quit();
+        });
         // if(res::is_no_save)
         // {
-        //     SceneManager::add_scene<Intro>();
-        //     SceneManager::add_scene<lvl1>();
-        // }
-        // dbg << __func__;
+            //     SceneManager::add_scene<Intro>();
+            //     SceneManager::add_scene<lvl1>();
+            // }
+            // dbg << __func__;
     };
     exit.on_release = [&](){
-        std::exit(0);
-        // quit();
+        curtain.let_go([this](){
+            std::exit(0);
+        });
     };
 }
 
@@ -21,6 +25,7 @@ void MainMenu::update(unused double delta_time)
     start.update(delta_time);
     exit.update(delta_time);
     telegraph.update(delta_time);
+    curtain.update(delta_time);
     //     quit();
 }
 
@@ -44,7 +49,7 @@ void MainMenu::resize()
         ws.x / 2.f,
         (ws.y / 3.f) * 2 + start.get_global_bounds().size.y * 2
     });
-    
+    curtain.resize();
     telegraph.resize();
 }
 
@@ -55,5 +60,5 @@ void MainMenu::draw(sf::RenderTarget &target, sf::RenderStates states) const
         if constexpr (sizeof...(d) > 0)
             self(d...);
     };
-    drw(logo, start, exit, telegraph);
+    drw(logo, start, exit, telegraph, curtain);
 }
