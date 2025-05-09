@@ -1,10 +1,10 @@
 #include "Curtain.hpp"
 
-Curtain::Curtain(bool is_quiting_on_time,
+Curtain::Curtain(bool should_waiting_response,
                  sf::Time uppear_duration,
                  sf::Time showing_duration,
                  sf::Time disapear_duration) 
-  : is_quiting_on_time(is_quiting_on_time), 
+  : should_waiting_response(should_waiting_response), 
     uppear_duration(uppear_duration),
     showing_duration(showing_duration),
     disappear_duration(disapear_duration)
@@ -34,7 +34,15 @@ void Curtain::update(unused double delta_time)
         }
         break;
     case showing:
-        if(time > showing_duration)
+        if(should_waiting_response)
+        {
+            if(!is_waiting)
+            {
+                clock.restart();
+                state = disappearing;
+            }
+        }
+        else if(time > showing_duration)
         {
             clock.restart();
             state = disappearing;
@@ -43,12 +51,15 @@ void Curtain::update(unused double delta_time)
     case disappearing:
         alpha = std::clamp(time / disappear_duration * 255.f, 0.f, 255.f);
         if(time > disappear_duration && alpha > 254.f)
+        {
             state = done;
+            if(on_exit.has_value()) on_exit.value()();
+        }
         break;
     case done:
         [[fallthrough]];
     default:
-        throw std::runtime_error(std::string{"bad state of "} + typeid(this).name() );
+        throw std::runtime_error(std::string{"bad state of "} + typeid(this).name());
         break;
     }
     shape.setFillColor({0, 0, 0, static_cast<uint8_t>(alpha)});
@@ -57,6 +68,12 @@ void Curtain::update(unused double delta_time)
 bool Curtain::is_done()
 {
     return state == done;
+}
+
+void Curtain::let_go(std::function<void()> on_end)
+{
+    on_exit = std::move(on_end);
+    is_waiting = false;
 }
 
 void Curtain::draw(sf::RenderTarget &target, sf::RenderStates states) const
