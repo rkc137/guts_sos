@@ -15,6 +15,7 @@ void Opening::resize()
 void Opening::update(double delta_time)
 {
     curtain.update(delta_time);
+    if(curtain.is_done()) quit();
 }
 
 void Opening::draw(sf::RenderTarget &target, sf::RenderStates states) const
