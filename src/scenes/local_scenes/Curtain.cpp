@@ -34,7 +34,7 @@ void Curtain::update(unused double delta_time)
         }
         break;
     case showing:
-        if((should_wait_response && !is_waiting) || (!should_wait_response && time > showing_duration))
+        if(should_wait_response ? !is_waiting : (time > showing_duration))
         {
             clock.restart();
             state = disappearing;
