@@ -33,6 +33,7 @@ void Intro::resize()
     first_pos -= offset;
     for(auto &t : texts)
         t.setPosition(first_pos += offset);
+    curtain.resize();
 }
 
 void Intro::update(unused double delta_time)
@@ -41,20 +42,29 @@ void Intro::update(unused double delta_time)
     {
         auto &t = texts[active_text_iter];
         t.update(delta_time);
-        if(t.is_done() && done_check == false)
+        if(t.is_done() && text_done_check == false)
         {
             clock.restart();
-            done_check = true;
+            text_done_check = true;
         }
-        if(t.is_done() && clock.getElapsedTime() >= pause)
+        else if(t.is_done() && clock.getElapsedTime() >= pause)
         {
             active_text_iter++;
-            done_check = false;
+            text_done_check = false;
         }
+    }
+    else if(done_check == false)
+    {
+        curtain.start_clock();
+        done_check = true;
     }
     else
     {
-        
+        curtain.update(delta_time);
+        if(curtain.is_done())
+        {
+            std::exit(0);
+        }
     }
 }
 
@@ -62,4 +72,5 @@ void Intro::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
     for(auto &t : texts)
         target.draw(t, states);
+    target.draw(curtain, states);
 }
