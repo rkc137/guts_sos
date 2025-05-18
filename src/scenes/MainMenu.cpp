@@ -4,14 +4,10 @@ MainMenu::MainMenu()
 {
     start.on_release = [&](){
         curtain.let_go([this](){
+            // if(res::is_no_save)
+            SceneManager::add_scene<Intro>();
             quit();
         });
-        // if(res::is_no_save)
-        // {
-            //     SceneManager::add_scene<Intro>();
-            //     SceneManager::add_scene<lvl1>();
-            // }
-            // dbg << __func__;
     };
     exit.on_release = [&](){
         curtain.let_go([this](){

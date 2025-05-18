@@ -1,18 +1,22 @@
 #include <SFML/System.hpp>
 
-#include <queue>
+// #include <queue>
 #include <memory>
 
 #include "res/res.hpp"
 #include "core/Window.hpp"
-#include "Scenes/MainMenu.hpp"
 #include "Scenes/Opening.hpp"
 
 int main()
 {
     res::load();
     Window window;
-    SceneManager::add_scene<Opening>();
+    SceneManager::add_scene<Intro>();
+
+    ui::Label fps_label;
+    fps_label.set_fill_color(sf::Color::White);
+    fps_label.set_origin_state(ui::BaseWidget<>::OriginState::left_up);
+
     sf::Clock clock;
     double delta_time = 0;
     for(; window.isOpen(); delta_time = clock.restart().asSeconds())
@@ -38,11 +42,11 @@ int main()
 
         scene->update(delta_time);
         window.draw(*scene);
+        window.draw(fps_label);
         window.display();
         window.clear();
-        
-        // if(auto fps = 1 / delta_time; fps < 24)
-        //     dbg << fps;
+
+        fps_label.set_string(std::to_string(1 / delta_time));
     }
     
     return 0;

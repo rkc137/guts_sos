@@ -5,6 +5,7 @@
 #include "../ui/Buttons/LabelButton.hpp"
 #include "local_scenes/Telegraph.hpp"
 #include "local_scenes/Curtain.hpp"
+#include "Intro.hpp"
 
 class MainMenu : public SceneManager::Scene
 {
