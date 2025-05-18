@@ -3,6 +3,7 @@
 Intro::Intro()
 {
     texts.reserve(res::intro_texts.size());
+    res::carterattack.play();
     for(auto str : res::intro_texts)
         texts.emplace_back(ui::StampLabel{
             ui::Label{L"", res::too_much_ink, sf::Color::White},
@@ -56,13 +57,17 @@ void Intro::update(unused double delta_time)
     else if(done_check == false)
     {
         curtain.start_clock();
+        clock.restart();
         done_check = true;
     }
     else
     {
         curtain.update(delta_time);
+        volume = 100 - static_cast<int>(std::clamp(clock.getElapsedTime() / disappear_duration * 100, 0.f, 100.f));
+        res::carterattack.setVolume(volume);
         if(curtain.is_done())
         {
+            res::carterattack.stop();
             std::exit(0);
         }
     }
