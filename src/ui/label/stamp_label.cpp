@@ -16,9 +16,14 @@ ui::StampLabel::StampLabel(
 {
 }
 
+bool StampLabel::is_done() const
+{
+    return stamp_iter == stamp_text.getSize();
+}
+
 void StampLabel::update(unused double delta_time)
 {
-    if(stamp_iter == stamp_text.getSize() || clock.getElapsedTime() < letter_time)
+    if(is_done() || clock.getElapsedTime() < letter_time)
         return;
     if(sounds_iter == sounds.size())
         sounds_iter = 0;

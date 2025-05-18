@@ -15,6 +15,7 @@ public:
         sf::Time letter_time = sf::seconds(0.2)
     );
     void update(double delta_time) override;
+    bool is_done() const;
 private:
     sf::Clock clock;
     sf::String stamp_text;
