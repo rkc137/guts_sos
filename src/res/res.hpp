@@ -84,6 +84,12 @@ private:
     };
 
 public:
+    inlstc const std::array<sf::String, 3> intro_texts = {
+        L"we were driven into a corner",
+        L"the secret telegraph wire is all that remains",
+        L"they will be here soon..."
+    };
+    
     //true is -
     inlstc const std::map<std::vector<bool>, char> morse_codes = {
         {{0, 1},        'A'},
