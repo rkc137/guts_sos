@@ -29,6 +29,7 @@ add_executable(sos
     src/res/res.cpp
     # src/ui/widget/widget.cpp
     src/ui/label/label.cpp
+    src/ui/label/stamp_label.cpp
     src/ui/Buttons/BaseButton.cpp
     src/ui/Buttons/LabelButton.cpp
     src/Scenes/local_scenes/Telegraph.cpp
@@ -36,6 +37,7 @@ add_executable(sos
     src/Scenes/local_scenes/Curtain.cpp
     src/Scenes/Opening.cpp
     src/Scenes/MainMenu.cpp
+    src/Scenes/Intro.cpp
     src/main.cpp
     # src/res/res.cpp
     # src/pauseble_clock/PausebleClock.cpp
