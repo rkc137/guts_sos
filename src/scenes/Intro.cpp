@@ -5,7 +5,7 @@ Intro::Intro()
     texts.reserve(res::intro_texts.size());
     for(auto str : res::intro_texts)
         texts.emplace_back(ui::StampLabel{
-            ui::Label{L"", res::too_much_ink, sf::Color::White,},
+            ui::Label{L"", res::too_much_ink, sf::Color::White},
             str,
             sf::Sound(res::stamp)
         });
@@ -37,8 +37,25 @@ void Intro::resize()
 
 void Intro::update(unused double delta_time)
 {
-    for(auto &t : texts)
-        t.update(delta_time);    
+    if(active_text_iter < texts.size())
+    {
+        auto &t = texts[active_text_iter];
+        t.update(delta_time);
+        if(t.is_done() && done_check == false)
+        {
+            clock.restart();
+            done_check = true;
+        }
+        if(t.is_done() && clock.getElapsedTime() >= pause)
+        {
+            active_text_iter++;
+            done_check = false;
+        }
+    }
+    else
+    {
+        
+    }
 }
 
 void Intro::draw(sf::RenderTarget &target, sf::RenderStates states) const

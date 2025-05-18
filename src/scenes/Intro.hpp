@@ -3,6 +3,7 @@
 #include <array>
 
 #include "SceneManager.hpp"
+#include "local_scenes/Curtain.hpp"
 #include "../ui/label/stamp_label.hpp"
 
 class Intro : public SceneManager::Scene
@@ -15,5 +16,8 @@ public:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 private:
     sf::Clock clock;
+    sf::Time pause = sf::seconds(1.3f);
+    bool done_check = false;
     std::vector<ui::StampLabel> texts;
+    std::size_t active_text_iter = 0;
 };
