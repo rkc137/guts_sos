@@ -4,11 +4,8 @@
 
 #include <type_traits>
 #include <concepts>
-#include <cassert>
 
-#include "logger/Logger.hpp"
-
-#define unused [[maybe_unused]]
+#include "Utils.hpp"
 
 template <typename T>
 concept WindowWrapTC = requires {
