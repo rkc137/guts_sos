@@ -12,7 +12,7 @@
 #define unused [[maybe_unused]]
 
 template <typename T>
-sf::Vector2<T> operator/(sf::Vector2<T> a, sf::Vector2<T> b)
+constexpr sf::Vector2<T> operator/(sf::Vector2<T> a, sf::Vector2<T> b) noexcept
 {
     return {
         a.x / b.x,
@@ -21,7 +21,7 @@ sf::Vector2<T> operator/(sf::Vector2<T> a, sf::Vector2<T> b)
 }
 
 template <typename T>
-sf::Vector2<T> operator*(sf::Vector2<T> a, sf::Vector2<T> b)
+constexpr sf::Vector2<T> operator*(sf::Vector2<T> a, sf::Vector2<T> b) noexcept
 {
     return {
         a.x * b.x,
@@ -31,7 +31,7 @@ sf::Vector2<T> operator*(sf::Vector2<T> a, sf::Vector2<T> b)
 
 template <typename T, typename U> 
 requires (std::is_arithmetic_v<U>) 
-sf::Vector2<T> operator/(sf::Vector2<T> a, U b)
+constexpr sf::Vector2<T> operator/(sf::Vector2<T> a, U b) noexcept
 {
     return {
         a.x / b,
@@ -41,7 +41,7 @@ sf::Vector2<T> operator/(sf::Vector2<T> a, U b)
 
 template <typename T, typename U> 
 requires (std::is_arithmetic_v<U>) 
-sf::Vector2<T> operator*(sf::Vector2<T> a, U b)
+constexpr sf::Vector2<T> operator*(sf::Vector2<T> a, U b) noexcept
 {
     return {
         a.x * b,
