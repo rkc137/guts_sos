@@ -5,6 +5,7 @@
 #include "SceneManager.hpp"
 #include "local_scenes/Curtain.hpp"
 #include "../ui/label/stamp_label.hpp"
+#include "levels/Level1.hpp"
 
 class Intro : public SceneManager::Scene
 {

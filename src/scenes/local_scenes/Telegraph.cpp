@@ -66,7 +66,7 @@ void Telegraph::update(unused double delta_time)
 
 void Telegraph::resize()
 {
-    auto ws = get_window().getSize();
+    auto ws = get_wsize<>();
     input_label.set_char_size(ws.y / 10);
     output_label.set_char_size(ws.y / 10);
     input_label.setPosition({

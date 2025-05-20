@@ -20,7 +20,7 @@ Curtain::Curtain(bool should_wait_response,
 
 void Curtain::resize()
 {
-    shape.setSize(sf::Vector2f(get_window().getSize()));
+    shape.setSize(get_wsize<float>());
 }
 
 void Curtain::update(unused double delta_time)

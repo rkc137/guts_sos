@@ -14,7 +14,7 @@ Intro::Intro()
 
 void Intro::resize()
 {
-    auto ws = static_cast<sf::Vector2f>(get_window().getSize());
+    auto ws = get_wsize<float>();
     for(auto &t : texts)
         t.set_char_size(ws.y / 20); 
                 
@@ -68,7 +68,8 @@ void Intro::update(unused double delta_time)
         if(curtain.is_done())
         {
             res::carterattack.stop();
-            std::exit(0);
+            SceneManager::add_scene<Level1>();
+            quit();
         }
     }
 }

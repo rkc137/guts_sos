@@ -16,18 +16,9 @@ MainMenu::MainMenu()
     };
 }
 
-void MainMenu::update(unused double delta_time)
-{
-    start.update(delta_time);
-    exit.update(delta_time);
-    telegraph.update(delta_time);
-    curtain.update(delta_time);
-    //     quit();
-}
-
 void MainMenu::resize()
 {
-    auto ws = get_window().getSize();
+    auto ws = get_wsize<>();
     
     logo.set_char_size(ws.y / 7);
     exit.set_char_size(ws.y / 15);
@@ -47,6 +38,15 @@ void MainMenu::resize()
     });
     curtain.resize();
     telegraph.resize();
+}
+
+void MainMenu::update(unused double delta_time)
+{
+    start.update(delta_time);
+    exit.update(delta_time);
+    telegraph.update(delta_time);
+    curtain.update(delta_time);
+    //     quit();
 }
 
 void MainMenu::draw(sf::RenderTarget &target, sf::RenderStates states) const

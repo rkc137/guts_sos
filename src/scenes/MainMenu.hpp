@@ -12,8 +12,8 @@ class MainMenu : public SceneManager::Scene
 public:
     explicit MainMenu();
     ~MainMenu() = default;
-    void update(double delta_time) override;
     void resize() override;
+    void update(double delta_time) override;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 private:
     Curtain curtain{true};

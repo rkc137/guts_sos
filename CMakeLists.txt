@@ -33,11 +33,13 @@ add_executable(sos
     src/ui/Buttons/BaseButton.cpp
     src/ui/Buttons/LabelButton.cpp
     src/Scenes/local_scenes/Telegraph.cpp
+    src/Scenes/local_scenes/BasementBackground.cpp
     # src/Scenes/SceneManager.cpp
     src/Scenes/local_scenes/Curtain.cpp
     src/Scenes/Opening.cpp
     src/Scenes/MainMenu.cpp
     src/Scenes/Intro.cpp
+    src/Scenes/levels/Level1.cpp
     src/main.cpp
     # src/res/res.cpp
     # src/pauseble_clock/PausebleClock.cpp

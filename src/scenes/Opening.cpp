@@ -2,7 +2,7 @@
 
 void Opening::resize()
 {
-    auto ws = get_window().getSize();
+    auto ws = get_wsize<>();
     
     curtain.resize();
     author.set_char_size(ws.y / 10); 
