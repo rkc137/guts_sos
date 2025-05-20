@@ -5,6 +5,7 @@ Window::Window() : sf::RenderWindow(
     res::app_name,
     sf::State::Windowed)
 {
+    //TODO: move all this stuf to work with create() on change_fullscreen
     setFramerateLimit(60);
     if(!res::is_loaded())
         throw std::runtime_error("resources was not loaded");
