@@ -20,7 +20,7 @@ void res::load()
             continue;
         }
         
-        txr.setSmooth(false);
+        txr.setSmooth(is_smooth);
     }
     for(auto &[font, path] : fonts_load_list)
         if(!font.openFromFile(res_path / path))

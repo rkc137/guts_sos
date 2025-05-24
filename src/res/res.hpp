@@ -34,6 +34,7 @@ public:
 
     //resolution that was used for assets
     inlstc constexpr sf::Vector2f target_video_mode{1280, 720};
+    inlstc constexpr bool is_smooth = true;
     static sf::Vector2f get_scale(sf::Vector2f wsize);
     
     struct Texture : public sf::Texture, public TextureMetaInfo {};
