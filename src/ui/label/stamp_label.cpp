@@ -3,25 +3,30 @@
 namespace ui
 {
 
-ui::StampLabel::StampLabel(
-    Label &&label,
-    sf::String text,
-    sf::Sound sound,
-    sf::Time letter_time) :
-        Label(label),
-        stamp_text(text),
-        sound(sound),
-        letter_time(letter_time),
-        sounds({sound, sound, sound})
-{
-}
-
-bool StampLabel::is_done() const
+bool BaseStampLabel::is_done() const
 {
     return stamp_iter == stamp_text.getSize();
 }
 
-void StampLabel::update(unused double delta_time)
+BaseStampLabel::BaseStampLabel(Label &&label, sf::String text, sf::Time letter_time)
+    : Label(label),
+      stamp_text(text),
+      letter_time(letter_time)
+{
+}
+
+StampLabelSound::StampLabelSound(
+    Label && label,
+    sf::String text, 
+    sf::Sound sound,
+    sf::Time letter_time) 
+    : BaseStampLabel(std::move(label), text, letter_time),
+      sound(sound),
+      sounds{sound, sound, sound}
+{
+}
+
+void StampLabelSound::update(unused double delta_time)
 {
     if(is_done() || clock.getElapsedTime() < letter_time)
         return;

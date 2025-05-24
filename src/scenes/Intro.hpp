@@ -23,6 +23,6 @@ private:
     int volume = 100;
     bool text_done_check = false;
     bool done_check = false;
-    std::vector<ui::StampLabel> texts;
+    std::vector<ui::StampLabelSound> texts;
     std::size_t active_text_iter = 0;
 };

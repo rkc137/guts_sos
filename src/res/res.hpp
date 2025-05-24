@@ -16,7 +16,7 @@ class res
 {
 private:
     using fspath = std::filesystem::path;
-#ifndef DEBUG
+#ifndef NDEBUG
     inlstc const fspath res_path = "D:/projects/S.O.S/res/";
 #elif
     inlstc const fspath res_path = "../res/";
@@ -32,8 +32,10 @@ public:
     res() = delete;
     static void load();
 
+    //resolution that was used for assets
+    inlstc const sf::Vector2f target_video_mode{1280, 720};
+    
     struct Texture : public sf::Texture, public TextureMetaInfo {};
-
     inlstc Texture 
         default_texture, blocknote, blocknote_morse,
         bunker, troop, commander, light;
@@ -54,6 +56,7 @@ private:
         fspath path;
         TextureMetaInfo info;
     };
+
     inlstc const std::vector<TextureSetup> texture_load_list = {
         {default_texture,   "place_holder.png",            {{64, 64},   {1}}},
         {blocknote,         "blocknote/blocknote.png",     {{300, 350}, {1}}},
