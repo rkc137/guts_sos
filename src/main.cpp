@@ -15,7 +15,7 @@ int main()
 
     ui::Label fps_label;
     fps_label.set_fill_color(sf::Color::White);
-    fps_label.set_origin_state(ui::BaseWidget<>::OriginState::left_up);
+    fps_label.set_origin_state(ui::OriginState::left_up);
 
     sf::Clock clock;
     double delta_time = 0;

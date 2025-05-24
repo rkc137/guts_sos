@@ -37,7 +37,7 @@ void Label::set_origin_state(OriginState state)
     update_origin();
 }
 
-Label::OriginState Label::get_origin_state() const
+ui::OriginState Label::get_origin_state() const
 {
     return origin_state;
 }
