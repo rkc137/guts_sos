@@ -33,3 +33,12 @@ void res::load()
             throw std::runtime_error("bruh wha");
     loaded = true;
 }
+
+sf::Vector2f res::get_scale(sf::Vector2f wsize)
+{
+    auto scale = std::max(
+        std::abs(wsize.x / res::target_video_mode.x),
+        std::abs(wsize.y / res::target_video_mode.y)
+    );
+    return {scale, scale};
+}
