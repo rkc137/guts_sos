@@ -36,6 +36,7 @@ add_executable(sos
     src/Scenes/local_scenes/BasementBackground.cpp
     # src/Scenes/SceneManager.cpp
     src/Scenes/local_scenes/Curtain.cpp
+    src/Scenes/local_scenes/characters/Character.cpp
     src/Scenes/Opening.cpp
     src/Scenes/MainMenu.cpp
     src/Scenes/Intro.cpp
