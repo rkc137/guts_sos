@@ -29,7 +29,7 @@ add_executable(sos
     src/res/res.cpp
     # src/ui/widget/widget.cpp
     src/ui/label/label.cpp
-    src/ui/label/stamp_label.cpp
+    src/ui/label/StampLabel.cpp
     src/ui/Buttons/BaseButton.cpp
     src/ui/Buttons/LabelButton.cpp
     src/Scenes/local_scenes/Telegraph.cpp

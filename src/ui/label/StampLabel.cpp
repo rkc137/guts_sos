@@ -1,4 +1,4 @@
-#include "stamp_label.hpp"
+#include "StampLabel.hpp"
 
 namespace ui
 {
