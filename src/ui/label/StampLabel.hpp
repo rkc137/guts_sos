@@ -8,14 +8,18 @@ namespace ui
 class BaseStampLabel : public Label
 {
 public:
+    void reset_text(sf::String str);
     void update(double delta_time) override = 0;
     bool is_done() const;
+    sf::Time last_stamp() const;
 protected:
     BaseStampLabel(
         Label&& label,
         sf::String text,
         sf::Time letter_time
     );
+    void calc_is_done();
+    bool done = false;
     sf::String stamp_text;
     std::size_t stamp_iter = 0;
     sf::Time letter_time;

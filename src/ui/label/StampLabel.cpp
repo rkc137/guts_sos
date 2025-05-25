@@ -3,9 +3,22 @@
 namespace ui
 {
 
+void BaseStampLabel::reset_text(sf::String str)
+{
+    clear();
+    done = false;
+    stamp_text = str;
+    stamp_iter = 0;
+}
+
 bool BaseStampLabel::is_done() const
 {
-    return stamp_iter == stamp_text.getSize();
+    return done;
+}
+
+sf::Time BaseStampLabel::last_stamp() const
+{
+    return clock.getElapsedTime();
 }
 
 BaseStampLabel::BaseStampLabel(Label &&label, sf::String text, sf::Time letter_time)
@@ -13,6 +26,11 @@ BaseStampLabel::BaseStampLabel(Label &&label, sf::String text, sf::Time letter_t
       stamp_text(text),
       letter_time(letter_time)
 {
+}
+
+void BaseStampLabel::calc_is_done()
+{
+    done = stamp_iter == stamp_text.getSize();
 }
 
 StampLabelSound::StampLabelSound(
@@ -37,6 +55,7 @@ void StampLabelSound::update(unused double delta_time)
     ++sounds_iter;
     ++stamp_iter;
     clock.restart();
+    calc_is_done();
 }
 
 StampLabelMusic::StampLabelMusic(
@@ -56,22 +75,25 @@ StampLabelMusic::~StampLabelMusic()
 
 void StampLabelMusic::update(unused double delta_time)
 {
-    if(is_done() && first_on_end)
+    if(!is_done())
+    {
+        if(is_on_start)
+        {
+            is_on_start = false;
+            voice.play();
+        }
+        else if(clock.getElapsedTime() < letter_time)
+            return;
+        append_string(stamp_text[stamp_iter]);
+        ++stamp_iter;
+        clock.restart();
+        calc_is_done();
+    }
+    else if(first_on_end)
     {
         first_on_end = false;
-        voice.pause();
-        return;
+        voice.stop();
     }
-    else if(is_done() || clock.getElapsedTime() < letter_time)
-        return;
-    else if(is_on_start)
-    {
-        is_on_start = false;
-        voice.play();
-    }
-    append_string(stamp_text[stamp_iter]);
-    ++stamp_iter;
-    clock.restart();
 }
 
 }
