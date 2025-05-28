@@ -5,6 +5,7 @@ namespace ui
 
 void BaseStampLabel::reset_text(sf::String str)
 {
+    assert(!str.isEmpty() && "string shoud be not empty");
     clear();
     reset_sound();
     done = false;
@@ -27,6 +28,7 @@ BaseStampLabel::BaseStampLabel(Label &&label, sf::String text, sf::Time letter_t
       stamp_text(text),
       letter_time(letter_time)
 {
+    assert(!stamp_text.isEmpty() && "string shoud be not empty");
 }
 
 void BaseStampLabel::calc_is_done()
