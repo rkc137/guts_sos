@@ -20,7 +20,7 @@ void Level1::update(unused double delta_time)
     {
     case 0:
         shaker.update(delta_time);        
-        state += incoming.getStatus() == sf::Sound::Status::Stopped; // shake shold stop too
+        state += shaker.is_done();
     break;
     case 1:
         one_time([&]{
