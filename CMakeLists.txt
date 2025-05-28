@@ -34,6 +34,7 @@ add_executable(sos
     src/ui/Buttons/LabelButton.cpp
     src/Scenes/local_scenes/Telegraph.cpp
     src/Scenes/local_scenes/BasementBackground.cpp
+    src/Scenes/local_scenes/Shaker.cpp
     # src/Scenes/SceneManager.cpp
     src/Scenes/local_scenes/Curtain.cpp
     src/Scenes/local_scenes/characters/Character.cpp

@@ -28,8 +28,8 @@ int main()
             if(event->is<sf::Event::Closed>()) window.close();
             else if(const auto* resized = event->getIf<sf::Event::Resized>())
             {
-                auto size = resized->size; 
-                window.setView(sf::View{{size.x / 2.f, size.y / 2.f}, sf::Vector2f{size}});
+                auto size = static_cast<sf::Vector2f>(resized->size); 
+                window.setView(sf::View{size / 2, size});
                 scene->resize();
             }
         }
