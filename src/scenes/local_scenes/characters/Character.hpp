@@ -7,7 +7,7 @@
 class Character : public SceneManager::Scene
 {
 public:
-    Character(res::Texture &texture, ui::OriginState origin_state, sf::String phrase, sf::Time pause_after_talk = sf::seconds(2));
+    Character(res::Texture &texture, ui::OriginState origin_state, sf::String phrase = "default phrase", sf::Time pause_after_talk = sf::seconds(2));
     void set_phease(sf::String new_phrase);
     void resize() override;
     void update(unused double delta_time) override;

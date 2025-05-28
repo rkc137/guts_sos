@@ -11,8 +11,8 @@ Curtain::Curtain(bool should_wait_response,
     showing_duration(showing_duration),
     disappear_duration(disapear_duration)
 {
-    assert(uppear_duration != sf::Time::Zero);
-    assert(disappear_duration != sf::Time::Zero);
+    assert(uppear_duration != sf::Time::Zero && "uppear_duration should be not equal zero");
+    assert(disappear_duration != sf::Time::Zero && "disappear_duration should be not equal zero");
     if(show_type == ShowTypes::only_disappearnce)
         state = States::disappearing;
     shape.setFillColor({0, 0, 0, static_cast<uint8_t>(alpha)});

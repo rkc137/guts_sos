@@ -18,7 +18,7 @@ private:
     std::vector<sf::Drawable*> draws;
     sf::Sound incoming{res::incoming};
     Shaker shaker{sf::seconds(2.4), 80};
-    Character commander{res::commander, ui::OriginState::left_down, "LALALAL HALOOOOO"};
-    Character troop{res::troop, ui::OriginState::right_down, "LALALAL HALOOOOO"};
+    Character commander{res::commander, ui::OriginState::left_down};
+    Character troop{res::troop, ui::OriginState::right_down};
     BasementBackground background;
 };

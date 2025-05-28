@@ -23,12 +23,18 @@ void Level1::update(unused double delta_time)
         state += incoming.getStatus() == sf::Sound::Status::Stopped; // shake shold stop too
     break;
     case 1:
-        one_time([&]{ draws = { &commander }; });
+        one_time([&]{
+            draws = { &commander };
+            commander.set_phease("");
+        });
         commander.update(delta_time);
         state += commander.is_end_of_phrase();
     break;
     case 2:
-        one_time([&]{ draws = { &troop }; });
+        one_time([&]{
+            draws = { &troop };
+            troop.set_phease("");
+        });
         troop.update(delta_time);
         state += troop.is_end_of_phrase();
     break;
