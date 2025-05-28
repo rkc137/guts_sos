@@ -6,6 +6,7 @@ namespace ui
 void BaseStampLabel::reset_text(sf::String str)
 {
     clear();
+    reset_sound();
     done = false;
     stamp_text = str;
     stamp_iter = 0;
@@ -44,6 +45,13 @@ StampLabelSound::StampLabelSound(
 {
 }
 
+void StampLabelSound::reset_sound()
+{
+    for(auto &s : sounds)
+        s.stop();
+    sounds_iter = 0;
+}
+
 void StampLabelSound::update(unused double delta_time)
 {
     if(is_done() || clock.getElapsedTime() < letter_time)
@@ -71,6 +79,12 @@ StampLabelMusic::StampLabelMusic(
 StampLabelMusic::~StampLabelMusic()
 {
     voice.pause();
+}
+
+void StampLabelMusic::reset_sound()
+{
+    is_on_start = true;
+    first_on_end = true;
 }
 
 void StampLabelMusic::update(unused double delta_time)

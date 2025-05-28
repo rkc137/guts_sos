@@ -18,6 +18,7 @@ protected:
         sf::String text,
         sf::Time letter_time
     );
+    virtual void reset_sound() = 0;
     void calc_is_done();
     bool done = false;
     sf::String stamp_text;
@@ -37,6 +38,7 @@ public:
     );
     void update(double delta_time) override;
 private:
+    void reset_sound() override;
     sf::Sound sound;
     std::array<sf::Sound, 3> sounds;
     std::size_t sounds_iter = 0;
@@ -54,6 +56,7 @@ public:
     ~StampLabelMusic();
     void update(double delta_time) override;
 private:
+    void reset_sound() override;
     bool is_on_start = true;
     bool first_on_end = true;
     sf::Music &voice;
