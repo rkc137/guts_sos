@@ -9,7 +9,7 @@ void BaseStampLabel::reset_text(sf::String str)
     clear();
     reset_sound();
     done = false;
-    stamp_text = str;
+    stamp_text = std::move(str);
     stamp_iter = 0;
 }
 
