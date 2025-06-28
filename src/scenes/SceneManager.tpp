@@ -21,9 +21,9 @@ void BaseSceneManager<WWT>::Scene::quit()
 }
 
 template <typename WWT>
-template <typename scene_t>//, typename scene_t>
+template <typename scene_t>
 void BaseSceneManager<WWT>::add_scene() 
-requires std::is_base_of<Scene, scene_t>::value
+requires std::is_base_of_v<Scene, scene_t>
 {
     WWT::check_window();
     sc_shptr scene(new scene_t);

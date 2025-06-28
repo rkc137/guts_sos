@@ -30,7 +30,8 @@ public:
     /// @tparam scene_t requires be delivered by Scene of manager 
     template <typename scene_t>
     static void add_scene() 
-    requires std::is_base_of<Scene, scene_t>::value;
+    requires std::is_base_of_v<Scene, scene_t>;
+    // TODO: language
     
     /// @brief gets front scene of manager that currently (should be) running
     /// @return shared_ptr on current scene
