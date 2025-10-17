@@ -7,17 +7,21 @@
 class Character : public SceneManager::Scene
 {
 public:
-    Character(res::Texture &texture, ui::OriginState origin_state, sf::String phrase = "default phrase", sf::Time pause_after_talk = sf::seconds(2));
-    void set_phease(sf::String new_phrase);
+    Character(res::Texture &texture,
+              ui::OriginState origin_state = ui::OriginState::left_down,
+              std::vector<sf::String> phrases = {L"default phrase"},
+              sf::Time pause_after_talk = sf::seconds(2));
+    void set_pheases(std::vector<sf::String>&& new_phrases);
     void resize() override;
     void update(unused double delta_time) override;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-    sf::Time last_time_spoked_letter() const;
-    bool is_spoked() const;
-    bool is_end_of_phrase() const;
+    bool is_end_of_speech() const;
 private:
+    bool is_end = false;
     sf::Sprite sprite;
     ui::OriginState origin_state;
-    ui::StampLabelMusic phrase;
+    std::vector<sf::String> phrases;
+    std::size_t phrases_iter = 0;
+    ui::StampLabelMusic label;
     sf::Time pause_after_talk;
 };

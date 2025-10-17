@@ -5,7 +5,7 @@
 
 #include "res/res.hpp"
 #include "core/Window.hpp"
-#include "Scenes/Opening.hpp"
+#include "scenes/Opening.hpp"
 
 int main()
 {

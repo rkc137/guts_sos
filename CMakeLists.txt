@@ -6,10 +6,19 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -Wall -Wextra")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2")
 
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    target_compile_definitions(sos PRIVATE SFML_STATIC)
+    target_link_options(sos PRIVATE -mwindows -static)
+endif()
+
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
-set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
 include(FetchContent)
+set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
+if(DEFINED ENV{CMAKE_LIBS_DIR})
+    set(FETCHCONTENT_BASE_DIR "$ENV{CMAKE_LIBS_DIR}")
+endif()
+
 FetchContent_Declare(
     SFML
     GIT_REPOSITORY https://github.com/SFML/SFML.git
@@ -49,6 +58,3 @@ add_executable(sos
 )
 target_link_libraries(sos PRIVATE SFML::Graphics SFML::Audio)
 target_compile_features(sos PRIVATE cxx_std_17)
-# target_compile_definitions(sos PRIVATE SFML_STATIC)
-# target_link_options(sos PRIVATE "-mwindows")
-# target_link_options(sos PRIVATE -static)

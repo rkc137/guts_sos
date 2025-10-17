@@ -10,7 +10,7 @@ MainMenu::MainMenu()
         });
     };
     exit.on_release = [&](){
-        curtain.let_go([this](){
+        curtain.let_go([](){
             std::exit(0);
         });
     };

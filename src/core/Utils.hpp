@@ -11,14 +11,6 @@
 
 #define unused [[maybe_unused]]
 
-#define one_time(f) [&](){ \
-    static bool first = true; \
-    if(first) {\
-        first = false; \
-        f(); \
-    } \
-}()
-
 template <typename T>
 constexpr sf::Vector2<T> operator/(sf::Vector2<T> a, sf::Vector2<T> b) noexcept
 {

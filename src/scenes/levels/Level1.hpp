@@ -18,7 +18,9 @@ private:
     std::vector<sf::Drawable*> draws;
     sf::Sound incoming{res::incoming};
     Shaker shaker{sf::seconds(2.4), 80};
-    Character commander{res::commander, ui::OriginState::left_down};
-    Character troop{res::troop, ui::OriginState::right_down};
+    Character troop{res::troop, ui::OriginState::right_down, {
+        L"Sir, it's time for us to retreat", L"They will soon surround us"}};
+    Character commander{res::commander, ui::OriginState::left_down, {
+        L"No, we're not backing down", L"artiller support is still with us", L"Commo, check the telegraph!"}};
     BasementBackground background;
 };

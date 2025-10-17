@@ -36,7 +36,7 @@ private:
         Telegraph &parent;
 
         void draw(unused sf::RenderTarget& target, unused sf::RenderStates states) const override {}
-        sf::FloatRect get_global_bounds() const {return {};};
+        sf::FloatRect get_global_bounds() const override {return {};};
 
         void m_on_click(double delta_time) override;
         void m_on_release(double delta_time) override;

@@ -19,32 +19,24 @@ void Level1::update(unused double delta_time)
     switch(state)
     {
     case 0:
-        shaker.update(delta_time);        
-        state += shaker.is_done();
+        shaker.update(delta_time);
+        if(shaker.is_done())
+        {
+            state++;
+            draws = { &troop };
+        }
     break;
     case 1:
-        one_time([&]{
+        troop.update(delta_time);
+        if(troop.is_end_of_speech())
+        {
+            state++;
             draws = { &commander };
-            commander.set_phease("");
-        });
-        commander.update(delta_time);
-        state += commander.is_end_of_phrase();
+        }
     break;
     case 2:
-        one_time([&]{
-            draws = { &troop };
-            troop.set_phease("");
-        });
-        troop.update(delta_time);
-        state += troop.is_end_of_phrase();
-    break;
-    case 3:
-        one_time([&]{
-            draws = { &commander };
-            commander.set_phease("NOW NOW NOW");
-        });
         commander.update(delta_time);
-        state += commander.is_end_of_phrase();
+        state += commander.is_end_of_speech();
     break;
     default:
     break;

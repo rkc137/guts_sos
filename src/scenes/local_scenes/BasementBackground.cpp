@@ -19,8 +19,10 @@ void BasementBackground::resize()
 
 void BasementBackground::update(unused double delta_time)
 {
+    // offset_angle = sf::degrees(std::clamp(offset_angle.asDegrees() - 1, 0.f, offset_angle.asDegrees())); 
+    offset_time = sf::seconds(std::clamp(offset_time.asSeconds() - 0.01f, 0.f, offset_time.asSeconds()));
     light.setRotation(
-        swaying_time_angle * std::sin((clock.getElapsedTime() / swaying_time) * 2 * M_PI)
+        (swaying_time_angle + offset_angle) * std::sin((clock.getElapsedTime() / (swaying_time - offset_time)) * 2 * std::numbers::pi)
     );
 }
 

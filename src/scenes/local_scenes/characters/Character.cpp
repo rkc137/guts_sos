@@ -1,9 +1,14 @@
 #include "Character.hpp"
 
-Character::Character(res::Texture &texture, ui::OriginState origin_state, sf::String phrase, sf::Time pause_after_talk) 
+Character::Character(
+    res::Texture &texture,
+    ui::OriginState origin_state,
+    std::vector<sf::String> phrases,
+    sf::Time pause_after_talk) 
     : sprite(texture),
       origin_state(origin_state),
-      phrase{ui::Label{L"", res::too_much_ink, sf::Color::White}, phrase, res::voice},
+      phrases(phrases),
+      label{ui::Label{L"", res::too_much_ink, sf::Color::White}, phrases.front(), res::voice, sf::seconds(0.08)},
       pause_after_talk(pause_after_talk)
 {
     using ui::OriginState;
@@ -15,9 +20,10 @@ Character::Character(res::Texture &texture, ui::OriginState origin_state, sf::St
         throw std::runtime_error("bad origin state for character");
 }
 
-void Character::set_phease(sf::String new_phrase)
+void Character::set_pheases(std::vector<sf::String> &&new_phrases)
 {
-    phrase.reset_text(new_phrase);
+    phrases = std::move(new_phrases);
+    phrases_iter = 0;
 }
 
 void Character::resize()
@@ -25,12 +31,12 @@ void Character::resize()
     const auto wsize = get_wsize<float>();
     const auto scale = res::get_scale(wsize);
 
-    phrase.set_char_size(wsize.y / 20); 
-    phrase.setPosition(wsize / 2);
+    label.set_char_size(wsize.y / 20);
+    label.setPosition(wsize / 2);
 
     using ui::OriginState;
     if(origin_state == OriginState::left_down)
-        sprite.setPosition({0, wsize.y});
+        sprite.setPosition({0, wsize.y}); 
     else if(origin_state == OriginState::right_down)
         sprite.setPosition(wsize);
     else 
@@ -38,28 +44,29 @@ void Character::resize()
     sprite.setScale(scale);
 }
 
+bool Character::is_end_of_speech() const
+{
+    return is_end;
+}
+
 void Character::update(double delta_time)
 {
-    phrase.update(delta_time);
+    if(is_end)
+        return;
+    
+    label.update(delta_time);
+    
+    if(label.is_done() && label.last_stamp() >= pause_after_talk)
+    {
+        is_end = ++phrases_iter >= phrases.size();
+        if(is_end)
+            return;
+        label.reset_text(phrases[phrases_iter]);
+    }    
 }
 
 void Character::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     target.draw(sprite, states);
-    target.draw(phrase, states);
-}
-
-bool Character::is_spoked() const
-{
-    return phrase.is_done();
-}
-
-sf::Time Character::last_time_spoked_letter() const
-{
-    return phrase.last_stamp();
-}
-
-bool Character::is_end_of_phrase() const
-{
-    return is_spoked() && last_time_spoked_letter() >= pause_after_talk;
+    target.draw(label, states);
 }
