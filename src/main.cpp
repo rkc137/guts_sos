@@ -29,9 +29,10 @@ int main()
             else if(const auto* resized = event->getIf<sf::Event::Resized>())
             {
                 auto size = resized->size;
-                size += {
-                    (size.x == 0) * 60u,
-                    (size.y == 0) * 60u
+                static const sf::Vector2u minimal_size = {800, 600};
+                size = {
+                    size.x < minimal_size.x ? minimal_size.x : size.x,
+                    size.y < minimal_size.x ? minimal_size.y : size.y
                 };
                 window.setSize(size);
                 window.setView({
