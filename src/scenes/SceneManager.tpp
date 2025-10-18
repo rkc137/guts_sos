@@ -9,24 +9,15 @@ BaseSceneManager<WWT>::sc_shptr BaseSceneManager<WWT>::get_current()
         return true;
     }();
 
-    if(scenes.empty())
-        throw std::runtime_error("no more scenes for executing");
-    return scenes.front();
-}
-
-template <typename WWT>
-void BaseSceneManager<WWT>::Scene::quit()
-{
-    scenes.pop();
+    return current_scene;
 }
 
 template <typename WWT>
 template <typename scene_t>
-void BaseSceneManager<WWT>::add_scene() 
+void BaseSceneManager<WWT>::start_scene() 
 requires std::is_base_of_v<Scene, scene_t>
 {
     WWT::check_window();
-    sc_shptr scene(new scene_t);
-    scene->resize();
-    scenes.push(scene);
+    current_scene = std::make_shared<scene_t>();
+    current_scene->resize();
 }

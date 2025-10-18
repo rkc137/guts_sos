@@ -68,8 +68,7 @@ void Intro::update(unused double delta_time)
         if(curtain.is_done())
         {
             res::carterattack.stop();
-            SceneManager::add_scene<Level1>();
-            quit();
+            SceneManager::start_scene<Level1>();
         }
     }
 }

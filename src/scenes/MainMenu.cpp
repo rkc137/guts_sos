@@ -3,10 +3,9 @@
 MainMenu::MainMenu()
 {
     start.on_release = [&](){
-        curtain.let_go([this](){
-            // if(res::is_no_save)
-            SceneManager::add_scene<Intro>();
-            quit();
+        curtain.let_go([](){
+            // TODO: if(res::is_no_save)
+            SceneManager::start_scene<Intro>();
         });
     };
     exit.on_release = [&](){

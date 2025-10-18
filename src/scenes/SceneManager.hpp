@@ -20,16 +20,13 @@ public:
         /// @brief called when window change resolution
         virtual void resize() = 0;
         virtual ~Scene() = default;
-    protected:
-        /// @brief must be called to exit from current scene and step to the next
-        void quit();
     };
     using sc_shptr = std::shared_ptr<Scene>;
 
     /// @brief add scene in queue of executing
     /// @tparam scene_t requires be delivered by Scene of manager 
     template <typename scene_t>
-    static void add_scene() 
+    static void start_scene() 
     requires std::is_base_of_v<Scene, scene_t>;
     // TODO: language
     
@@ -38,7 +35,7 @@ public:
     static sc_shptr get_current();
 private:
     /// @brief queue that manage all scenes of manager
-    inline static std::queue<sc_shptr> scenes;
+    inline static sc_shptr current_scene;
 };
 
 /// @brief default scene manager
