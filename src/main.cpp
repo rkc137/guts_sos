@@ -11,7 +11,7 @@ int main()
 {
     res::load();
     Window window;
-    SceneManager::start_scene<Level1>();
+    SceneManager::start_scene<MainMenu>();
 
     ui::Label fps_label;
     fps_label.set_fill_color(sf::Color::White);
@@ -41,12 +41,17 @@ int main()
                 });
                 scene->resize();
             }
-        }
-
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::F11))
-        {
-            window.change_fullscreen();
-            scene->resize();
+            else if(const auto* k = event->getIf<sf::Event::KeyPressed>())
+            {
+                using namespace sf::Keyboard;
+                switch(k->code)
+                {
+                case Key::F11:                    
+                    window.change_fullscreen();
+                    scene->resize();
+                break;
+                }
+            }
         }
 
         scene->update(delta_time);
