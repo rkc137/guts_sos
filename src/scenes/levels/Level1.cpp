@@ -11,12 +11,18 @@ void Level1::resize()
     commander.resize();
     troop.resize();
     shaker.resize();
-    blocknote.setPosition({0, get_wsize<float>().y});
-    blocknote.setScale(res::get_scale(get_wsize<float>()));
+    telegraph.resize();
+    blocknote_morse.setPosition({0, get_wsize<float>().y});
+    blocknote_morse.setScale(res::get_scale(get_wsize<float>()));
+    blocknote_tutorial.setPosition({0, get_wsize<float>().y});
+    blocknote_tutorial.setScale(res::get_scale(get_wsize<float>()));
 }
 
 void Level1::update(unused double delta_time)
 {
+    static auto ease_out_cubic = [](float x /*0...1*/) -> float /*0...1*/ {
+        return 1 - std::pow(1 - x, 3);
+    };
     background.update(delta_time);
     switch(state)
     {
@@ -41,26 +47,43 @@ void Level1::update(unused double delta_time)
         if(commander.is_end_of_speech())
         {
             state++;
-            draws = { blocknote };
-            auto [pos, size] = blocknote.get_global_bounds();
-            blocknote.setPosition({-size.x, get_wsize<float>().y});
+            draws = { blocknote_tutorial, blocknote_morse };
+            auto [pos, size] = blocknote_tutorial.get_global_bounds();
+            blocknote_tutorial.setPosition({-size.x, get_wsize<float>().y});
+            blocknote_morse.setPosition({-size.x, get_wsize<float>().y});
             blocknote_appear_clock.start();
         }
     break;
     case 3:
-        if(auto elapsed_time = blocknote_appear_clock.getElapsedTime(); elapsed_time < blocknote_appear_time)
+    {    
+        telegraph.update(delta_time);
+        auto elapsed_time = blocknote_appear_clock.getElapsedTime();
+        if(elapsed_time > tutorial_time + blocknote_appear_time + blocknote_appear_time)
         {
-            static auto ease_out_cubic = [](float x /*0...1*/) -> float /*0...1*/ {
-                return 1 - std::pow(1 - x, 3);
-            };
-            auto [pos, size] = blocknote.get_global_bounds();
-            auto wy = get_wsize<float>().y;
-            blocknote.setPosition({
+            draws = { blocknote_morse, telegraph };
+            state++;
+        }
+        else if(elapsed_time < blocknote_appear_time)
+        {
+            auto [pos, size] = blocknote_tutorial.get_global_bounds();
+            blocknote_tutorial.setPosition({
                 ease_out_cubic(elapsed_time / blocknote_appear_time) * size.x - size.x,
-                wy
+                get_wsize<float>().y
             });
         }
-        else state++;
+        else if(elapsed_time > blocknote_appear_time + tutorial_time)
+        {
+            elapsed_time -= blocknote_appear_time + tutorial_time;
+            auto [pos, size] = blocknote_morse.get_global_bounds();
+            blocknote_morse.setPosition({
+                ease_out_cubic(elapsed_time / blocknote_appear_time) * size.x - size.x,
+                get_wsize<float>().y
+            });
+        }
+    }
+    break;
+    case 4:
+        telegraph.update(delta_time);
     break;
     default:
     break;
