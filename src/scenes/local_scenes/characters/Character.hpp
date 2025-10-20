@@ -13,7 +13,7 @@ public:
               sf::Time pause_after_talk = sf::seconds(2));
     void set_pheases(std::vector<sf::String>&& new_phrases);
     void resize() override;
-    void update(unused double delta_time) override;
+    void update(double delta_time) override;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     bool is_end_of_speech() const;
 private:

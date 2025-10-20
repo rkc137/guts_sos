@@ -1,7 +1,11 @@
 #pragma once
 
-#include "../SceneManager.hpp"
+#include <chrono>
+
 #include "../../res/res.hpp"
+#include "../../ui/sprite/Sprite.hpp"
+#include "../../core/pauseble_clock/PausebleClock.hpp"
+#include "../SceneManager.hpp"
 #include "../local_scenes/BasementBackground.hpp"
 #include "../local_scenes/Shaker.hpp"
 #include "../local_scenes/characters/Character.hpp"
@@ -22,5 +26,8 @@ private:
         L"Sir, it's time for us to retreat", L"They will soon surround us"}};
     Character commander{res::commander, ui::OriginState::left_down, {
         L"No, we're not backing down", L"artiller support is still with us", L"Commo, check the telegraph!"}};
+    Sprite blocknote{res::blocknote_morse, ui::OriginState::left_down};
+    PausebleClock blocknote_appear_clock;
+    sf::Time blocknote_appear_time = sf::seconds(1.5);
     BasementBackground background;
 };

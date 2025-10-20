@@ -11,7 +11,7 @@ int main()
 {
     res::load();
     Window window;
-    SceneManager::start_scene<MainMenu>();
+    SceneManager::start_scene<Level1>();
 
     ui::Label fps_label;
     fps_label.set_fill_color(sf::Color::White);
