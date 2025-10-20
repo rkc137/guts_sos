@@ -1,3 +1,6 @@
 #include "Logger.hpp"
 
-Logger<std::ostream> dbg(std::clog);
+Logger<std::ostream>::Proxy dbg()
+{
+    return Logger(std::cerr).start();
+}

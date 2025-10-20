@@ -23,17 +23,42 @@ public:
     {
         os << "\n";
     }
-    
-    template <typename T>
-    Logger& operator<<(T obj)
+
+    class Proxy
     {
-        os << obj << '\n';
-        return *this;
+    public:
+        Proxy(Tos& os) : os(os) {}
+        ~Proxy()
+        {
+            os << '\n';
+        }
+
+        template <typename T>
+        Proxy& operator<<(const T& obj)
+        {
+            os << obj << ' ';
+            first = false;
+            return *this;
+        }
+
+    private:
+        Tos& os;
+        bool first = true;
+    };
+
+    Proxy operator<<(std::ostream& (*pf)(std::ostream&))
+    {
+        os << pf;
+        return Proxy(os);
     }
 
+    Proxy start()
+    {
+        return Proxy(os);
+    }
 
 private:
     Tos &os;
 };
 
-extern Logger<std::ostream> dbg;
+Logger<std::ostream>::Proxy dbg();

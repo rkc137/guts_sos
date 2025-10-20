@@ -50,6 +50,7 @@ int main()
                     window.change_fullscreen();
                     scene->resize();
                 break;
+                default:
                 }
             }
         }
