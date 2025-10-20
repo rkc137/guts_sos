@@ -41,16 +41,17 @@ add_executable(sos
     src/ui/label/StampLabel.cpp
     src/ui/Buttons/BaseButton.cpp
     src/ui/Buttons/LabelButton.cpp
-    src/Scenes/local_scenes/Telegraph.cpp
-    src/Scenes/local_scenes/BasementBackground.cpp
-    src/Scenes/local_scenes/Shaker.cpp
-    # src/Scenes/SceneManager.cpp
-    src/Scenes/local_scenes/Curtain.cpp
-    src/Scenes/local_scenes/characters/Character.cpp
-    src/Scenes/Opening.cpp
-    src/Scenes/MainMenu.cpp
-    src/Scenes/Intro.cpp
-    src/Scenes/levels/Level1.cpp
+    src/ui/sprite/Sprite.cpp
+    src/scenes/local_scenes/Telegraph.cpp
+    src/scenes/local_scenes/BasementBackground.cpp
+    src/scenes/local_scenes/Shaker.cpp
+    # src/scenes/SceneManager.cpp
+    src/scenes/local_scenes/Curtain.cpp
+    src/scenes/local_scenes/characters/Character.cpp
+    src/scenes/Opening.cpp
+    src/scenes/MainMenu.cpp
+    src/scenes/Intro.cpp
+    src/scenes/levels/Level1.cpp
     src/main.cpp
     # src/res/res.cpp
     # src/pauseble_clock/PausebleClock.cpp
