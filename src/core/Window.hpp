@@ -12,5 +12,6 @@ public:
     void change_fullscreen();
 private:
     inline static const sf::VideoMode default_video_mode{{1280, 720}};
+    int fps = 60;
     bool is_full_screen = false;
 };
