@@ -42,5 +42,9 @@ void Sprite::draw(sf::RenderTarget & target, sf::RenderStates states) const
 
 sf::FloatRect Sprite::get_global_bounds() const
 {
-    return static_cast<sf::FloatRect>(sprite.getTextureRect());
+    auto rect = sprite.getGlobalBounds();
+    return {
+        rect.position * getScale(),
+        rect.size * getScale()
+    };
 }

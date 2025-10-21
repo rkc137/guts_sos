@@ -29,7 +29,7 @@ int main()
             else if(const auto* resized = event->getIf<sf::Event::Resized>())
             {
                 auto size = resized->size;
-                static const sf::Vector2u minimal_size = {800, 600};
+                static const sf::Vector2u minimal_size = {400, 300};
                 size = {
                     size.x < minimal_size.x ? minimal_size.x : size.x,
                     size.y < minimal_size.x ? minimal_size.y : size.y

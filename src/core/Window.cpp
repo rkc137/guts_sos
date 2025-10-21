@@ -1,9 +1,9 @@
 #include "Window.hpp"
 
 Window::Window() : sf::RenderWindow(
-    default_video_mode,
+    sf::VideoMode::getFullscreenModes().front(),
     res::app_name,
-    sf::State::Windowed)
+    sf::State::Fullscreen)
 {
     //TODO: move all this stuf to work with create() on change_fullscreen
     setFramerateLimit(fps);

@@ -39,7 +39,7 @@ public:
     
     struct Texture : public sf::Texture, public TextureMetaInfo {};
     inlstc Texture 
-        default_texture, blocknote, blocknote_morse,
+        default_texture, blocknote_blank, blocknote_morse,
         bunker, troop, commander, light;
     inlstc sf::Font default_font, cybersomething, too_much_ink;
     inlstc sf::SoundBuffer morse_noise, stamp, incoming;
@@ -61,7 +61,7 @@ private:
 
     inlstc const std::vector<TextureSetup> texture_load_list = {
         {default_texture,   "place_holder.png",            {{64, 64},   {1}}},
-        {blocknote,         "blocknote/blocknote.png",     {{300, 350}, {1}}},
+        {blocknote_blank,   "blocknote/blocknote_blank.png",    {{514, 600}, {1}}},
         {blocknote_morse,   "blocknote/blocknote_alphabet.png", {{514, 600}, {1}}},
         {troop,             "faces/troop.png",             {{512, 512}, {1}}},
         {commander,         "faces/commander.png",         {{512, 512}, {1}}},

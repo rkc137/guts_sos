@@ -7,15 +7,27 @@ Level1::Level1()
 
 void Level1::resize()
 {
+    auto wsize = get_wsize<float>();
     background.resize();
     commander.resize();
     troop.resize();
     shaker.resize();
     telegraph.resize();
-    blocknote_morse.setPosition({0, get_wsize<float>().y});
-    blocknote_morse.setScale(res::get_scale(get_wsize<float>()));
-    blocknote_tutorial.setPosition({0, get_wsize<float>().y});
-    blocknote_tutorial.setScale(res::get_scale(get_wsize<float>()));
+    blocknote_tutorial.resize();
+    blocknote_tutorial.setPosition({0, wsize.y});
+    blocknote_morse.setPosition({0, wsize.y});
+    
+    auto base_scale = res::get_scale(wsize);
+    auto texture_size = static_cast<sf::Vector2f>(blocknote_morse.sprite.getTexture().getSize());
+    auto scaled_size = sf::Vector2f(texture_size.x * base_scale.x, texture_size.y * base_scale.y);
+    
+    if(auto ceiling = wsize.y * 0.8f; scaled_size.y > ceiling)
+    {
+        auto height_scale = ceiling / texture_size.y;
+        blocknote_morse.setScale({height_scale, height_scale});
+    }
+    else
+        blocknote_morse.setScale(base_scale);
 }
 
 void Level1::update(unused double delta_time)
@@ -48,9 +60,10 @@ void Level1::update(unused double delta_time)
         {
             state++;
             draws = { blocknote_tutorial, blocknote_morse };
-            auto [pos, size] = blocknote_tutorial.get_global_bounds();
-            blocknote_tutorial.setPosition({-size.x, get_wsize<float>().y});
-            blocknote_morse.setPosition({-size.x, get_wsize<float>().y});
+            auto [post, sizet] = blocknote_tutorial.get_global_bounds();
+            blocknote_tutorial.setPosition({-sizet.x, get_wsize<float>().y});
+            auto [posm, sizem] = blocknote_tutorial.get_global_bounds();
+            blocknote_morse.setPosition({-sizem.x, get_wsize<float>().y});
             blocknote_appear_clock.start();
         }
     break;
@@ -95,4 +108,36 @@ void Level1::draw(sf::RenderTarget& target, sf::RenderStates states) const
     target.draw(background, states);
     for(auto &d : draws)
         target.draw(d, states);
+}
+
+void Level1::BlocknoteTutorial::draw(sf::RenderTarget & target, sf::RenderStates states) const
+{
+    states.transform *= getTransform();
+    target.draw(sprite, states);
+    target.draw(label, states);
+}
+
+sf::FloatRect Level1::BlocknoteTutorial::get_global_bounds() const
+{
+    return sprite.get_global_bounds();
+}
+
+void Level1::BlocknoteTutorial::resize()
+{
+    auto wsize = get_wsize<float>();
+    auto base_scale = res::get_scale(wsize);
+    auto texture_size = static_cast<sf::Vector2f>(sprite.sprite.getTexture().getSize());
+    auto scaled_size = sf::Vector2f(texture_size.x * base_scale.x, texture_size.y * base_scale.y);
+    
+    if(auto ceiling = wsize.y * 0.8f; scaled_size.y > ceiling)
+    {
+        auto height_scale = ceiling / texture_size.y;
+        sprite.setScale({height_scale, height_scale});
+    }
+    else
+        sprite.setScale(base_scale);
+
+    auto bsize = get_global_bounds().size;
+    label.set_char_size(wsize.y / 21);
+    label.setPosition({bsize.x / 10, -bsize.y + bsize.y / 10});
 }
