@@ -37,9 +37,12 @@ private:
             L"Press space key to use\n"
             L"telegraph. Short press\n"
             L"makes dots and long\n"
-            L"makes dash. If you make\n"
-            L"mistake, make 8 dots to\n"
-            L"erase last letter.",
+            L"makes dash. Combine\n"
+            L"them to make letters.\n"
+            L"Wait a little bit to\n"
+            L"make a space. If you\n"
+            L"make a mistake, make 8\n"
+            L"dots to erase last\n" L"letter.",
             res::too_much_ink,
             sf::Color::White,
             40,
@@ -49,7 +52,7 @@ private:
     } blocknote_tutorial;
     PausebleClock blocknote_appear_clock;
     const sf::Time blocknote_appear_time = sf::seconds(1.5);
-    const sf::Time tutorial_time = sf::seconds(15);
+    const sf::Time tutorial_time = sf::seconds(20);
     BasementBackground background;
     Telegraph telegraph;
 };

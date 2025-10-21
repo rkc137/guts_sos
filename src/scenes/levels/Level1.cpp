@@ -3,6 +3,8 @@
 Level1::Level1()
 {
     incoming.play();
+    res::distance_battle.setLooping(true);
+    res::distance_battle.play();
 }
 
 
@@ -49,10 +51,10 @@ void Level1::update(unused double delta_time)
         if(commander.is_end_of_speech())
         {
             state++;
-            draws = { blocknote_tutorial, blocknote_morse };
+            draws = { blocknote_tutorial, blocknote_morse, telegraph };
             auto [post, sizet] = blocknote_tutorial.get_global_bounds();
             blocknote_tutorial.setPosition({-sizet.x, get_wsize<float>().y});
-            auto [posm, sizem] = blocknote_tutorial.get_global_bounds();
+            auto [posm, sizem] = blocknote_morse.get_global_bounds();
             blocknote_morse.setPosition({-sizem.x, get_wsize<float>().y});
             blocknote_appear_clock.start();
         }
