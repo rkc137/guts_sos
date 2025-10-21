@@ -4,8 +4,6 @@
 #include <SFML/Audio.hpp>
 
 #include <filesystem>
-#include <iostream>
-#include <string>
 #include <vector>
 #include <array>
 #include <map>
@@ -36,6 +34,13 @@ public:
     inlstc constexpr sf::Vector2f target_video_mode{1280, 720};
     inlstc constexpr bool is_smooth = true;
     static sf::Vector2f get_scale(sf::Vector2f wsize);
+    template <typename T>
+    requires (std::is_arithmetic_v<T>)
+    static sf::Vector2f get_adaptive_scale(
+        sf::Vector2<T> wsize,
+        sf::Vector2<T> texture_size,
+        sf::Vector2f ratio = {1.f, 1.f}
+    );
     
     struct Texture : public sf::Texture, public TextureMetaInfo {};
     inlstc Texture 
@@ -136,5 +141,29 @@ public:
         {{0, 0, 0, 0, 0, 0, 0, 0}, '\b'}
     };
 };
+
+template <typename T>
+requires (std::is_arithmetic_v<T>)
+sf::Vector2f res::get_adaptive_scale(
+        sf::Vector2<T> wsize,
+        sf::Vector2<T> texture_size,
+        sf::Vector2f ratio)
+{
+    auto winsize = static_cast<sf::Vector2f>(wsize);
+    auto textrsize = static_cast<sf::Vector2f>(texture_size);
+
+    auto base_scale = get_scale(winsize);
+    auto scaled_size = sf::Vector2f(textrsize.x * base_scale.x, textrsize.y * base_scale.y);
+    auto max_size = sf::Vector2f(winsize.x * ratio.x, winsize.y * ratio.y);
+    
+    sf::Vector2f scale = base_scale;
+    if(scaled_size.x > max_size.x)
+        scale.x = max_size.x / textrsize.x;
+    if(scaled_size.y > max_size.y)
+        scale.y = max_size.y / textrsize.y;
+    
+    auto final_scale = std::min(scale.x, scale.y);
+    return {final_scale, final_scale};
+}
 
 #undef inlstc

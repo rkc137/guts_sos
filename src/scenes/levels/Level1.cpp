@@ -5,6 +5,7 @@ Level1::Level1()
     incoming.play();
 }
 
+
 void Level1::resize()
 {
     auto wsize = get_wsize<float>();
@@ -13,21 +14,10 @@ void Level1::resize()
     troop.resize();
     shaker.resize();
     telegraph.resize();
-    blocknote_tutorial.resize();
     blocknote_tutorial.setPosition({0, wsize.y});
+    blocknote_tutorial.resize();
     blocknote_morse.setPosition({0, wsize.y});
-    
-    auto base_scale = res::get_scale(wsize);
-    auto texture_size = static_cast<sf::Vector2f>(blocknote_morse.sprite.getTexture().getSize());
-    auto scaled_size = sf::Vector2f(texture_size.x * base_scale.x, texture_size.y * base_scale.y);
-    
-    if(auto ceiling = wsize.y * 0.8f; scaled_size.y > ceiling)
-    {
-        auto height_scale = ceiling / texture_size.y;
-        blocknote_morse.setScale({height_scale, height_scale});
-    }
-    else
-        blocknote_morse.setScale(base_scale);
+    blocknote_morse.resize();
 }
 
 void Level1::update(unused double delta_time)
@@ -124,19 +114,8 @@ sf::FloatRect Level1::BlocknoteTutorial::get_global_bounds() const
 
 void Level1::BlocknoteTutorial::resize()
 {
+    sprite.resize();
     auto wsize = get_wsize<float>();
-    auto base_scale = res::get_scale(wsize);
-    auto texture_size = static_cast<sf::Vector2f>(sprite.sprite.getTexture().getSize());
-    auto scaled_size = sf::Vector2f(texture_size.x * base_scale.x, texture_size.y * base_scale.y);
-    
-    if(auto ceiling = wsize.y * 0.8f; scaled_size.y > ceiling)
-    {
-        auto height_scale = ceiling / texture_size.y;
-        sprite.setScale({height_scale, height_scale});
-    }
-    else
-        sprite.setScale(base_scale);
-
     auto bsize = get_global_bounds().size;
     label.set_char_size(wsize.y / 21);
     label.setPosition({bsize.x / 10, -bsize.y + bsize.y / 10});

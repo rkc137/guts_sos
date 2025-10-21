@@ -29,9 +29,10 @@ Sprite::Sprite(sf::Texture &texture, ui::OriginState origin_state)
 
 void Sprite::resize()
 {
-    const auto wsize = get_wsize<float>();
-    const auto scale = res::get_scale(wsize);
-    sprite.setScale(scale);
+    sprite.setScale(res::get_adaptive_scale(
+        get_wsize(),
+        sprite.getTexture().getSize()
+    ));
 }
 
 void Sprite::draw(sf::RenderTarget & target, sf::RenderStates states) const

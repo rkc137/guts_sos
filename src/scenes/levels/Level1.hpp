@@ -1,7 +1,5 @@
 #pragma once
 
-#include <chrono>
-
 #include "../../res/res.hpp"
 #include "../../ui/sprite/Sprite.hpp"
 #include "../../ui/label/label.hpp"
