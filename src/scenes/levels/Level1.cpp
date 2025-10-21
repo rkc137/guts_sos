@@ -77,11 +77,20 @@ void Level1::update(unused double delta_time)
         else if(elapsed_time > blocknote_appear_time + tutorial_time)
         {
             elapsed_time -= blocknote_appear_time + tutorial_time;
-            auto [pos, size] = blocknote_morse.get_global_bounds();
-            blocknote_morse.setPosition({
-                ease_out_cubic(elapsed_time / blocknote_appear_time) * size.x - size.x,
-                get_wsize<float>().y
-            });
+            {
+                auto [pos, size] = blocknote_morse.get_global_bounds();
+                blocknote_morse.setPosition({
+                    ease_out_cubic(elapsed_time / blocknote_appear_time) * size.x - size.x,
+                    get_wsize<float>().y
+                });
+            }
+            {
+                auto [pos, size] = blocknote_tutorial.get_global_bounds();
+                blocknote_tutorial.setPosition({
+                    -ease_out_cubic(elapsed_time / blocknote_appear_time) * size.x,
+                    get_wsize<float>().y
+                });
+            }
         }
     }
     break;
