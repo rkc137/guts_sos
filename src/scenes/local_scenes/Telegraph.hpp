@@ -15,8 +15,8 @@ public:
     void update(double delta_time) override;
     void resize() override;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-    ui::Label input_label{L"", res::default_font, sf::Color::White, 80, ui::OriginState::center};//••—•——
-    ui::Label output_label{L"", res::cybersomething, sf::Color::White, 80, ui::OriginState::center};//text
+    ui::Label input_label{L"", res::default_font, sf::Color::White, 80, ui::OriginState::center, true};//••—•——
+    ui::Label output_label{L"", res::cybersomething, sf::Color::White, 80, ui::OriginState::center, true};//text
 private:
     inline static const sf::Time dash_time = sf::seconds(0.25);
     inline static const sf::Time letter_time = sf::seconds(1.70);

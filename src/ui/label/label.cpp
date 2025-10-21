@@ -7,14 +7,16 @@ Label::Label(const sf::String str_text,
             const sf::Font &font,
             const sf::Color &color,
             unsigned int ch_size,
-            OriginState state)
-            : Label({font, str_text, ch_size}, color, state)
+            OriginState state,
+            bool with_splashes)
+            : Label({font, str_text, ch_size}, color, state, with_splashes)
 {}
 
-Label::Label(sf::Text &&text, const sf::Color &color, OriginState state)
+Label::Label(sf::Text &&text, const sf::Color &color, OriginState state, bool splashes)
     : text(text)
 {
     origin_state = state;
+    with_splashes = splashes;
     text.setFillColor(color);
     update_origin();
     text.setPosition({0, 0});
@@ -118,7 +120,32 @@ void Label::update_origin()
 
 void Label::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+    static auto random_float = [](float a, float b) -> float {
+        float random = ((float) rand()) / (float)RAND_MAX;
+        float diff = b - a;
+        float r = random * diff;
+        return a + r;
+    };
+
     states.transform *= getTransform();
+    if(with_splashes)
+    {
+        int length = get_string().getSize();
+        auto b = get_global_bounds();
+        for(int i = 0; i < length  * 2; i++)
+        {
+            sf::Sprite splash{res::splash};
+            sf::Vector2f size{res::splash.frame_size};
+            splash.setOrigin(size / 2.f);
+            splash.setScale(res::get_adaptive_scale(get_wsize<float>(), size));
+            splash.setRotation(sf::degrees(rand() % 360));
+            splash.setPosition({
+                random_float(0, b.size.x) - (b.size.x / 2),
+                random_float(0, b.size.y) - (b.size.y / 2)
+            });
+            target.draw(splash, states);
+        }
+    }
     target.draw(text, states);
 }
 

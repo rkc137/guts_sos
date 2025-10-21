@@ -81,30 +81,8 @@ void Telegraph::resize()
 
 void Telegraph::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-    for(auto &label : {input_label, output_label})
-    {
-        std::vector<sf::Sprite> splashes;
-        auto length = label.get_string().getSize();
-        splashes.reserve(length);
-        for(auto i = 0zu; i < length; i++)
-        {
-            auto &splash = splashes.emplace_back(res::splash);
-            sf::Vector2f size{res::splash.frame_size};
-            splash.setOrigin(size / 3.f);
-            splash.setScale(res::get_adaptive_scale(get_wsize<float>(), size));
-        }
-        
-        auto b = label.get_global_bounds();
-        auto pos = label.getPosition() - (b.size / 2);
-        auto size = b.size.x / length;
-        for(auto i = 0zu; i < length; i++)
-        {
-            splashes[i].setPosition({pos.x + i * size, pos.y});
-        }
-        for(auto &splash : splashes)
-            target.draw(splash, states);
-        target.draw(label, states);
-    }
+    target.draw(output_label, states);
+    target.draw(input_label, states);
 }
 
 

@@ -8,9 +8,18 @@ Character::Character(
     : sprite(texture),
       origin_state(origin_state),
       phrases(phrases),
-      label{ui::Label{L"", res::too_much_ink, sf::Color::White}, phrases.front(), res::voice, sf::seconds(0.08)},
+      label{
+        ui::Label{
+            L"", res::too_much_ink,
+            sf::Color::White
+        },
+        phrases.front(),
+        res::voice,
+        sf::seconds(0.08)
+      },
       pause_after_talk(pause_after_talk)
 {
+    label.with_splashes = true;
     using ui::OriginState;
     if(origin_state == OriginState::left_down)
         sprite.setOrigin({0, static_cast<float>(texture.getSize().y)});

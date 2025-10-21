@@ -15,11 +15,13 @@ public:
                     const sf::Font &font = res::default_font,
                     const sf::Color &color = sf::Color::Black,
                     unsigned int ch_size = 30,
-                    OriginState state = OriginState::center);
+                    OriginState state = OriginState::center,
+                    bool with_splashes = false);
     
     explicit Label(sf::Text&& text,
                     const sf::Color &color = sf::Color::Black,
-                    OriginState state = OriginState::center);
+                    OriginState state = OriginState::center,
+                    bool splashes = false);
     
     [[nodiscard]] sf::String      get_string() const;
     [[nodiscard]] OriginState     get_origin_state() const;
@@ -37,7 +39,8 @@ public:
     
     sf::FloatRect get_global_bounds() const override;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-
+    
+    bool with_splashes = false;
 private:
     sf::Text text;
 };
