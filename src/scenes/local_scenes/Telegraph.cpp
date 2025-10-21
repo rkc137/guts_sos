@@ -87,7 +87,12 @@ void Telegraph::draw(sf::RenderTarget &target, sf::RenderStates states) const
         auto length = label.get_string().getSize();
         splashes.reserve(length);
         for(auto i = 0zu; i < length; i++)
-            splashes.emplace_back(res::splash).setOrigin((sf::Vector2f)res::splash.frame_size / 3.f);
+        {
+            auto &splash = splashes.emplace_back(res::splash);
+            sf::Vector2f size{res::splash.frame_size};
+            splash.setOrigin(size / 3.f);
+            splash.setScale(res::get_adaptive_scale(get_wsize<float>(), size));
+        }
         
         auto b = label.get_global_bounds();
         auto pos = label.getPosition() - (b.size / 2);
