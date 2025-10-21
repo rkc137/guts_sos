@@ -44,7 +44,7 @@ public:
     
     struct Texture : public sf::Texture, public TextureMetaInfo {};
     inlstc Texture 
-        default_texture, blocknote_blank, blocknote_morse,
+        default_texture, blocknote_blank, blocknote_morse, splash,
         bunker, troop, commander, light;
     inlstc sf::Font default_font, cybersomething, too_much_ink;
     inlstc sf::SoundBuffer morse_noise, stamp, incoming;
@@ -71,7 +71,8 @@ private:
         {troop,             "faces/troop.png",             {{512, 512}, {1}}},
         {commander,         "faces/commander.png",         {{512, 512}, {1}}},
         {light,             "bunker/light.png",            {{1920*2, 1080*2},   {1}}},
-        {bunker,            "bunker/bunker.png",           {{1920, 1080},   {1}}}
+        {bunker,            "bunker/bunker.png",           {{1920, 1080},   {1}}},
+        {splash,            "splash/splash.png",           {{128, 128}, {1}}}
     };
 
     inlstc const std::vector<std::pair<sf::SoundBuffer&, fspath>> sounds_load_list = {
