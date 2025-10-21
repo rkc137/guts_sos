@@ -19,7 +19,7 @@ public:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 private:
     int state = 0;
-    std::vector<sf::Drawable*> draws;
+    std::vector<std::reference_wrapper<sf::Drawable>> draws;
     sf::Sound incoming{res::incoming};
     Shaker shaker{sf::seconds(2.4), 80};
     Character troop{res::troop, ui::OriginState::right_down, {

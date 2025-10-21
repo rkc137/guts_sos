@@ -25,7 +25,7 @@ void Level1::update(unused double delta_time)
         if(shaker.is_done())
         {
             state++;
-            draws = { &troop };
+            draws = { troop };
         }
     break;
     case 1:
@@ -33,7 +33,7 @@ void Level1::update(unused double delta_time)
         if(troop.is_end_of_speech())
         {
             state++;
-            draws = { &commander };
+            draws = { commander };
         }
     break;
     case 2:
@@ -41,7 +41,7 @@ void Level1::update(unused double delta_time)
         if(commander.is_end_of_speech())
         {
             state++;
-            draws = { &blocknote };
+            draws = { blocknote };
             auto [pos, size] = blocknote.get_global_bounds();
             blocknote.setPosition({-size.x, get_wsize<float>().y});
             blocknote_appear_clock.start();
@@ -71,5 +71,5 @@ void Level1::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     target.draw(background, states);
     for(auto &d : draws)
-        target.draw(*d, states);
+        target.draw(d, states);
 }
