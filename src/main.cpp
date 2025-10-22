@@ -61,7 +61,7 @@ int main()
         window.display();
         window.clear();
 
-        fps_label.set_string(std::to_string(1 / delta_time));
+        fps_label.set_string(std::to_string(static_cast<int>(1 / delta_time)));
     }
     
     return 0;

@@ -44,8 +44,8 @@ public:
     
     struct Texture : public sf::Texture, public TextureMetaInfo {};
     inlstc Texture 
-        default_texture, blocknote_blank, blocknote_morse, splash,
-        bunker, troop, commander, light;
+        default_texture, blocknote_blank, blocknote_morse, blocknote_onside,
+        splash, bunker, troop, commander, light;
     inlstc sf::Font default_font, cybersomething, too_much_ink;
     inlstc sf::SoundBuffer morse_noise, stamp, incoming;
     inlstc sf::Music distance_explosions, distance_battle, carterattack, voice;
@@ -68,6 +68,7 @@ private:
         {default_texture,   "place_holder.png",            {{64, 64},   {1}}},
         {blocknote_blank,   "blocknote/blocknote_blank.png",    {{514, 600}, {1}}},
         {blocknote_morse,   "blocknote/blocknote_alphabet.png", {{514, 600}, {1}}},
+        {blocknote_onside,   "blocknote/blocknote_blank_onside.png", {{600, 514}, {1}}},
         {troop,             "faces/troop.png",             {{512, 512}, {1}}},
         {commander,         "faces/commander.png",         {{512, 512}, {1}}},
         {light,             "bunker/light.png",            {{1920*2, 1080*2},   {1}}},

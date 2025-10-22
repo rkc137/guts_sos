@@ -27,32 +27,36 @@ private:
     Character commander{res::commander, ui::OriginState::left_down, { "fr"}};
         // L"No, we're not backing down", L"artiller support is still with us", L"Commo, check the telegraph!"}};
     Sprite blocknote_morse{res::blocknote_morse, ui::OriginState::left_down};
-    class BlocknoteTutorial : public virtual ui::BaseWidget<>
+    class BlocknoteWithText : public virtual ui::BaseWidget<>
     {
     public:
+        BlocknoteWithText(sf::String text, Sprite &&sprite);
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
         sf::FloatRect get_global_bounds() const override;
         void resize();
-        ui::Label label{
-            L"Press space key to use\n"
-            L"telegraph. Short press\n"
-            L"makes dots and long\n"
-            L"makes dash. Combine\n"
-            L"them to make letters.\n"
-            L"Wait a little bit to\n"
-            L"make a space. If you\n"
-            L"make a mistake, make 8\n"
-            L"dots to erase last\n" L"letter.",
-            res::too_much_ink,
-            sf::Color::White,
-            40,
-            ui::OriginState::left_up
-        };
-        Sprite sprite{res::blocknote_blank, ui::OriginState::left_down};
-    } blocknote_tutorial;
+        ui::Label label;
+        Sprite sprite;
+    }
+    blocknote_tutorial{
+        L"Press space key to use\n"
+        L"telegraph. Short press\n"
+        L"makes dots and long\n"
+        L"makes dash. Combine\n"
+        L"them to make letters.\n"
+        L"Wait a little bit to\n"
+        L"make a space. If you\n"
+        L"make a mistake, make 8\n"
+        L"dots to erase last\n" L"letter.",
+        {res::blocknote_blank, ui::OriginState::left_down}
+    },
+    blocknote_mission{
+        L"try to send a SOS",
+        {res::blocknote_onside, ui::OriginState::right_up}
+    };
+
     PausebleClock blocknote_appear_clock;
     const sf::Time blocknote_appear_time = sf::seconds(1.5);
-    const sf::Time tutorial_time = sf::seconds(20);
+    const sf::Time tutorial_time = sf::seconds(1);
     BasementBackground background;
     Telegraph telegraph;
 };

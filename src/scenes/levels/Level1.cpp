@@ -20,6 +20,10 @@ void Level1::resize()
     blocknote_tutorial.resize();
     blocknote_morse.setPosition({0, wsize.y});
     blocknote_morse.resize();
+
+    auto [posmi, sizemi] = blocknote_mission.get_global_bounds();
+    blocknote_mission.setPosition({wsize.x, sizemi.y - sizemi.y * 1.5f});
+    blocknote_mission.resize();
 }
 
 void Level1::update(unused double delta_time)
@@ -27,6 +31,7 @@ void Level1::update(unused double delta_time)
     static auto ease_out_cubic = [](float x /*0...1*/) -> float /*0...1*/ {
         return 1 - std::pow(1 - x, 3);
     };
+    auto wsize = get_wsize<float>();
     background.update(delta_time);
     switch(state)
     {
@@ -51,11 +56,15 @@ void Level1::update(unused double delta_time)
         if(commander.is_end_of_speech())
         {
             state++;
-            draws = { blocknote_tutorial, blocknote_morse, telegraph };
+            draws = { blocknote_tutorial, blocknote_morse, blocknote_mission, telegraph };
+            
             auto [post, sizet] = blocknote_tutorial.get_global_bounds();
-            blocknote_tutorial.setPosition({-sizet.x, get_wsize<float>().y});
             auto [posm, sizem] = blocknote_morse.get_global_bounds();
-            blocknote_morse.setPosition({-sizem.x, get_wsize<float>().y});
+            auto [posmi, sizemi] = blocknote_mission.get_global_bounds();
+            blocknote_tutorial.setPosition({-sizet.x, wsize.y});
+            blocknote_morse.setPosition({-sizem.x, wsize.y});
+            blocknote_mission.setPosition({wsize.x, -sizemi.y});
+            
             blocknote_appear_clock.start();
         }
     break;
@@ -65,7 +74,7 @@ void Level1::update(unused double delta_time)
         auto elapsed_time = blocknote_appear_clock.getElapsedTime();
         if(elapsed_time > tutorial_time + blocknote_appear_time + blocknote_appear_time)
         {
-            draws = { blocknote_morse, telegraph };
+            draws = { blocknote_morse, blocknote_mission, telegraph };
             state++;
         }
         else if(elapsed_time < blocknote_appear_time)
@@ -93,6 +102,14 @@ void Level1::update(unused double delta_time)
                     get_wsize<float>().y
                 });
             }
+            {
+                auto [pos, size] = blocknote_mission.get_global_bounds();
+                // wsize.x, -size.y
+                blocknote_mission.setPosition({
+                    wsize.x,
+                    ease_out_cubic(elapsed_time / blocknote_appear_time) * size.y - size.y * 1.5f
+                });
+            }
         }
     }
     break;
@@ -111,23 +128,35 @@ void Level1::draw(sf::RenderTarget& target, sf::RenderStates states) const
         target.draw(d, states);
 }
 
-void Level1::BlocknoteTutorial::draw(sf::RenderTarget & target, sf::RenderStates states) const
+void Level1::BlocknoteWithText::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
     states.transform *= getTransform();
     target.draw(sprite, states);
     target.draw(label, states);
 }
 
-sf::FloatRect Level1::BlocknoteTutorial::get_global_bounds() const
+sf::FloatRect Level1::BlocknoteWithText::get_global_bounds() const
 {
     return sprite.get_global_bounds();
 }
 
-void Level1::BlocknoteTutorial::resize()
+void Level1::BlocknoteWithText::resize()
 {
     sprite.resize();
     auto wsize = get_wsize<float>();
     auto bsize = get_global_bounds().size;
     label.set_char_size(wsize.y / 21);
     label.setPosition({bsize.x / 10, -bsize.y + bsize.y / 10});
+}
+
+Level1::BlocknoteWithText::BlocknoteWithText(sf::String text, Sprite &&sprite) :
+    label{
+        text,
+        res::too_much_ink,
+        sf::Color::White,
+        40,
+        ui::OriginState::left_up
+    },
+    sprite{sprite}
+{
 }

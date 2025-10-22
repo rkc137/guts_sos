@@ -70,11 +70,11 @@ void Telegraph::resize()
     input_label.set_char_size(ws.y / 10);
     output_label.set_char_size(ws.y / 10);
     input_label.setPosition({
-        ws.x / 2.f,
+        ws.x / 4.f * 3.f,
         ws.y / 2.f
     });
     output_label.setPosition({
-        ws.x / 2.f,
+        ws.x / 4.f * 3.f,
         ws.y / 2.f + input_label.get_char_size() * 1.5f
     });
 }
