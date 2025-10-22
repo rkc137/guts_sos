@@ -21,9 +21,11 @@ class BaseWidget : public sf::Drawable, public sf::Transformable, public WWT
 {
 public:
     virtual ~BaseWidget() = default;
-    virtual void update(unused double delta_time) {};
     virtual sf::FloatRect get_global_bounds() const = 0;  
-    
+    virtual void update(unused double delta_time) {};
+    [[nodiscard]] virtual OriginState get_origin_state() const { return origin_state; }
+    virtual void set_origin_state(OriginState state) { origin_state = state; }
+
 protected:
     OriginState origin_state = OriginState::center;
     bool is_in_focus = false;

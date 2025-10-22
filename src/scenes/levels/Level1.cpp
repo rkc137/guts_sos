@@ -16,14 +16,13 @@ void Level1::resize()
     troop.resize();
     shaker.resize();
     telegraph.resize();
-    blocknote_tutorial.setPosition({0, wsize.y});
     blocknote_tutorial.resize();
-    blocknote_morse.setPosition({0, wsize.y});
     blocknote_morse.resize();
-
-    auto [posmi, sizemi] = blocknote_mission.get_global_bounds();
-    blocknote_mission.setPosition({wsize.x, sizemi.y - sizemi.y * 1.5f});
     blocknote_mission.resize();
+    
+    blocknote_tutorial.setPosition({0, wsize.y});
+    blocknote_morse.setPosition({0, wsize.y});
+    blocknote_mission.setPosition({wsize.x, 0});
 }
 
 void Level1::update(unused double delta_time)
@@ -107,7 +106,7 @@ void Level1::update(unused double delta_time)
                 // wsize.x, -size.y
                 blocknote_mission.setPosition({
                     wsize.x,
-                    ease_out_cubic(elapsed_time / blocknote_appear_time) * size.y - size.y * 1.5f
+                    ease_out_cubic(elapsed_time / blocknote_appear_time) * size.y - size.y
                 });
             }
         }
@@ -146,17 +145,26 @@ void Level1::BlocknoteWithText::resize()
     auto wsize = get_wsize<float>();
     auto bsize = get_global_bounds().size;
     label.set_char_size(wsize.y / 21);
-    label.setPosition({bsize.x / 10, -bsize.y + bsize.y / 10});
+    switch(label.get_origin_state())
+    {
+    case ui::OriginState::left_down:
+        label.setPosition({bsize.x / 10, -bsize.y + bsize.y / 10});
+    break;
+    case ui::OriginState::left_up:
+        label.setPosition({bsize.x / 10, -bsize.y + bsize.y / 10});
+    break;
+    default:
+        throw std::runtime_error("not supported state");
+    }
 }
 
-Level1::BlocknoteWithText::BlocknoteWithText(sf::String text, Sprite &&sprite) :
+Level1::BlocknoteWithText::BlocknoteWithText(sf::String text, ui::OriginState text_state, Sprite &&sprite) :
     label{
         text,
         res::too_much_ink,
-        sf::Color::White,
-        40,
-        ui::OriginState::left_up
+        sf::Color::White
     },
     sprite{sprite}
 {
+    label.set_origin_state(text_state);
 }

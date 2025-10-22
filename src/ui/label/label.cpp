@@ -61,11 +61,6 @@ void Label::set_origin_state(OriginState state)
     update_origin();
 }
 
-ui::OriginState Label::get_origin_state() const
-{
-    return origin_state;
-}
-
 void Label::set_char_size(unsigned int ch_size)
 {
     text.setCharacterSize(ch_size);

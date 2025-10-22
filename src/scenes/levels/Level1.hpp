@@ -30,7 +30,7 @@ private:
     class BlocknoteWithText : public virtual ui::BaseWidget<>
     {
     public:
-        BlocknoteWithText(sf::String text, Sprite &&sprite);
+        BlocknoteWithText(sf::String text, ui::OriginState text_state, Sprite &&sprite);
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
         sf::FloatRect get_global_bounds() const override;
         void resize();
@@ -47,10 +47,12 @@ private:
         L"make a space. If you\n"
         L"make a mistake, make 8\n"
         L"dots to erase last\n" L"letter.",
+        ui::OriginState::left_up,
         {res::blocknote_blank, ui::OriginState::left_down}
     },
     blocknote_mission{
         L"try to send a SOS",
+        ui::OriginState::left_down,
         {res::blocknote_onside, ui::OriginState::right_up}
     };
 
