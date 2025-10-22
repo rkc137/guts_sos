@@ -147,11 +147,11 @@ void Level1::BlocknoteWithText::resize()
     label.set_char_size(wsize.y / 21);
     switch(label.get_origin_state())
     {
-    case ui::OriginState::left_down:
-        label.setPosition({bsize.x / 10, -bsize.y + bsize.y / 10});
-    break;
     case ui::OriginState::left_up:
         label.setPosition({bsize.x / 10, -bsize.y + bsize.y / 10});
+    break;
+    case ui::OriginState::left_down:
+        label.setPosition({(-bsize.x / 15) * 14, -(-bsize.y + bsize.y / 10)});
     break;
     default:
         throw std::runtime_error("not supported state");
