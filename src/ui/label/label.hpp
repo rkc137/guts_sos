@@ -42,6 +42,7 @@ public:
     
     bool with_splashes = false;
 private:
+    std::vector<sf::Sprite> splashes;
     sf::Text text;
 };
 

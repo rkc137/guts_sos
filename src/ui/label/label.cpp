@@ -24,8 +24,30 @@ Label::Label(sf::Text &&text, const sf::Color &color, OriginState state, bool sp
 
 void Label::set_string(sf::String &&str)
 {
+    auto length = str.getSize();
     text.setString(std::move(str));
     update_origin();
+    if(!with_splashes) return;
+    
+    auto b = get_global_bounds();
+    static auto random_float = [](float a, float b) -> float {
+        float random = ((float) rand()) / (float)RAND_MAX;
+        float diff = b - a;
+        float r = random * diff;
+        return a + r;
+    };
+    splashes.resize(length * 2, sf::Sprite{res::splash});
+    sf::Vector2f size{res::splash.frame_size};
+    for(auto &splash : splashes)
+    {
+        splash.setOrigin(size / 2.f);
+        splash.setScale(res::get_adaptive_scale(get_wsize<float>(), size));
+        splash.setRotation(sf::degrees(rand() % 360));
+        splash.setPosition({
+            random_float(0, b.size.x) - (b.size.x / 2),
+            random_float(0, b.size.y) - (b.size.y / 2)
+        });
+    }
 }
 
 sf::String Label::get_string() const
@@ -120,32 +142,10 @@ void Label::update_origin()
 
 void Label::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    static auto random_float = [](float a, float b) -> float {
-        float random = ((float) rand()) / (float)RAND_MAX;
-        float diff = b - a;
-        float r = random * diff;
-        return a + r;
-    };
-
     states.transform *= getTransform();
     if(with_splashes)
-    {
-        int length = get_string().getSize();
-        auto b = get_global_bounds();
-        for(int i = 0; i < length  * 2; i++)
-        {
-            sf::Sprite splash{res::splash};
-            sf::Vector2f size{res::splash.frame_size};
-            splash.setOrigin(size / 2.f);
-            splash.setScale(res::get_adaptive_scale(get_wsize<float>(), size));
-            splash.setRotation(sf::degrees(rand() % 360));
-            splash.setPosition({
-                random_float(0, b.size.x) - (b.size.x / 2),
-                random_float(0, b.size.y) - (b.size.y / 2)
-            });
+        for(auto &splash : splashes)
             target.draw(splash, states);
-        }
-    }
     target.draw(text, states);
 }
 
