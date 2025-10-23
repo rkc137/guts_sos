@@ -15,7 +15,7 @@ public:
     void resize() override;
     void update(double delta_time) override;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-    bool is_end_of_speech() const;
+    no_discard bool is_end_of_speech() const;
 private:
     bool is_end = false;
     sf::Sprite sprite;

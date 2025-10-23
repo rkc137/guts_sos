@@ -10,6 +10,7 @@
 #endif
 
 #define unused [[maybe_unused]]
+#define no_discard [[nodiscard]]
 
 template <typename T>
 constexpr sf::Vector2<T> operator/(sf::Vector2<T> a, sf::Vector2<T> b) noexcept

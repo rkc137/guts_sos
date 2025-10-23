@@ -4,6 +4,8 @@
 
 #include <vector>
 
+#include "../Utils.hpp"
+
 class PausebleClock
 {
 public:
@@ -12,7 +14,7 @@ public:
     void pause();
     void resume();
     void restart();
-    sf::Time getElapsedTime() const;
+    no_discard sf::Time get_elapsed_time() const;
 
 private:
     sf::Clock clock;

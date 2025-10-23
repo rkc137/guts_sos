@@ -22,7 +22,7 @@ public:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     void let_go(std::function<void()> on_end);
     void start_clock();
-    bool is_done();
+    no_discard bool is_done();
 private:
     enum class States 
     {

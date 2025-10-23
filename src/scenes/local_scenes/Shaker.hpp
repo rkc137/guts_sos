@@ -9,7 +9,7 @@ public:
     void resize() override;
     void update(unused double delta_time) override;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-    bool is_done();
+    no_discard bool is_done();
 private:
     sf::Time shake_time;
     const float in_power;

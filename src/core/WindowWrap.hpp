@@ -21,7 +21,7 @@ protected:
     static sf::RenderWindow& get_window();
     template <typename T = unsigned int>
     requires (std::is_arithmetic_v<T>)
-    static sf::Vector2<T> get_wsize()
+    no_discard static sf::Vector2<T> get_wsize()
     {
         return static_cast<sf::Vector2<T>>(get_window().getSize());
     }

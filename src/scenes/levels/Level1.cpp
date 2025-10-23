@@ -70,7 +70,7 @@ void Level1::update(unused double delta_time)
     case 3:
     {    
         telegraph.update(delta_time);
-        auto elapsed_time = blocknote_appear_clock.getElapsedTime();
+        auto elapsed_time = blocknote_appear_clock.get_elapsed_time();
         if(elapsed_time > tutorial_time + blocknote_appear_time + blocknote_appear_time)
         {
             draws = { blocknote_morse, blocknote_mission, telegraph };

@@ -32,7 +32,7 @@ public:
     
     /// @brief gets front scene of manager that currently (should be) running
     /// @return shared_ptr on current scene
-    static sc_shptr get_current();
+    no_discard static sc_shptr get_current();
 private:
     /// @brief queue that manage all scenes of manager
     inline static sc_shptr current_scene;

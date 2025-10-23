@@ -10,8 +10,8 @@ class BaseStampLabel : public Label
 public:
     void reset_text(sf::String str);
     void update(double delta_time) override = 0;
-    bool is_done() const;
-    sf::Time last_stamp() const;
+    no_discard bool is_done() const;
+    no_discard sf::Time last_stamp() const;
 protected:
     BaseStampLabel(
         Label&& label,
