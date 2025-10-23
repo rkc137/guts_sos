@@ -48,7 +48,10 @@ void Telegraph::update(unused double delta_time)
         if(auto it = res::morse_codes.find(letter_bits); it != res::morse_codes.end())
         {
             if(auto letr = it->second; letr != '\b')
+            {
                 output_label.append_string({letr});
+                is_mission_done = output_label.get_string() == mission_text;
+            }
             else if(!output_label.empty())
                 output_label.erase(output_label.get_string().getSize() - 1);
         }
@@ -83,6 +86,11 @@ void Telegraph::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
     target.draw(output_label, states);
     target.draw(input_label, states);
+}
+
+no_discard bool Telegraph::misson_done() const
+{
+    return is_mission_done;
 }
 
 

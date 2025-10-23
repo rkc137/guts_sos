@@ -73,6 +73,7 @@ void Level1::update(unused double delta_time)
         auto elapsed_time = blocknote_appear_clock.get_elapsed_time();
         if(elapsed_time > tutorial_time + blocknote_appear_time + blocknote_appear_time)
         {
+            telegraph.mission_text = mission_text;
             draws = { blocknote_morse, blocknote_mission, telegraph };
             state++;
         }
@@ -114,6 +115,11 @@ void Level1::update(unused double delta_time)
     break;
     case 4:
         telegraph.update(delta_time);
+        if(telegraph.misson_done())
+        {
+            state++;
+            draws = { commander };
+        }
     break;
     default:
     break;

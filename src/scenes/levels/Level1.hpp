@@ -26,6 +26,7 @@ private:
         // L"Sir, it's time for us to retreat", L"They will soon surround us"}};
     Character commander{res::commander, ui::OriginState::left_down, { "fr"}};
         // L"No, we're not backing down", L"artiller support is still with us", L"Commo, check the telegraph!"}};
+    sf::String mission_text = "SOS";
     Sprite blocknote_morse{res::blocknote_morse, ui::OriginState::left_down};
     class BlocknoteWithText : public virtual ui::BaseWidget<>
     {
@@ -51,7 +52,7 @@ private:
         {res::blocknote_blank, ui::OriginState::left_down}
     },
     blocknote_mission{
-        L"try to send a SOS",
+        L"try to send a " + mission_text,
         ui::OriginState::left_down,
         {res::blocknote_onside, ui::OriginState::right_up}
     };
