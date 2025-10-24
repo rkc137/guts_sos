@@ -27,9 +27,6 @@ void Level1::resize()
 
 void Level1::update(unused double delta_time)
 {
-    static auto ease_out_cubic = [](float x /*0...1*/) -> float /*0...1*/ {
-        return 1 - std::pow(1 - x, 3);
-    };
     auto wsize = get_wsize<float>();
     background.update(delta_time);
     switch(state)
@@ -71,6 +68,9 @@ void Level1::update(unused double delta_time)
     {    
         telegraph.update(delta_time);
         auto elapsed_time = blocknote_appear_clock.get_elapsed_time();
+        auto blocknote_animation = [&](std::pair<float, float> range){
+            return anim::interpolate<anim::ease_out_cubic>(range, elapsed_time, blocknote_appear_time);
+        };
         if(elapsed_time > tutorial_time + blocknote_appear_time + blocknote_appear_time)
         {
             telegraph.mission_text = mission_text;
@@ -81,35 +81,25 @@ void Level1::update(unused double delta_time)
         {
             auto [pos, size] = blocknote_tutorial.get_global_bounds();
             blocknote_tutorial.setPosition({
-                ease_out_cubic(elapsed_time / blocknote_appear_time) * size.x - size.x,
-                get_wsize<float>().y
+                blocknote_animation({-size.x, 0}),
+                wsize.y
             });
         }
         else if(elapsed_time > blocknote_appear_time + tutorial_time)
         {
             elapsed_time -= blocknote_appear_time + tutorial_time;
-            {
-                auto [pos, size] = blocknote_morse.get_global_bounds();
-                blocknote_morse.setPosition({
-                    ease_out_cubic(elapsed_time / blocknote_appear_time) * size.x - size.x,
-                    get_wsize<float>().y
-                });
-            }
-            {
-                auto [pos, size] = blocknote_tutorial.get_global_bounds();
-                blocknote_tutorial.setPosition({
-                    -ease_out_cubic(elapsed_time / blocknote_appear_time) * size.x,
-                    get_wsize<float>().y
-                });
-            }
-            {
-                auto [pos, size] = blocknote_mission.get_global_bounds();
-                // wsize.x, -size.y
-                blocknote_mission.setPosition({
-                    wsize.x,
-                    ease_out_cubic(elapsed_time / blocknote_appear_time) * size.y - size.y
-                });
-            }
+            blocknote_morse.setPosition({
+                blocknote_animation({-blocknote_morse.get_global_bounds().size.x, 0}),
+                wsize.y
+            });
+            blocknote_tutorial.setPosition({
+                blocknote_animation({0, -blocknote_tutorial.get_global_bounds().size.x}),
+                wsize.y
+            });
+            blocknote_mission.setPosition({
+                wsize.x,
+                blocknote_animation({-blocknote_mission.get_global_bounds().size.y, 0})
+            });
         }
     }
     break;

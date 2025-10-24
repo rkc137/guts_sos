@@ -1,9 +1,10 @@
 #pragma once
 
+#include "../../core/pauseble_clock/PausebleClock.hpp"
+#include "../../core/Animation.hpp"
 #include "../../res/res.hpp"
 #include "../../ui/sprite/Sprite.hpp"
 #include "../../ui/label/label.hpp"
-#include "../../core/pauseble_clock/PausebleClock.hpp"
 #include "../SceneManager.hpp"
 #include "../local_scenes/Telegraph.hpp"
 #include "../local_scenes/BasementBackground.hpp"
