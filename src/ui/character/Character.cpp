@@ -1,5 +1,8 @@
 #include "Character.hpp"
 
+namespace ui
+{
+
 Character::Character(
     res::Texture &texture,
     ui::OriginState origin_state,
@@ -78,4 +81,11 @@ void Character::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     target.draw(sprite, states);
     target.draw(label, states);
+}
+
+sf::FloatRect Character::get_global_bounds() const
+{
+    return sprite.getGlobalBounds();
+}
+
 }

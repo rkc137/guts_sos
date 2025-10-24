@@ -43,12 +43,12 @@ add_executable(sos
     src/ui/Buttons/BaseButton.cpp
     src/ui/Buttons/LabelButton.cpp
     src/ui/sprite/Sprite.cpp
+    src/ui/character/Character.cpp
     src/scenes/local_scenes/Telegraph.cpp
     src/scenes/local_scenes/BasementBackground.cpp
     src/scenes/local_scenes/Shaker.cpp
     # src/scenes/SceneManager.cpp
     src/scenes/local_scenes/Curtain.cpp
-    src/scenes/local_scenes/characters/Character.cpp
     src/scenes/Opening.cpp
     src/scenes/MainMenu.cpp
     src/scenes/Intro.cpp

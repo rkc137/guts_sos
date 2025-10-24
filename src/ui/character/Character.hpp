@@ -1,10 +1,13 @@
 #pragma once
 
-#include "../../SceneManager.hpp"
-#include "../../../res/res.hpp"
-#include "../../../ui/label/StampLabel.hpp"
+#include "../widget.hpp"
+#include "../../res/res.hpp"
+#include "../label/StampLabel.hpp"
 
-class Character : public SceneManager::Scene
+namespace ui
+{
+
+class Character : public BaseWidget<>
 {
 public:
     Character(res::Texture &texture,
@@ -12,9 +15,10 @@ public:
               std::vector<sf::String> phrases = {L"default phrase"},
               sf::Time pause_after_talk = sf::seconds(2));
     void set_pheases(std::vector<sf::String>&& new_phrases);
-    void resize() override;
+    void resize();
     void update(double delta_time) override;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+    no_discard sf::FloatRect get_global_bounds() const override;  
     no_discard bool is_end_of_speech() const;
 private:
     bool is_end = false;
@@ -25,3 +29,5 @@ private:
     ui::StampLabelMusic label;
     sf::Time pause_after_talk;
 };
+
+} // ui

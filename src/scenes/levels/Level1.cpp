@@ -7,7 +7,6 @@ Level1::Level1()
     res::distance_battle.play();
 }
 
-
 void Level1::resize()
 {
     auto wsize = get_wsize<float>();

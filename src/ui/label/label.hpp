@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "../../res/res.hpp"
-#include "../widget/widget.hpp"
+#include "../widget.hpp"
 
 namespace ui
 {

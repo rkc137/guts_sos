@@ -2,7 +2,7 @@
 
 #include <functional>
 
-#include "../widget/widget.hpp"
+#include "../widget.hpp"
 
 namespace ui
 {

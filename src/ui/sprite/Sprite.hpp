@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../widget/widget.hpp"
+#include "../widget.hpp"
 #include "../../res/res.hpp"
 
 class Sprite : public virtual ui::BaseWidget<>

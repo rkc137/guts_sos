@@ -5,11 +5,11 @@
 #include "../../res/res.hpp"
 #include "../../ui/sprite/Sprite.hpp"
 #include "../../ui/label/label.hpp"
+#include "../../ui/character/Character.hpp"
 #include "../SceneManager.hpp"
 #include "../local_scenes/Telegraph.hpp"
 #include "../local_scenes/BasementBackground.hpp"
 #include "../local_scenes/Shaker.hpp"
-#include "../local_scenes/characters/Character.hpp"
 
 class Level1 : public SceneManager::Scene
 {
@@ -23,9 +23,9 @@ private:
     std::vector<std::reference_wrapper<sf::Drawable>> draws;
     sf::Sound incoming{res::incoming};
     Shaker shaker{sf::seconds(2.4), 80};
-    Character troop{res::troop, ui::OriginState::right_down, { "f"}};
+    ui::Character troop{res::troop, ui::OriginState::right_down, { "f"}};
         // L"Sir, it's time for us to retreat", L"They will soon surround us"}};
-    Character commander{res::commander, ui::OriginState::left_down, { "fr"}};
+    ui::Character commander{res::commander, ui::OriginState::left_down, { "fr"}};
         // L"No, we're not backing down", L"artiller support is still with us", L"Commo, check the telegraph!"}};
     sf::String mission_text = "SOS";
     Sprite blocknote_morse{res::blocknote_morse, ui::OriginState::left_down};
