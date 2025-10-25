@@ -23,10 +23,10 @@ private:
     std::vector<std::reference_wrapper<sf::Drawable>> draws;
     sf::Sound incoming{res::incoming};
     Shaker shaker{sf::seconds(2.4), 80};
-    ui::Character troop{res::troop, ui::OriginState::right_down, { "f"}};
-        // L"Sir, it's time for us to retreat", L"They will soon surround us"}};
-    ui::Character commander{res::commander, ui::OriginState::left_down, { "fr"}};
-        // L"No, we're not backing down", L"artiller support is still with us", L"Commo, check the telegraph!"}};
+    ui::Character troop{res::troop, ui::OriginState::right_down, { //"f"}};
+        L"Sir, it's time for us to retreat", L"They will soon surround us"}};
+    ui::Character commander{res::commander, ui::OriginState::left_down, { //"fr"}};
+        L"No, we're not backing down", L"artiller support is still with us", L"Commo, check the telegraph!"}};
     sf::String mission_text = "SOS";
     Sprite blocknote_morse{res::blocknote_morse, ui::OriginState::left_down};
     class BlocknoteWithText : public virtual ui::BaseWidget<>
@@ -58,7 +58,7 @@ private:
         {res::blocknote_onside, ui::OriginState::right_up}
     };
 
-    PausebleClock blocknote_appear_clock;
+    PausebleClock animation_clock;
     const sf::Time blocknote_appear_time = sf::seconds(1.5);
     const sf::Time tutorial_time = sf::seconds(1);
     BasementBackground background;

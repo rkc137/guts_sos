@@ -7,10 +7,11 @@ Character::Character(
     res::Texture &texture,
     ui::OriginState origin_state,
     std::vector<sf::String> phrases,
-    sf::Time pause_after_talk) 
-    : sprite(texture),
-      origin_state(origin_state),
+    sf::Time pause_after_talk,
+    sf::Time appear_time) 
+    : origin_state(origin_state),
       phrases(phrases),
+      pause_after_talk(pause_after_talk),
       label{
         ui::Label{
             L"", res::too_much_ink,
@@ -20,16 +21,10 @@ Character::Character(
         res::voice,
         sf::seconds(0.08)
       },
-      pause_after_talk(pause_after_talk)
+      sprite(texture, origin_state),
+      appear_time(appear_time)
 {
     label.with_splashes = true;
-    using ui::OriginState;
-    if(origin_state == OriginState::left_down)
-        sprite.setOrigin({0, static_cast<float>(texture.getSize().y)});
-    else if(origin_state == OriginState::right_down)
-        sprite.setOrigin(static_cast<sf::Vector2f>(texture.getSize()));
-    else 
-        throw std::runtime_error("bad origin state for character");
 }
 
 void Character::set_pheases(std::vector<sf::String> &&new_phrases)
@@ -41,51 +36,79 @@ void Character::set_pheases(std::vector<sf::String> &&new_phrases)
 void Character::resize()
 {
     const auto wsize = get_wsize<float>();
-    const auto scale = res::get_scale(wsize);
 
     label.set_char_size(wsize.y / 20);
     label.setPosition(wsize / 2);
-
-    using ui::OriginState;
-    if(origin_state == OriginState::left_down)
-        sprite.setPosition({0, wsize.y}); 
-    else if(origin_state == OriginState::right_down)
-        sprite.setPosition(wsize);
-    else 
-        throw std::runtime_error("bad origin state for character");
-    sprite.setScale(scale);
+    sprite.resize();
 }
 
 bool Character::is_end_of_speech() const
 {
-    return is_end;
+    return is_end && animation_clock.get_elapsed_time() >= appear_time;
 }
 
 void Character::update(double delta_time)
 {
-    if(is_end)
+    const auto wsize = get_wsize<float>();
+    const auto sizex = get_global_bounds().size.x;
+    auto anim_poses = [&]() -> std::pair<float, float> {
+        switch (origin_state)
+        {
+        case ui::OriginState::left_down:
+            return {-sizex, 0};
+        case ui::OriginState::right_down:
+            return {wsize.x + sizex, wsize.x};
+        default:
+            throw std::runtime_error("bad origin state");
+        }
+    }();
+
+    if(!is_appear)
+    {
+        setPosition({
+            anim::interpolate<anim::ease_out_cubic>(
+                anim_poses,
+                animation_clock.get_elapsed_time(), appear_time),
+            wsize.y
+        });
+        is_appear = animation_clock.get_elapsed_time() >= appear_time;
+    }
+    else if(is_end)
+    {
+        setPosition({
+            anim::interpolate<anim::ease_out_cubic>(
+                {anim_poses.second, anim_poses.first},
+                animation_clock.get_elapsed_time(), appear_time),
+            wsize.y
+        });
         return;
-    
+    }
+
     label.update(delta_time);
     
     if(label.is_done() && label.last_stamp() >= pause_after_talk)
     {
         is_end = ++phrases_iter >= phrases.size();
         if(is_end)
-            return;
-        label.reset_text(phrases[phrases_iter]);
+            animation_clock.restart();
+        else
+            label.reset_text(phrases[phrases_iter]);
     }    
 }
 
 void Character::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+    auto transform = states.transform;
+    states.transform *= getTransform();
     target.draw(sprite, states);
-    target.draw(label, states);
+    states.transform = transform;
+    if(!is_end)
+        target.draw(label, states);
 }
 
 sf::FloatRect Character::get_global_bounds() const
 {
-    return sprite.getGlobalBounds();
+    return sprite.get_global_bounds();
 }
 
 }

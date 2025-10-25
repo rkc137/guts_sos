@@ -27,6 +27,7 @@ void Level1::resize()
 void Level1::update(unused double delta_time)
 {
     auto wsize = get_wsize<float>();
+    auto elapsed_time = animation_clock.get_elapsed_time();
     background.update(delta_time);
     switch(state)
     {
@@ -36,6 +37,7 @@ void Level1::update(unused double delta_time)
         {
             state++;
             draws = { troop };
+            troop.animation_clock.restart();
         }
     break;
     case 1:
@@ -44,9 +46,19 @@ void Level1::update(unused double delta_time)
         {
             state++;
             draws = { commander };
+            commander.animation_clock.restart();
         }
     break;
     case 2:
+        commander.update(delta_time);
+        if(commander.is_end_of_speech())
+        {
+            state++;
+            draws = { commander };
+            animation_clock.restart();
+        }
+    break;
+    case 3:
         commander.update(delta_time);
         if(commander.is_end_of_speech())
         {
@@ -60,13 +72,12 @@ void Level1::update(unused double delta_time)
             blocknote_morse.setPosition({-sizem.x, wsize.y});
             blocknote_mission.setPosition({wsize.x, -sizemi.y});
             
-            blocknote_appear_clock.start();
+            animation_clock.restart();
         }
     break;
-    case 3:
+    case 4:
     {    
         telegraph.update(delta_time);
-        auto elapsed_time = blocknote_appear_clock.get_elapsed_time();
         auto blocknote_animation = [&](std::pair<float, float> range){
             return anim::interpolate<anim::ease_out_cubic>(range, elapsed_time, blocknote_appear_time);
         };
@@ -78,9 +89,8 @@ void Level1::update(unused double delta_time)
         }
         else if(elapsed_time < blocknote_appear_time)
         {
-            auto [pos, size] = blocknote_tutorial.get_global_bounds();
             blocknote_tutorial.setPosition({
-                blocknote_animation({-size.x, 0}),
+                blocknote_animation({-blocknote_tutorial.get_global_bounds().size.x, 0}),
                 wsize.y
             });
         }
@@ -102,7 +112,7 @@ void Level1::update(unused double delta_time)
         }
     }
     break;
-    case 4:
+    case 5:
         telegraph.update(delta_time);
         if(telegraph.misson_done())
         {
