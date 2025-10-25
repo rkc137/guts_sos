@@ -40,6 +40,21 @@ void Character::resize()
     label.set_char_size(wsize.y / 20);
     label.setPosition(wsize / 2);
     sprite.resize();
+
+    const auto sizex = get_global_bounds().size.x;
+    switch (origin_state)
+    {
+    case ui::OriginState::left_down:
+        setPosition({0, wsize.y});
+        anim_poses = {-sizex, 0};
+    break;
+    case ui::OriginState::right_down:
+        setPosition(wsize);
+        anim_poses = {wsize.x + sizex, wsize.x};
+    break;
+    default:
+        throw std::runtime_error("bad origin state");
+    }
 }
 
 bool Character::is_end_of_speech() const
@@ -50,18 +65,6 @@ bool Character::is_end_of_speech() const
 void Character::update(double delta_time)
 {
     const auto wsize = get_wsize<float>();
-    const auto sizex = get_global_bounds().size.x;
-    auto anim_poses = [&]() -> std::pair<float, float> {
-        switch (origin_state)
-        {
-        case ui::OriginState::left_down:
-            return {-sizex, 0};
-        case ui::OriginState::right_down:
-            return {wsize.x + sizex, wsize.x};
-        default:
-            throw std::runtime_error("bad origin state");
-        }
-    }();
 
     if(!is_appear)
     {

@@ -36,6 +36,7 @@ private:
     StampLabelMusic label;
     Sprite sprite;
     sf::Time appear_time;
+    std::pair<float, float> anim_poses;
 };
 
 } // ui
