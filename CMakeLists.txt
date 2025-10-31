@@ -6,15 +6,10 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -Wall -Wextra")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2")
 
-if(CMAKE_BUILD_TYPE STREQUAL "Release")
-    target_compile_definitions(sos PRIVATE SFML_STATIC)
-    target_link_options(sos PRIVATE -mwindows -static)
-endif()
-
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
 include(FetchContent)
-set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
+set(FETCHCONTENT_UPDATES_DISCONNECTED OFF)
 if(DEFINED ENV{CMAKE_LIBS_DIR})
     set(FETCHCONTENT_BASE_DIR "$ENV{CMAKE_LIBS_DIR}")
 endif()
@@ -60,3 +55,8 @@ add_executable(sos
 )
 target_link_libraries(sos PRIVATE SFML::Graphics SFML::Audio)
 target_compile_features(sos PRIVATE cxx_std_17)
+
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    target_compile_definitions(sos PRIVATE SFML_STATIC)
+    target_link_options(sos PRIVATE -mwindows -static)
+endif()
