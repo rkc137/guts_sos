@@ -36,6 +36,14 @@ void BaseStampLabel::calc_is_done()
     done = stamp_iter == stamp_text.getSize();
 }
 
+void BaseStampLabel::base_reset(sf::String string)
+{
+    stamp_text = string;
+    done = false;
+    stamp_iter = 0;
+    reset_sound();
+}
+
 StampLabelSound::StampLabelSound(
     Label && label,
     sf::String text, 

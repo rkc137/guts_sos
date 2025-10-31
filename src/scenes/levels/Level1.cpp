@@ -33,32 +33,21 @@ void Level1::update(unused double delta_time)
     {
     case 0:
         shaker.update(delta_time);
-        if(shaker.is_done())
-        {
-            state++;
-            draws = { troop };
-            troop.animation_clock.restart();
-        }
-    break;
+        if(!shaker.is_done())
+            break;
+        draws = { troop };
+        troop.animation_clock.restart();
+        state++;
+    [[fallthrough]];
     case 1:
         troop.update(delta_time);
-        if(troop.is_end_of_speech())
-        {
-            state++;
-            draws = { commander };
-            commander.animation_clock.restart();
-        }
-    break;
+        if(!troop.is_end_of_speech())
+            break;
+        draws = { commander };
+        commander.animation_clock.restart();
+        state++;
+    [[fallthrough]];
     case 2:
-        commander.update(delta_time);
-        if(commander.is_end_of_speech())
-        {
-            state++;
-            draws = { commander };
-            animation_clock.restart();
-        }
-    break;
-    case 3:
         commander.update(delta_time);
         if(commander.is_end_of_speech())
         {
@@ -75,7 +64,7 @@ void Level1::update(unused double delta_time)
             animation_clock.restart();
         }
     break;
-    case 4:
+    case 3:
     {    
         telegraph.update(delta_time);
         auto blocknote_animation = [&](std::pair<float, float> range){
@@ -112,13 +101,33 @@ void Level1::update(unused double delta_time)
         }
     }
     break;
-    case 5:
+    case 4:
         telegraph.update(delta_time);
         if(telegraph.misson_done())
         {
             state++;
             draws = { commander };
+            commander.restart_with_phrases({
+                "all right, now send coordinates of these bastards, to our guys!"
+            });
+            mission_text = "E67F50";
+            telegraph.mission_text = mission_text;
+            blocknote_mission.label.set_string(mission_text);
         }
+    break;
+    case 5:
+        commander.update(delta_time);
+        if(commander.is_end_of_speech())
+        {
+            state++;
+            draws = { blocknote_mission, telegraph, blocknote_morse };
+            animation_clock.restart();
+        }
+    break;
+    case 6:
+        telegraph.update(delta_time);
+        if(telegraph.misson_done())
+        {}
     break;
     default:
     break;

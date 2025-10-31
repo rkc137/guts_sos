@@ -18,6 +18,7 @@ protected:
         sf::String text,
         sf::Time letter_time
     );
+    void base_reset(sf::String string);
     virtual void reset_sound() = 0;
     void calc_is_done();
     bool done = false;

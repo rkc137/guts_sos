@@ -6,6 +6,7 @@
 #include "../../res/res.hpp"
 #include "../../core/pauseble_clock/PausebleClock.hpp"
 #include "../../core/Animation.hpp"
+#include "../../core/logger/Logger.hpp"
 
 namespace ui
 {
@@ -18,7 +19,7 @@ public:
               std::vector<sf::String> phrases = {L"default phrase"},
               sf::Time pause_after_talk = sf::seconds(2),
               sf::Time appear_time = sf::seconds(0.7));
-    void set_pheases(std::vector<sf::String>&& new_phrases);
+    void restart_with_phrases(std::vector<sf::String>&& new_phrases);
     void resize();
     void update(double delta_time) override;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -27,10 +28,10 @@ public:
     PausebleClock animation_clock;
 
 private:
-    bool is_end = false;
-    bool is_appear = false;
+    bool is_end;
+    bool is_appear;
     OriginState origin_state;
-    std::size_t phrases_iter = 0;
+    std::size_t phrases_iter;
     std::vector<sf::String> phrases;
     sf::Time pause_after_talk;
     StampLabelMusic label;

@@ -29,6 +29,7 @@ private:
         L"No, we're not backing down", L"artiller support is still with us", L"Commo, check the telegraph!"}};
     sf::String mission_text = "SOS";
     Sprite blocknote_morse{res::blocknote_morse, ui::OriginState::left_down};
+
     class BlocknoteWithText : public virtual ui::BaseWidget<>
     {
     public:
@@ -36,6 +37,8 @@ private:
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
         sf::FloatRect get_global_bounds() const override;
         void resize();
+    
+        // TODO: make text fit in bounds
         ui::Label label;
         Sprite sprite;
     }

@@ -25,12 +25,17 @@ Character::Character(
       appear_time(appear_time)
 {
     label.with_splashes = true;
+    restart_with_phrases(std::move(phrases));
 }
 
-void Character::set_pheases(std::vector<sf::String> &&new_phrases)
+void Character::restart_with_phrases(std::vector<sf::String> &&new_phrases)
 {
     phrases = std::move(new_phrases);
     phrases_iter = 0;
+    is_end = false;
+    is_appear = false;
+    label.reset_text(phrases.front());
+    animation_clock.restart();
 }
 
 void Character::resize()
