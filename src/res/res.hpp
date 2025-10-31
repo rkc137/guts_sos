@@ -15,9 +15,9 @@ class res
 private:
     using fspath = std::filesystem::path;
 #ifndef NDEBUG
-    inlstc const fspath res_path = "D:/projects/S.O.S/res/";
-#elif
     inlstc const fspath res_path = "../res/";
+#elif
+    inlstc const fspath res_path = "./res/";
 #endif
     struct TextureMetaInfo
     {
