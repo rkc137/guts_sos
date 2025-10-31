@@ -50,6 +50,12 @@ void Label::set_string(sf::String &&str)
     }
 }
 
+void Label::set_string(const sf::String &str)
+{
+    auto s = str;
+    set_string(std::move(s));
+}
+
 sf::String Label::get_string() const
 {
     return text.getString();
