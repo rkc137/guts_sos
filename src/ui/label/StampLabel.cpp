@@ -108,7 +108,7 @@ void StampLabelMusic::update(unused double delta_time)
     else if(first_on_end)
     {
         first_on_end = false;
-        voice.stop();
+        voice.pause();
     }
 }
 
