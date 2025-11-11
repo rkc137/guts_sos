@@ -6,6 +6,12 @@
 namespace std
 {
 
+inline ostream& operator<<(ostream& os, const sf::String& str)
+{
+    os << str.toAnsiString();
+    return os;
+}
+
 template <typename T>
 ostream& operator<<(ostream &os, sf::Vector2<T> vec)
 {

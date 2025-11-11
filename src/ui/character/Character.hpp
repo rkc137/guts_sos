@@ -17,7 +17,7 @@ public:
     Character(res::Texture &texture,
               ui::OriginState origin_state = ui::OriginState::left_down,
               std::vector<sf::String> phrases = {L"default phrase"},
-              sf::Time pause_after_talk = sf::seconds(2),
+              sf::Time pause_after_talk = sf::seconds(0.7),
               sf::Time appear_time = sf::seconds(0.7));
     void restart_with_phrases(std::vector<sf::String>&& new_phrases);
     void resize();

@@ -2,6 +2,7 @@
 
 #include "../../core/pauseble_clock/PausebleClock.hpp"
 #include "../../core/Animation.hpp"
+#include "../../core/LocalizedText.hpp"
 #include "../../res/res.hpp"
 #include "../../ui/sprite/Sprite.hpp"
 #include "../../ui/label/label.hpp"
@@ -23,10 +24,8 @@ private:
     std::vector<std::reference_wrapper<sf::Drawable>> draws;
     sf::Sound incoming{res::incoming};
     Shaker shaker{sf::seconds(2.4), 80};
-    ui::Character troop{res::troop, ui::OriginState::right_down, { //"f"}};
-        L"Sir, it's time for us to retreat", L"They will soon surround us"}};
-    ui::Character commander{res::commander, ui::OriginState::left_down, { //"fr"}};
-        L"No, we're not backing down", L"artiller support is still with us", L"Commo, check the telegraph!"}};
+    ui::Character troop{res::troop, ui::OriginState::right_down};
+    ui::Character commander{res::commander, ui::OriginState::left_down};
     sf::String mission_text = "SOS";
     Sprite blocknote_morse{res::blocknote_morse, ui::OriginState::left_down};
 

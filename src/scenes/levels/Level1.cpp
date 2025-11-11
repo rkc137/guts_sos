@@ -36,7 +36,9 @@ void Level1::update(unused double delta_time)
         if(!shaker.is_done())
             break;
         draws = { troop };
-        troop.animation_clock.restart();
+        troop.restart_with_phrases(LC::choose_vector({
+            {LC::Lang::eng, {L"Sir, it's time for us to retreat", L"They will soon surround us"}}
+        }));
         state++;
     [[fallthrough]];
     case 1:
@@ -44,7 +46,9 @@ void Level1::update(unused double delta_time)
         if(!troop.is_end_of_speech())
             break;
         draws = { commander };
-        commander.animation_clock.restart();
+        commander.restart_with_phrases(LC::choose_vector({
+            {LC::Lang::eng, {L"No, we're not backing down", L"artiller support is still with us", L"Commo, check the telegraph!"}}
+        }));
         state++;
     [[fallthrough]];
     case 2:
@@ -67,9 +71,12 @@ void Level1::update(unused double delta_time)
     case 3:
     {    
         telegraph.update(delta_time);
+                
+        // i need c++26 std::bind_back<Fn> sooo bad
         auto blocknote_animation = [&](std::pair<float, float> range){
             return anim::interpolate<anim::ease_out_cubic>(range, elapsed_time, blocknote_appear_time);
         };
+
         if(elapsed_time > tutorial_time + blocknote_appear_time + blocknote_appear_time)
         {
             telegraph.mission_text = mission_text;
@@ -108,7 +115,8 @@ void Level1::update(unused double delta_time)
             state++;
             draws = { commander };
             commander.restart_with_phrases({
-                "all right, now send coordinates of these bastards, to our guys!"
+                "now send coordinates of these bastards",
+                "our guys gonna give em some shake!"
             });
             mission_text = "E67F50";
             telegraph.mission_text = mission_text;

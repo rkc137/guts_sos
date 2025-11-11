@@ -90,7 +90,7 @@ private:
     };
 
     inlstc const std::vector<std::pair<sf::Font&, fspath>> fonts_load_list = {
-        {default_font, "fonts/dejavu-sans/DejaVuSans.ttf"},
+        {default_font, "fonts/CENTURY.TTF"},
         {cybersomething, "fonts/Cybersomething.ttf"},
         {too_much_ink, "fonts/TooMuchInk.ttf"}
     };
