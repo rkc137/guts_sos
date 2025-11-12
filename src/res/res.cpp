@@ -9,14 +9,7 @@ struct Setup
 
 void res::load()
 {
-    // Setup types
-    using SoundSetup = std::pair<sf::SoundBuffer&, fspath>;
-    using MusicSetup = std::pair<sf::Music&, fspath>;
-    using FontSetup = std::pair<sf::Font&, fspath>;
-    using TextureSetup = std::pair<sf::Texture&, fspath>;
-
-    // Resources declaration
-    const auto texture_load_list = std::to_array<TextureSetup>({
+    const auto texture_load_list = std::to_array<Setup<sf::Texture>>({
         {default_texture,   "place_holder.png"},
         {blocknote_blank,   "blocknote/blocknote_blank.png"},
         {blocknote_morse,   "blocknote/blocknote_alphabet.png"},
@@ -27,24 +20,23 @@ void res::load()
         {bunker,            "bunker/bunker.png"},
         {splash,            "splash/splash.png"}
     });
-    const auto sounds_load_list = std::to_array<SoundSetup>({
+    const auto sounds_load_list = std::to_array<Setup<sf::SoundBuffer>>({
         {morse_noise, "morse.wav"},
         {stamp, "stamp.wav"},
         {incoming, "explosion/incoming.wav"}
     });
-    const auto music_load_list = std::to_array<MusicSetup>({
+    const auto music_load_list = std::to_array<Setup<sf::Music>>({
         {distance_explosions, "explosion/distance_explosions.wav"},
         {carterattack, "explosion/carterattack.wav"},
         {distance_battle, "explosion/distance_battle.wav"},
         {voice, "faces/voice.wav"}
     });
-    const auto fonts_load_list = std::to_array<FontSetup>({
+    const auto fonts_load_list = std::to_array<Setup<sf::Font>>({
         {default_font,   "fonts/dejavu-sans/DejaVuSans.ttf"},
         {cybersomething, "fonts/Cybersomething.ttf"},
         {too_much_ink,   "fonts/TooMuchInk.ttf"}
     });
 
-    // Loading
     for(auto &[texture, path] : texture_load_list)
     {
         if(!texture.loadFromFile(res_path / path))
