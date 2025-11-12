@@ -10,7 +10,7 @@ public:
     {
         eng,
         rus
-    } current_language = Lang::rus;
+    } current_language = Lang::eng;
 
     using svector = std::vector<sf::String>;
     

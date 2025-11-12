@@ -25,11 +25,6 @@ public:
 #elif
     inlstc const fspath res_path = "./res/";
 #endif
-    struct TextureMetaInfo
-    {
-        sf::Vector2i frame_size;
-        std::vector<int> animations_lengths;
-    };
 
     //resolution that was used while making assets
     inlstc constexpr sf::Vector2f target_video_mode{1280, 720};
@@ -43,8 +38,7 @@ public:
         sf::Vector2f ratio = {1.f, 1.f}
     );
     
-    struct Texture : public sf::Texture, public TextureMetaInfo {};
-    inlstc Texture 
+    inlstc sf::Texture 
         default_texture, blocknote_blank, blocknote_morse, blocknote_onside,
         splash, bunker, troop, commander, light;
     inlstc sf::Font default_font, cybersomething, too_much_ink;

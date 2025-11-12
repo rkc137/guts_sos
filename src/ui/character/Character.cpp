@@ -4,7 +4,7 @@ namespace ui
 {
 
 Character::Character(
-    res::Texture &texture,
+    sf::Texture &texture,
     ui::OriginState origin_state,
     std::vector<sf::String> phrases,
     sf::Time pause_after_talk,

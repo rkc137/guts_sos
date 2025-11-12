@@ -37,7 +37,7 @@ void Label::set_string(sf::String &&str)
         return a + r;
     };
     splashes.resize(length * 2, sf::Sprite{res::splash});
-    sf::Vector2f size{res::splash.frame_size};
+    auto size = static_cast<sf::Vector2f>(res::splash.getSize());
     for(auto &splash : splashes)
     {
         splash.setOrigin(size / 2.f);
