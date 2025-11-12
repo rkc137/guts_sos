@@ -13,6 +13,12 @@
 class res
 {
 private:
+    inlstc bool loaded = false;
+
+public:
+    res() = delete;
+    static void load();
+
     using fspath = std::filesystem::path;
 #ifndef NDEBUG
     inlstc const fspath res_path = "../res/";
@@ -25,12 +31,7 @@ private:
         std::vector<int> animations_lengths;
     };
 
-public:
-
-    res() = delete;
-    static void load();
-
-    //resolution that was used for assets
+    //resolution that was used while making assets
     inlstc constexpr sf::Vector2f target_video_mode{1280, 720};
     inlstc constexpr bool is_smooth = true;
     static sf::Vector2f get_scale(sf::Vector2f wsize);
@@ -52,55 +53,6 @@ public:
     
     inlstc const sf::String app_name = "guts:s.o.s";
     inlstc bool is_loaded() { return loaded; }
-
-private:
-    inlstc bool loaded = false;
-
-    struct TextureSetup
-    {
-        TextureSetup(Texture &texture, fspath &&path, TextureMetaInfo &&info);
-        Texture &texture;
-        fspath path;
-        TextureMetaInfo info;
-    };
-
-    inlstc const std::vector<TextureSetup> texture_load_list = {
-        {default_texture,   "place_holder.png",            {{64, 64},   {1}}},
-        {blocknote_blank,   "blocknote/blocknote_blank.png",    {{514, 600}, {1}}},
-        {blocknote_morse,   "blocknote/blocknote_alphabet.png", {{514, 600}, {1}}},
-        {blocknote_onside,   "blocknote/blocknote_blank_onside.png", {{600, 257}, {1}}},
-        {troop,             "faces/troop.png",             {{512, 512}, {1}}},
-        {commander,         "faces/commander.png",         {{512, 512}, {1}}},
-        {light,             "bunker/light.png",            {{1920*2, 1080*2},   {1}}},
-        {bunker,            "bunker/bunker.png",           {{1920, 1080},   {1}}},
-        {splash,            "splash/splash.png",           {{128, 128}, {1}}}
-    };
-
-    inlstc const std::vector<std::pair<sf::SoundBuffer&, fspath>> sounds_load_list = {
-        {morse_noise, "morse.wav"},
-        {stamp, "stamp.wav"},
-        {incoming, "explosion/incoming.wav"}
-    };
-
-    inlstc const std::vector<std::pair<sf::Music&, fspath>> music_load_list = {
-        {distance_explosions, "explosion/distance_explosions.wav"},
-        {carterattack, "explosion/carterattack.wav"},
-        {distance_battle, "explosion/distance_battle.wav"},
-        {voice, "faces/voice.wav"}
-    };
-
-    inlstc const std::vector<std::pair<sf::Font&, fspath>> fonts_load_list = {
-        {default_font, "fonts/CENTURY.TTF"},
-        {cybersomething, "fonts/Cybersomething.ttf"},
-        {too_much_ink, "fonts/TooMuchInk.ttf"}
-    };
-
-public:
-    inlstc const std::array<sf::String, 3> intro_texts = {
-        L"we were driven into a corner",
-        L"the secret telegraph wire is all that remains",
-        L"they will be here soon..."
-    };
     
     //true is -
     inlstc const std::map<std::vector<bool>, char> morse_codes = {
