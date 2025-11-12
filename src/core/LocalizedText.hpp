@@ -12,15 +12,12 @@ public:
         rus
     } current_language = Lang::rus;
 
-
     using svector = std::vector<sf::String>;
-    
     
     class String
     {
     public:
         using text_map = std::map<Lang, sf::String>;
-
 
         explicit String(text_map &&text) : texts(text) {}
         explicit operator sf::String()
@@ -32,14 +29,9 @@ public:
         text_map texts;
     };
 
-    
-    static svector choose_vector(std::map<Lang, svector> &&map_strings)
+    static svector choose_vector(std::map<Lang, svector> &&map_strings) noexcept(false)
     {
-        try {
-            return map_strings.at(current_language);
-        } catch(std::exception *e) {
-            exit(0);
-        }
+        return map_strings.at(current_language);
     }
 };
 

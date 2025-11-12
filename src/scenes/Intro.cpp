@@ -2,9 +2,9 @@
 
 Intro::Intro()
 {
-    texts.reserve(res::intro_texts.size());
+    texts.reserve(intro_texts.size());
     res::carterattack.play();
-    for(auto str : res::intro_texts)
+    for(auto str : intro_texts)
         texts.emplace_back(ui::StampLabelSound{
             ui::Label{L"", res::too_much_ink, sf::Color::White},
             str,

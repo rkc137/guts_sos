@@ -1,6 +1,3 @@
-#include <SFML/System.hpp>
-
-// #include <queue>
 #include <memory>
 
 #include "res/res.hpp"
