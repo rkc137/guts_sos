@@ -70,8 +70,11 @@ void Level1::update(unused double delta_time)
     break;
     case 3:
     {    
-        telegraph.update(delta_time);
-                
+        if(!telegraph.misson_done()) 
+            telegraph.update(delta_time);
+        // else 
+        //     telegraph
+        
         // i need c++26 std::bind_back<Fn> sooo bad
         auto blocknote_animation = [&](std::pair<float, float> range){
             return anim::interpolate<anim::ease_out_cubic>(range, elapsed_time, blocknote_appear_time);
@@ -79,7 +82,7 @@ void Level1::update(unused double delta_time)
 
         if(elapsed_time > tutorial_time + blocknote_appear_time + blocknote_appear_time)
         {
-            telegraph.mission_text = mission_text;
+            telegraph.mission_text = are_you_ready;
             draws = { blocknote_morse, blocknote_mission, telegraph };
             state++;
         }
@@ -118,9 +121,8 @@ void Level1::update(unused double delta_time)
                 "now send coordinates of these bastards",
                 "our guys gonna give em some shake!"
             });
-            mission_text = "E67F50";
-            telegraph.mission_text = mission_text;
-            blocknote_mission.label.set_string(mission_text);
+            telegraph.mission_text = "E67F50";
+            blocknote_mission.label.set_string(telegraph.mission_text);
         }
     break;
     case 5:
@@ -129,13 +131,36 @@ void Level1::update(unused double delta_time)
         {
             state++;
             draws = { blocknote_mission, telegraph, blocknote_morse };
+            
+            auto [posm, sizem] = blocknote_morse.get_global_bounds();
+            auto [posmi, sizemi] = blocknote_mission.get_global_bounds();
+            blocknote_morse.setPosition({-sizem.x, wsize.y});
+            blocknote_mission.setPosition({wsize.x, -sizemi.y});
+            
             animation_clock.restart();
         }
     break;
     case 6:
-        telegraph.update(delta_time);
-        if(telegraph.misson_done())
-        {}
+        {    
+            telegraph.update(delta_time);
+                    
+            // i need c++26 std::bind_back<Fn> sooo bad
+            auto blocknote_animation = [&](std::pair<float, float> range){
+                return anim::interpolate<anim::ease_out_cubic>(range, elapsed_time, blocknote_appear_time);
+            };
+
+            if(elapsed_time <= blocknote_appear_time)
+            {
+                blocknote_morse.setPosition({
+                    blocknote_animation({-blocknote_morse.get_global_bounds().size.x, 0}),
+                    wsize.y
+                });
+                blocknote_mission.setPosition({
+                    wsize.x,
+                    blocknote_animation({-blocknote_mission.get_global_bounds().size.y, 0})
+                });
+            }
+        }
     break;
     default:
     break;
