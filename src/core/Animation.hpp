@@ -35,5 +35,14 @@ using ease_out_cubic = decltype([](float x) -> float {
     return 1 - std::pow(1 - x, 3);
 });
 
+struct TextureMetaInfo
+{
+    sf::Vector2i frame_size;
+    std::vector<int> animations_lengths;
+};
+struct Texture : public sf::Texture, public TextureMetaInfo {};
+//TextureSetup(Texture &texture, TextureMetaInfo &&info)
+//    static_cast<TextureMetaInfo&>(texture) = std::move(info);
+
 
 } // anim

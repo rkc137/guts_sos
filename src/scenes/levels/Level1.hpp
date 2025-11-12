@@ -26,8 +26,9 @@ private:
     Shaker shaker{sf::seconds(2.4), 80};
     ui::Character troop{res::troop, ui::OriginState::right_down};
     ui::Character commander{res::commander, ui::OriginState::left_down};
-    sf::String mission_text = "SOS";
     Sprite blocknote_morse{res::blocknote_morse, ui::OriginState::left_down};
+
+    sf::String are_you_ready = "QRV?";
 
     class BlocknoteWithText : public virtual ui::BaseWidget<>
     {
@@ -55,7 +56,7 @@ private:
         {res::blocknote_blank, ui::OriginState::left_down}
     },
     blocknote_mission{
-        L"try to send a " + mission_text,
+        L"try to send a " + are_you_ready,
         ui::OriginState::left_down,
         {res::blocknote_onside, ui::OriginState::right_up}
     };

@@ -14,7 +14,7 @@ namespace ui
 class Character : public BaseWidget<>
 {
 public:
-    Character(res::Texture &texture,
+    Character(sf::Texture &texture,
               ui::OriginState origin_state = ui::OriginState::left_down,
               std::vector<sf::String> phrases = {L"default phrase"},
               sf::Time pause_after_talk = sf::seconds(0.7),

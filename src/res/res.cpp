@@ -1,26 +1,55 @@
 #include "res.hpp"
 
-res::TextureSetup::TextureSetup(Texture &texture, fspath &&path, TextureMetaInfo &&info)
-    : texture(texture), path(path)
+template <typename T>
+struct Setup 
 {
-    static_cast<TextureMetaInfo&>(texture) = std::move(info);
-}
+    T& reference;
+    res::fspath path;
+};
 
 void res::load()
 {
-    for(auto &setup : texture_load_list)
-    {
-        auto &txr = setup.texture;
-        if(!txr.loadFromFile(res_path / setup.path))
-        {
-            if(&txr == &default_texture)
-                throw std::runtime_error("even default texture was not loaded");
+    // Setup types
+    using SoundSetup = std::pair<sf::SoundBuffer&, fspath>;
+    using MusicSetup = std::pair<sf::Music&, fspath>;
+    using FontSetup = std::pair<sf::Font&, fspath>;
+    using TextureSetup = std::pair<sf::Texture&, fspath>;
 
-            txr = default_texture;
-            continue;
-        }
-        
-        txr.setSmooth(is_smooth);
+    // Resources declaration
+    const auto texture_load_list = std::to_array<TextureSetup>({
+        {default_texture,   "place_holder.png"},
+        {blocknote_blank,   "blocknote/blocknote_blank.png"},
+        {blocknote_morse,   "blocknote/blocknote_alphabet.png"},
+        {blocknote_onside,  "blocknote/blocknote_blank_onside.png"},
+        {troop,             "faces/troop.png"},
+        {commander,         "faces/commander.png"},
+        {light,             "bunker/light.png"},
+        {bunker,            "bunker/bunker.png"},
+        {splash,            "splash/splash.png"}
+    });
+    const auto sounds_load_list = std::to_array<SoundSetup>({
+        {morse_noise, "morse.wav"},
+        {stamp, "stamp.wav"},
+        {incoming, "explosion/incoming.wav"}
+    });
+    const auto music_load_list = std::to_array<MusicSetup>({
+        {distance_explosions, "explosion/distance_explosions.wav"},
+        {carterattack, "explosion/carterattack.wav"},
+        {distance_battle, "explosion/distance_battle.wav"},
+        {voice, "faces/voice.wav"}
+    });
+    const auto fonts_load_list = std::to_array<FontSetup>({
+        {default_font,   "fonts/dejavu-sans/DejaVuSans.ttf"},
+        {cybersomething, "fonts/Cybersomething.ttf"},
+        {too_much_ink,   "fonts/TooMuchInk.ttf"}
+    });
+
+    // Loading
+    for(auto &[texture, path] : texture_load_list)
+    {
+        if(!texture.loadFromFile(res_path / path))
+            texture = default_texture;
+        texture.setSmooth(is_smooth);
     }
     for(auto &[font, path] : fonts_load_list)
         if(!font.openFromFile(res_path / path))
