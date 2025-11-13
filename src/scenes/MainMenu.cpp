@@ -50,7 +50,7 @@ void MainMenu::update(unused double delta_time)
 
 void MainMenu::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-    auto drw = [&](this auto&& self, auto s, auto... d){
+    auto drw = [&](this auto&& self, auto &s, auto&... d){
         target.draw(s, states);
         if constexpr (sizeof...(d) > 0)
             self(d...);
