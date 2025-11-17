@@ -28,12 +28,13 @@ private:
     ui::Character commander{res::commander, ui::OriginState::left_down};
     Sprite blocknote_morse{res::blocknote_morse, ui::OriginState::left_down};
 
-    sf::String are_you_ready = "QRV?";
+    sf::String are_you_ready = "QRV?", we_are_ready = "QRV";
 
-    class BlocknoteWithText : public virtual ui::BaseWidget<>
+    class SpriteWithText : public virtual ui::BaseWidget<>
     {
     public:
-        BlocknoteWithText(sf::String text, ui::OriginState text_state, Sprite &&sprite);
+        SpriteWithText(sf::String text, ui::OriginState text_state, Sprite &&sprite);
+        SpriteWithText() = delete;
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
         sf::FloatRect get_global_bounds() const override;
         void resize();
@@ -59,6 +60,11 @@ private:
         L"try to send a " + are_you_ready,
         ui::OriginState::left_down,
         {res::blocknote_onside, ui::OriginState::right_up}
+    },
+    answer_paper{
+        we_are_ready,
+        ui::OriginState::left_up,
+        {res::answer_pepper, ui::OriginState::right_up}
     };
 
     PausebleClock animation_clock;

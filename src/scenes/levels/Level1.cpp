@@ -18,10 +18,12 @@ void Level1::resize()
     blocknote_tutorial.resize();
     blocknote_morse.resize();
     blocknote_mission.resize();
+    answer_paper.resize();
     
     blocknote_tutorial.setPosition({0, wsize.y});
     blocknote_morse.setPosition({0, wsize.y});
     blocknote_mission.setPosition({wsize.x, 0});
+    answer_paper.setPosition({wsize.x, 0});
 }
 
 void Level1::update(unused double delta_time)
@@ -78,6 +80,7 @@ void Level1::update(unused double delta_time)
             blocknote_tutorial.setPosition({-sizet.x, wsize.y});
             blocknote_morse.setPosition({-sizem.x, wsize.y});
             blocknote_mission.setPosition({wsize.x, -sizemi.y});
+            answer_paper.setPosition({-wsize.x, sizemi.y * .5f});
             
             animation_clock.restart();
         }
@@ -92,7 +95,7 @@ void Level1::update(unused double delta_time)
         if(elapsed_time > tutorial_time + blocknote_appear_time + blocknote_appear_time)
         {
             telegraph.set_mission(are_you_ready);
-            draws = { blocknote_morse, blocknote_mission, telegraph };
+            draws = { blocknote_morse, blocknote_mission, answer_paper, telegraph };
             state++;
         }
         else if(elapsed_time < blocknote_appear_time)
@@ -124,17 +127,22 @@ void Level1::update(unused double delta_time)
         telegraph.update(delta_time);
         if(telegraph.mission_done_pause())
         {
-            state++;
-            draws = { commander };
-            commander.restart_with_phrases(LC::choose_vector({
-                {LC::Lang::eng, {
-                    L"now send coordinates of these bastards",
-                    L"our guys gonna give em some shake!"
-                }}
-            }));
-            auto mission = "E67F50";
-            telegraph.set_mission(mission);
-            blocknote_mission.label.set_string(mission);
+            answer_paper.setPosition(wsize / 2);
+            //     {anim::interpolate<anim::ease_out_cubic>({answer_paper.get_global_bounds().size.x, 0}, elapsed_time, blocknote_appear_time),
+            // blocknote_mission.getPosition().y * .5f
+            // });
+
+            // state++;
+            // draws = { commander };
+            // commander.restart_with_phrases(LC::choose_vector({
+            //     {LC::Lang::eng, {
+            //         L"now send coordinates of these bastards",
+            //         L"our guys gonna give em some shake!"
+            //     }}
+            // }));
+            // auto mission = "E67F50";
+            // telegraph.set_mission(mission);
+            // blocknote_mission.label.set_string(mission);
         }
     break;
     case 6:
@@ -186,44 +194,58 @@ void Level1::draw(sf::RenderTarget& target, sf::RenderStates states) const
         target.draw(d, states);
 }
 
-void Level1::BlocknoteWithText::draw(sf::RenderTarget & target, sf::RenderStates states) const
+void Level1::SpriteWithText::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
     states.transform *= getTransform();
     target.draw(sprite, states);
     target.draw(label, states);
 }
 
-sf::FloatRect Level1::BlocknoteWithText::get_global_bounds() const
+sf::FloatRect Level1::SpriteWithText::get_global_bounds() const
 {
     return sprite.get_global_bounds();
 }
 
-void Level1::BlocknoteWithText::resize()
+void Level1::SpriteWithText::resize()
 {
     sprite.resize();
     auto wsize = get_wsize<float>();
-    auto bsize = get_global_bounds().size;
+    auto [bpos, bsize] = sprite.get_global_bounds();
     label.set_char_size(wsize.y / 21);
+    
+    sf::Vector2f pos;
     switch(label.get_origin_state())
     {
     case ui::OriginState::left_up:
-        label.setPosition({bsize.x / 10, -bsize.y + bsize.y / 10});
+    {
+        auto s = sprite.get_origin_state();
+        switch(s)
+        {
+        case ui::OriginState::left_down:
+            pos = {bsize.x / 10, -bsize.y + bsize.y / 10};
+        break;
+        default:
+        ;
+        break;
+        }
+    }
     break;
     case ui::OriginState::left_down:
-        label.setPosition({(-bsize.x / 15) * 14, -(-bsize.y + bsize.y / 10)});
+        pos = {(-bsize.x / 15) * 14, -(-bsize.y + bsize.y / 10)};
     break;
     default:
         throw std::runtime_error("not supported state");
     }
+    label.setPosition(pos);
 }
 
-Level1::BlocknoteWithText::BlocknoteWithText(sf::String text, ui::OriginState text_state, Sprite &&sprite) :
+Level1::SpriteWithText::SpriteWithText(sf::String text, ui::OriginState text_state, Sprite &&sprite) :
     label{
         text,
         res::too_much_ink,
         sf::Color::White
     },
-    sprite{sprite}
+    sprite{std::move(sprite)}
 {
     label.set_origin_state(text_state);
 }

@@ -11,6 +11,7 @@ void res::load()
 {
     const auto texture_load_list = std::to_array<Setup<sf::Texture>>({
         {default_texture,   "place_holder.png"},
+        {answer_pepper,     "blocknote/answer_pepper.png"},
         {blocknote_blank,   "blocknote/blocknote_blank.png"},
         {blocknote_morse,   "blocknote/blocknote_alphabet.png"},
         {blocknote_onside,  "blocknote/blocknote_blank_onside.png"},

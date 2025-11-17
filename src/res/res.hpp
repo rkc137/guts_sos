@@ -40,7 +40,7 @@ public:
     
     inlstc sf::Texture 
         default_texture, blocknote_blank, blocknote_morse, blocknote_onside,
-        splash, bunker, troop, commander, light;
+        answer_pepper, splash, bunker, troop, commander, light;
     inlstc sf::Font default_font, cybersomething, too_much_ink;
     inlstc sf::SoundBuffer morse_noise, stamp, incoming;
     inlstc sf::Music distance_explosions, distance_battle, carterattack, voice;
