@@ -53,7 +53,21 @@ void Level1::update(unused double delta_time)
     [[fallthrough]];
     case 2:
         commander.update(delta_time);
-        if(commander.is_end_of_speech())
+        if(!commander.is_end_of_speech())
+            break;
+        draws = { troop };
+        troop.restart_with_phrases(LC::choose_vector({
+            {LC::Lang::eng, {
+                L"Commo, send them \"QRV?\"",
+                L"that means \"Are you ready?\"",
+                L"we will know they ready, if answer will be same code without \"?\""
+            }}
+        }));
+        state++;
+    break;
+    case 3:
+        troop.update(delta_time);
+        if(troop.is_end_of_speech())
         {
             state++;
             draws = { blocknote_tutorial, blocknote_morse, blocknote_mission, telegraph };
@@ -68,7 +82,7 @@ void Level1::update(unused double delta_time)
             animation_clock.restart();
         }
     break;
-    case 3:
+    case 4:
     {
         // i need c++26 std::bind_back<Fn> sooo bad
         auto blocknote_animation = [&](std::pair<float, float> range){
@@ -106,7 +120,7 @@ void Level1::update(unused double delta_time)
         }
     }
     break;
-    case 4:
+    case 5:
         telegraph.update(delta_time);
         if(telegraph.mission_done_pause_clear())
         {
@@ -123,7 +137,7 @@ void Level1::update(unused double delta_time)
             blocknote_mission.label.set_string(mission);
         }
     break;
-    case 5:
+    case 6:
         commander.update(delta_time);
         if(commander.is_end_of_speech())
         {
@@ -138,7 +152,7 @@ void Level1::update(unused double delta_time)
             animation_clock.restart();
         }
     break;
-    case 6:
+    case 7:
         {    
             telegraph.update(delta_time);
                     
