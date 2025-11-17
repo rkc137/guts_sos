@@ -44,7 +44,6 @@ void Telegraph::update(unused double delta_time)
     is_mission_done_with_pause = is_mission_done && last_press_clock.getElapsedTime() >= letter_time;
     if(is_mission_done_with_pause)
     {
-        output_label.clear();
         return;
     }
 
@@ -142,6 +141,8 @@ void Telegraph::set_mission(const sf::String &text)
     mission_text = text;
     is_mission_done = false;
     is_mission_done_with_pause = false;
+    input_label.clear();
+    output_label.clear();
 }
 
 bool Telegraph::mission_done() const
@@ -149,7 +150,7 @@ bool Telegraph::mission_done() const
     return is_mission_done;
 }
 
-bool Telegraph::mission_done_pause_clear() const
+bool Telegraph::mission_done_pause() const
 {
     return is_mission_done_with_pause;
 }

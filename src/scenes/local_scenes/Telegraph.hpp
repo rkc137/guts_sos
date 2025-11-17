@@ -18,7 +18,7 @@ public:
 
     void set_mission(const sf::String &text);
     no_discard bool mission_done() const;
-    no_discard bool mission_done_pause_clear() const;
+    no_discard bool mission_done_pause() const;
 private:
     ui::Label input_label{L"", res::default_font, sf::Color::White, 80, ui::OriginState::center, true};//••—•——
     ui::Label output_label{L"", res::cybersomething, sf::Color::White, 80, ui::OriginState::center, true};//text

@@ -122,7 +122,7 @@ void Level1::update(unused double delta_time)
     break;
     case 5:
         telegraph.update(delta_time);
-        if(telegraph.mission_done_pause_clear())
+        if(telegraph.mission_done_pause())
         {
             state++;
             draws = { commander };
