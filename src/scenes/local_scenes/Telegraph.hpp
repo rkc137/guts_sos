@@ -15,12 +15,17 @@ public:
     void update(double delta_time) override;
     void resize() override;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-    no_discard bool misson_done() const;
-    sf::String mission_text;
+
+    void set_mission(const sf::String &text);
+    no_discard bool mission_done() const;
+    no_discard bool mission_done_pause_clear() const;
+private:
     ui::Label input_label{L"", res::default_font, sf::Color::White, 80, ui::OriginState::center, true};//••—•——
     ui::Label output_label{L"", res::cybersomething, sf::Color::White, 80, ui::OriginState::center, true};//text
-private:
+    sf::String mission_text;
+    
     bool is_mission_done = false;
+    bool is_mission_done_with_pause = false;
 
     inline static const sf::Time dash_time = sf::seconds(0.25);
     inline static const sf::Time letter_time = sf::seconds(1.70);

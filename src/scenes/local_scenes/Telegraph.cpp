@@ -41,6 +41,13 @@ void Telegraph::update(unused double delta_time)
     auto time = last_press_clock.getElapsedTime();
     //you searching them every fkg frame
 
+    is_mission_done_with_pause = is_mission_done && last_press_clock.getElapsedTime() >= letter_time;
+    if(is_mission_done_with_pause)
+    {
+        output_label.clear();
+        return;
+    }
+
     if(is_word_said) return;
 
     //true is -
@@ -130,9 +137,19 @@ void Telegraph::draw(sf::RenderTarget &target, sf::RenderStates states) const
     target.draw(input_label, states);
 }
 
-no_discard bool Telegraph::misson_done() const
+void Telegraph::set_mission(const sf::String &text)
 {
-    return is_mission_done && last_press_clock.getElapsedTime() >= word_time + letter_time;
+    mission_text = text;
+    is_mission_done = false;
+    is_mission_done_with_pause = false;
 }
 
+bool Telegraph::mission_done() const
+{
+    return is_mission_done;
+}
 
+bool Telegraph::mission_done_pause_clear() const
+{
+    return is_mission_done_with_pause;
+}

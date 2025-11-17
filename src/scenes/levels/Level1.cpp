@@ -69,12 +69,7 @@ void Level1::update(unused double delta_time)
         }
     break;
     case 3:
-    {    
-        if(!telegraph.misson_done()) 
-            telegraph.update(delta_time);
-        // else 
-        //     telegraph
-        
+    {
         // i need c++26 std::bind_back<Fn> sooo bad
         auto blocknote_animation = [&](std::pair<float, float> range){
             return anim::interpolate<anim::ease_out_cubic>(range, elapsed_time, blocknote_appear_time);
@@ -82,7 +77,7 @@ void Level1::update(unused double delta_time)
 
         if(elapsed_time > tutorial_time + blocknote_appear_time + blocknote_appear_time)
         {
-            telegraph.mission_text = are_you_ready;
+            telegraph.set_mission(are_you_ready);
             draws = { blocknote_morse, blocknote_mission, telegraph };
             state++;
         }
@@ -113,16 +108,19 @@ void Level1::update(unused double delta_time)
     break;
     case 4:
         telegraph.update(delta_time);
-        if(telegraph.misson_done())
+        if(telegraph.mission_done_pause_clear())
         {
             state++;
             draws = { commander };
-            commander.restart_with_phrases({
-                "now send coordinates of these bastards",
-                "our guys gonna give em some shake!"
-            });
-            telegraph.mission_text = "E67F50";
-            blocknote_mission.label.set_string(telegraph.mission_text);
+            commander.restart_with_phrases(LC::choose_vector({
+                {LC::Lang::eng, {
+                    L"now send coordinates of these bastards",
+                    L"our guys gonna give em some shake!"
+                }}
+            }));
+            auto mission = "E67F50";
+            telegraph.set_mission(mission);
+            blocknote_mission.label.set_string(mission);
         }
     break;
     case 5:
