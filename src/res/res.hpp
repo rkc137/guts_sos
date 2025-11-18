@@ -42,7 +42,7 @@ public:
         default_texture, blocknote_blank, blocknote_morse, blocknote_onside,
         answer_pepper, splash, bunker, troop, commander, light;
     inlstc sf::Font default_font, cybersomething, too_much_ink;
-    inlstc sf::SoundBuffer morse_noise, stamp, incoming;
+    inlstc sf::SoundBuffer morse_noise, stamp, print, incoming;
     inlstc sf::Music distance_explosions, distance_battle, carterattack, voice;
     
     inlstc const sf::String app_name = "guts:s.o.s";

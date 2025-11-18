@@ -24,6 +24,7 @@ void res::load()
     const auto sounds_load_list = std::to_array<Setup<sf::SoundBuffer>>({
         {morse_noise, "morse.wav"},
         {stamp, "stamp.wav"},
+        {print, "blocknote/print.wav"},
         {incoming, "explosion/incoming.wav"}
     });
     const auto music_load_list = std::to_array<Setup<sf::Music>>({

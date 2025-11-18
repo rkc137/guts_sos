@@ -128,6 +128,7 @@ void Level1::update(unused double delta_time)
         if(telegraph.mission_done_pause())
         {
             state++;
+            print.play();
             animation_clock.restart();
         }
     break;

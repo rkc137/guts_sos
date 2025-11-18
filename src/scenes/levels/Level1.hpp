@@ -23,6 +23,7 @@ private:
     int state = 0;
     std::vector<std::reference_wrapper<sf::Drawable>> draws;
     sf::Sound incoming{res::incoming};
+    sf::Sound print{res::print};
     Shaker shaker{sf::seconds(2.4), 80};
     ui::Character troop{res::troop, ui::OriginState::right_down};
     ui::Character commander{res::commander, ui::OriginState::left_down};
