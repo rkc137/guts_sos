@@ -217,18 +217,17 @@ void Level1::SpriteWithText::resize()
     switch(label.get_origin_state())
     {
     case ui::OriginState::left_up:
-    {
-        auto s = sprite.get_origin_state();
-        switch(s)
+        switch(sprite.get_origin_state())
         {
         case ui::OriginState::left_down:
             pos = {bsize.x / 10, -bsize.y + bsize.y / 10};
         break;
-        default:
-        ;
+        case ui::OriginState::right_up:
+            pos = {bsize.x / 10 - bsize.x, bsize.y / 10};
         break;
+        default:
+            throw std::runtime_error("not supported state");
         }
-    }
     break;
     case ui::OriginState::left_down:
         pos = {(-bsize.x / 15) * 14, -(-bsize.y + bsize.y / 10)};

@@ -4,27 +4,31 @@ Sprite::Sprite(sf::Texture &texture, ui::OriginState origin_state)
     : sprite(texture)
 {
     using ostate = ui::OriginState;
-    const auto size = static_cast<sf::Vector2f>(sprite.getTexture().getSize());
+    const auto size = static_cast<sf::Vector2f>(texture.getSize());
+    this->origin_state = origin_state;
+
+    sf::Vector2f origin;
     switch(origin_state)
     {
     case ostate::left_down:
-        sprite.setOrigin({0, size.y});
+        origin = {0, size.y};
     break;
     case ostate::right_down:
-        sprite.setOrigin({size.x, size.y});
+        origin = {size.x, size.y};
     break;
     case ostate::left_up:
-        sprite.setOrigin({0, 0});
+        origin = {};
     break;
     case ostate::right_up:
-        sprite.setOrigin({size.x, 0});
+        origin = {size.x, 0};
     break;
     case ostate::center:
-        sprite.setOrigin(size / 2);
+        origin = size / 2;
     break;
     default:
         throw std::runtime_error("bad origin state for Sprite");
     }
+    sprite.setOrigin(origin);
 }
 
 void Sprite::resize()
