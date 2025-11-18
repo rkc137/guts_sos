@@ -1,5 +1,8 @@
 #include "Sprite.hpp"
 
+namespace ui
+{
+
 Sprite::Sprite(sf::Texture &texture, ui::OriginState origin_state)
     : sprite(texture)
 {
@@ -52,4 +55,6 @@ sf::FloatRect Sprite::get_global_bounds() const
         rect.position * getScale(),
         rect.size * getScale()
     };
+}
+
 }

@@ -5,6 +5,9 @@
 #include "../widget.hpp"
 #include "../../res/res.hpp"
 
+namespace ui
+{
+
 class Sprite : public virtual ui::BaseWidget<>
 {
 public:
@@ -14,3 +17,5 @@ public:
     no_discard sf::FloatRect get_global_bounds() const override;
     sf::Sprite sprite;
 };
+
+}
