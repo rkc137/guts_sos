@@ -20,7 +20,7 @@ void SpriteWithLabel::resize()
     sprite.resize();
     auto wsize = get_wsize<float>();
     auto [bpos, bsize] = sprite.get_global_bounds();
-    label.set_char_size(wsize.y / 21);
+    label.set_char_size(wsize.y / size_coefficient);
     
     sf::Vector2f pos;
     switch(label.get_origin_state())
@@ -47,13 +47,14 @@ void SpriteWithLabel::resize()
     label.setPosition(pos);
 }
 
-SpriteWithLabel::SpriteWithLabel(sf::String text, ui::OriginState text_state, Sprite &&sprite) :
+SpriteWithLabel::SpriteWithLabel(sf::String text, ui::OriginState text_state, Sprite &&sprite, int size_cf = 21) :
     label{
         text,
         res::too_much_ink,
         sf::Color::White
     },
-    sprite{std::move(sprite)}
+    sprite{std::move(sprite)},
+    size_coefficient{size_cf}
 {
     label.set_origin_state(text_state);
 }
