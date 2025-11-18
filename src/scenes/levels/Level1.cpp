@@ -30,6 +30,11 @@ void Level1::update(unused double delta_time)
 {
     auto wsize = get_wsize<float>();
     auto elapsed_time = animation_clock.get_elapsed_time();
+    // i need c++26 std::bind_back<Fn> sooo bad
+    auto blocknote_animation = [&](std::pair<float, float> range){
+        return anim::interpolate<anim::ease_out_cubic>(range, elapsed_time, blocknote_appear_time);
+    };
+    
     background.update(delta_time);
     switch(state)
     {
@@ -87,11 +92,6 @@ void Level1::update(unused double delta_time)
     break;
     case 4:
     {
-        // i need c++26 std::bind_back<Fn> sooo bad
-        auto blocknote_animation = [&](std::pair<float, float> range){
-            return anim::interpolate<anim::ease_out_cubic>(range, elapsed_time, blocknote_appear_time);
-        };
-
         if(elapsed_time > tutorial_time + blocknote_appear_time + blocknote_appear_time)
         {
             telegraph.set_mission(are_you_ready);
@@ -127,25 +127,51 @@ void Level1::update(unused double delta_time)
         telegraph.update(delta_time);
         if(telegraph.mission_done_pause())
         {
-            answer_paper.setPosition(wsize / 2);
-            //     {anim::interpolate<anim::ease_out_cubic>({answer_paper.get_global_bounds().size.x, 0}, elapsed_time, blocknote_appear_time),
-            // blocknote_mission.getPosition().y * .5f
-            // });
-
-            // state++;
-            // draws = { commander };
-            // commander.restart_with_phrases(LC::choose_vector({
-            //     {LC::Lang::eng, {
-            //         L"now send coordinates of these bastards",
-            //         L"our guys gonna give em some shake!"
-            //     }}
-            // }));
-            // auto mission = "E67F50";
-            // telegraph.set_mission(mission);
-            // blocknote_mission.label.set_string(mission);
+            state++;
+            animation_clock.restart();
         }
     break;
     case 6:
+        if(animation_clock.get_elapsed_time() <= blocknote_appear_time)
+        {
+            answer_paper.setPosition({
+                blocknote_animation({answer_paper.get_global_bounds().size.x + wsize.x, wsize.x}),
+                blocknote_mission.get_global_bounds().size.y / 2
+            });
+        }
+        else if(animation_clock.get_elapsed_time() <= blocknote_appear_time + blocknote_appear_time + blocknote_appear_time)
+        {
+            elapsed_time -= blocknote_appear_time + blocknote_appear_time;
+            answer_paper.setPosition({
+                blocknote_animation({wsize.x, answer_paper.get_global_bounds().size.x + wsize.x}),
+                blocknote_mission.get_global_bounds().size.y / 2
+            });
+            blocknote_morse.setPosition({
+                blocknote_animation({0, -blocknote_morse.get_global_bounds().size.x}),
+                wsize.y
+            });
+            blocknote_mission.setPosition({
+                wsize.x,
+                blocknote_animation({0, -blocknote_mission.get_global_bounds().size.y})
+            });
+        }
+        else
+        {
+            state++;
+            draws = { commander };
+            commander.restart_with_phrases(LC::choose_vector({
+                {LC::Lang::eng, {
+                    L"now send coordinates of these bastards",
+                    L"our guys gonna give em some shake!"
+                }}
+            }));
+            auto mission = "E67F50";
+            telegraph.set_mission(mission);
+            blocknote_mission.label.set_string(mission);
+        }
+        
+    break;
+    case 7:
         commander.update(delta_time);
         if(commander.is_end_of_speech())
         {
@@ -160,26 +186,22 @@ void Level1::update(unused double delta_time)
             animation_clock.restart();
         }
     break;
-    case 7:
-        {    
-            telegraph.update(delta_time);
-                    
-            // i need c++26 std::bind_back<Fn> sooo bad
-            auto blocknote_animation = [&](std::pair<float, float> range){
-                return anim::interpolate<anim::ease_out_cubic>(range, elapsed_time, blocknote_appear_time);
-            };
-
-            if(elapsed_time <= blocknote_appear_time)
-            {
-                blocknote_morse.setPosition({
-                    blocknote_animation({-blocknote_morse.get_global_bounds().size.x, 0}),
-                    wsize.y
-                });
-                blocknote_mission.setPosition({
-                    wsize.x,
-                    blocknote_animation({-blocknote_mission.get_global_bounds().size.y, 0})
-                });
-            }
+    case 8:   
+        telegraph.update(delta_time);
+        if(telegraph.mission_done_pause())
+        {
+            state++;
+        }
+        if(elapsed_time <= blocknote_appear_time)
+        {
+            blocknote_morse.setPosition({
+                blocknote_animation({-blocknote_morse.get_global_bounds().size.x, 0}),
+                wsize.y
+            });
+            blocknote_mission.setPosition({
+                wsize.x,
+                blocknote_animation({-blocknote_mission.get_global_bounds().size.y, 0})
+            });
         }
     break;
     default:
