@@ -23,7 +23,7 @@ public:
     void resize();
     void update(double delta_time) override;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-    no_discard sf::FloatRect get_global_bounds() const override;  
+    no_discard sf::FloatRect get_global_bounds() const override;
     no_discard bool is_end_of_speech() const;
     PausebleClock animation_clock;
 

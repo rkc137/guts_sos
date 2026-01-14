@@ -11,7 +11,7 @@ public:
         all,
         only_appearance,
         only_disappearnce
-    }; 
+    };
     Curtain(bool should_waiting_response = false,
             ShowTypes show_type = ShowTypes::all,
             sf::Time uppear_duration = sf::seconds(2),
@@ -24,7 +24,7 @@ public:
     void start_clock();
     no_discard bool is_done();
 private:
-    enum class States 
+    enum class States
     {
         uppearing,
         showing,

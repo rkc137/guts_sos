@@ -7,7 +7,7 @@ void BaseButton::update(double delta_time)
 {
     auto &window = this->get_window();
 
-    sf::Vector2f mouse_world_pos = 
+    sf::Vector2f mouse_world_pos =
         window.mapPixelToCoords(
             sf::Mouse::getPosition(window),
             window.getView()

@@ -18,7 +18,7 @@ MainMenu::MainMenu()
 void MainMenu::resize()
 {
     auto ws = get_wsize<>();
-    
+
     logo.set_char_size(ws.y / 7);
     exit.set_char_size(ws.y / 15);
     start.set_char_size(ws.y / 15);

@@ -19,7 +19,7 @@ void PausebleClock::resume()
     is_paused = false;
 }
 
-sf::Time PausebleClock::get_elapsed_time() const 
+sf::Time PausebleClock::get_elapsed_time() const
 {
     if(is_paused) return paused_time;
     return paused_time + clock.getElapsedTime();

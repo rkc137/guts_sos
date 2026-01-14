@@ -25,7 +25,7 @@ template <typename Tos>
 class Logger
 {
 public:
-    Logger(Tos& os) : os(os) 
+    Logger(Tos& os) : os(os)
     {
         os << "\n";
     }

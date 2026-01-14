@@ -5,7 +5,7 @@ namespace ui
 
 LabelButton::LabelButton(Label&& label,
                          callback_t on_press,
-                         callback_t on_release) 
+                         callback_t on_release)
     : Label(std::move(label)), on_press(on_press), on_release(on_release)
 {
 }

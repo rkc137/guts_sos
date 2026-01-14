@@ -8,7 +8,7 @@ Character::Character(
     ui::OriginState origin_state,
     std::vector<sf::String> phrases,
     sf::Time pause_after_talk,
-    sf::Time appear_time) 
+    sf::Time appear_time)
     : origin_state(origin_state),
       phrases(phrases),
       pause_after_talk(pause_after_talk),
@@ -93,7 +93,7 @@ void Character::update(double delta_time)
     }
 
     label.update(delta_time);
-    
+
     if(label.is_done() && label.last_stamp() >= pause_after_talk)
     {
         is_end = ++phrases_iter >= phrases.size();
@@ -101,7 +101,7 @@ void Character::update(double delta_time)
             animation_clock.restart();
         else
             label.reset_text(phrases[phrases_iter]);
-    }    
+    }
 }
 
 void Character::draw(sf::RenderTarget& target, sf::RenderStates states) const

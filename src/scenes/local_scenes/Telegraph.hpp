@@ -23,7 +23,7 @@ private:
     ui::Label input_label{L"", res::default_font, sf::Color::White, 80, ui::OriginState::center, true};//••—•——
     ui::Label output_label{L"", res::cybersomething, sf::Color::White, 80, ui::OriginState::center, true};//text
     sf::String mission_text;
-    
+
     bool is_mission_done = false;
     bool is_mission_done_with_pause = false;
 
@@ -31,14 +31,14 @@ private:
     inline static const sf::Time letter_time = sf::seconds(1.70);
     inline static const sf::Time word_time = sf::seconds(4);
     sf::Clock last_press_clock;
-    
+
     std::vector<bool> letter_bits;
     bool is_letter_said = false;
     bool is_word_said = true;
 
     class AllwaysFocusButton : public ui::BaseButton
     {
-    public: 
+    public:
         AllwaysFocusButton(Telegraph &parent);
         sf::Sound press_noise{res::morse_noise};
         sf::Clock clock_since_press;

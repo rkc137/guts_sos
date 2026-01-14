@@ -21,7 +21,7 @@ protected:
     virtual bool press_conditions();
 
     bool is_clicked = false;
-    
+
     //TODO: multibale choise of buttons
     sf::Mouse::Button mouse_button = sf::Mouse::Button::Left;
     sf::Keyboard::Scan key_button = sf::Keyboard::Scan::Enter;

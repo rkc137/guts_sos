@@ -19,11 +19,11 @@ void Telegraph::AllwaysFocusButton::m_on_click(unused double delta_time)
 }
 
 void Telegraph::AllwaysFocusButton::m_on_release(unused double delta_time)
-{   
+{
     auto signal = clock_since_press.getElapsedTime() >= dash_time;
     parent.letter_bits.push_back(signal);
     parent.input_label.append_string(signal ? L"—" : L"•");
-    
+
     press_noise.stop();
     parent.last_press_clock.restart();
     parent.is_letter_said = false;

@@ -29,9 +29,7 @@ private:
     ui::Character troop{res::troop, ui::OriginState::right_down};
     ui::Character commander{res::commander, ui::OriginState::left_down};
     ui::Sprite blocknote_morse{res::blocknote_morse, ui::OriginState::left_down};
-
     sf::String are_you_ready = "QRV?", we_are_ready = "QRV";
-
     ui::SpriteWithLabel blocknote_tutorial{
         L"Press space key to use\n"
         L"telegraph. Short press\n"

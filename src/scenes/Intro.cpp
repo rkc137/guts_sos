@@ -16,8 +16,8 @@ void Intro::resize()
 {
     auto ws = get_wsize<float>();
     for(auto &t : texts)
-        t.set_char_size(ws.y / 20); 
-                
+        t.set_char_size(ws.y / 20);
+
     // char_size != y_size;
     auto y_size = [&t = texts[0]]{
         float size;

@@ -3,7 +3,7 @@
 namespace ui
 {
 
-Label::Label(const sf::String str_text, 
+Label::Label(const sf::String str_text,
             const sf::Font &font,
             const sf::Color &color,
             unsigned int ch_size,
@@ -28,7 +28,7 @@ void Label::set_string(sf::String &&str)
     text.setString(std::move(str));
     update_origin();
     if(!with_splashes) return;
-    
+
     auto b = get_global_bounds();
     static auto random_float = [](float a, float b) -> float {
         float random = ((float) rand()) / (float)RAND_MAX;

@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -24,12 +24,12 @@ public:
     using sc_shptr = std::shared_ptr<Scene>;
 
     /// @brief add scene in queue of executing
-    /// @tparam scene_t requires be delivered by Scene of manager 
+    /// @tparam scene_t requires be delivered by Scene of manager
     template <typename scene_t>
-    static void start_scene() 
+    static void start_scene()
     requires std::is_base_of_v<Scene, scene_t>;
     // TODO: language
-    
+
     /// @brief gets front scene of manager that currently (should be) running
     /// @return shared_ptr on current scene
     no_discard static sc_shptr get_current();

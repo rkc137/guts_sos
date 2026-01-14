@@ -4,8 +4,8 @@ Curtain::Curtain(bool should_wait_response,
                  ShowTypes show_type,
                  sf::Time uppear_duration,
                  sf::Time showing_duration,
-                 sf::Time disapear_duration) 
-  : should_wait_response(should_wait_response), 
+                 sf::Time disapear_duration)
+  : should_wait_response(should_wait_response),
     show_type(show_type),
     uppear_duration(uppear_duration),
     showing_duration(showing_duration),
@@ -27,7 +27,7 @@ void Curtain::update(unused double delta_time)
 {
     if(state == States::done) return;
     auto time = clock.getElapsedTime();
-    
+
     switch(state)
     {
     case States::uppearing:

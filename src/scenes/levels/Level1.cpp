@@ -19,7 +19,7 @@ void Level1::resize()
     blocknote_morse.resize();
     blocknote_mission.resize();
     answer_paper.resize();
-    
+
     blocknote_tutorial.setPosition({0, wsize.y});
     blocknote_morse.setPosition({0, wsize.y});
     blocknote_mission.setPosition({wsize.x, 0});
@@ -34,7 +34,7 @@ void Level1::update(unused double delta_time)
     auto blocknote_animation = [&](std::pair<float, float> range){
         return anim::interpolate<anim::ease_out_cubic>(range, elapsed_time, blocknote_appear_time);
     };
-    
+
     background.update(delta_time);
     switch(state)
     {
@@ -44,7 +44,8 @@ void Level1::update(unused double delta_time)
             break;
         draws = { troop };
         troop.restart_with_phrases(LC::choose_vector({
-            {LC::Lang::eng, {L"Sir, it's time for us to retreat", L"They will soon surround us"}}
+            {LC::Lang::eng, {L"Sir, it's time for us to retreat", L"They will soon surround us"}},
+            {LC::Lang::rus, {L"Сэр, нам пора отсупать", L"Они скоро окружат нас"}}
         }));
         state++;
     [[fallthrough]];
@@ -78,7 +79,7 @@ void Level1::update(unused double delta_time)
         {
             state++;
             draws = { blocknote_tutorial, blocknote_morse, blocknote_mission, telegraph };
-            
+
             auto [post, sizet] = blocknote_tutorial.get_global_bounds();
             auto [posm, sizem] = blocknote_morse.get_global_bounds();
             auto [posmi, sizemi] = blocknote_mission.get_global_bounds();
@@ -86,7 +87,7 @@ void Level1::update(unused double delta_time)
             blocknote_morse.setPosition({-sizem.x, wsize.y});
             blocknote_mission.setPosition({wsize.x, -sizemi.y});
             answer_paper.setPosition({-wsize.x, sizemi.y * .5f});
-            
+
             animation_clock.restart();
         }
     break;
@@ -170,7 +171,7 @@ void Level1::update(unused double delta_time)
             telegraph.set_mission(mission);
             blocknote_mission.label.set_string(mission);
         }
-        
+
     break;
     case 7:
         commander.update(delta_time);
@@ -178,16 +179,16 @@ void Level1::update(unused double delta_time)
         {
             state++;
             draws = { blocknote_mission, telegraph, blocknote_morse };
-            
+
             auto [posm, sizem] = blocknote_morse.get_global_bounds();
             auto [posmi, sizemi] = blocknote_mission.get_global_bounds();
             blocknote_morse.setPosition({-sizem.x, wsize.y});
             blocknote_mission.setPosition({wsize.x, -sizemi.y});
-            
+
             animation_clock.restart();
         }
     break;
-    case 8:   
+    case 8:
         telegraph.update(delta_time);
         if(telegraph.mission_done_pause())
         {
@@ -204,6 +205,8 @@ void Level1::update(unused double delta_time)
                 blocknote_animation({-blocknote_mission.get_global_bounds().size.y, 0})
             });
         }
+    break;
+    case 9:
     break;
     default:
     break;

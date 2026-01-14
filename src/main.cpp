@@ -19,7 +19,7 @@ int main()
     for(; window.isOpen(); delta_time = clock.restart().asSeconds())
     {
         auto scene = SceneManager::get_current();
-            
+
         while(const std::optional event = window.pollEvent())
         {
             if(event->is<sf::Event::Closed>()) window.close();
@@ -43,7 +43,7 @@ int main()
                 using namespace sf::Keyboard;
                 switch(k->code)
                 {
-                case Key::F11:                    
+                case Key::F11:
                     window.change_fullscreen();
                     scene->resize();
                 break;
@@ -60,6 +60,6 @@ int main()
 
         fps_label.set_string(std::to_string(static_cast<int>(1 / delta_time)));
     }
-    
+
     return 0;
 }

@@ -30,8 +30,8 @@ constexpr sf::Vector2<T> operator*(sf::Vector2<T> a, sf::Vector2<T> b) noexcept
     };
 }
 
-template <typename T, typename U> 
-requires (std::is_arithmetic_v<U>) 
+template <typename T, typename U>
+requires (std::is_arithmetic_v<U>)
 constexpr sf::Vector2<T> operator/(sf::Vector2<T> a, U b) noexcept
 {
     return {
@@ -40,8 +40,8 @@ constexpr sf::Vector2<T> operator/(sf::Vector2<T> a, U b) noexcept
     };
 }
 
-template <typename T, typename U> 
-requires (std::is_arithmetic_v<U>) 
+template <typename T, typename U>
+requires (std::is_arithmetic_v<U>)
 constexpr sf::Vector2<T> operator*(sf::Vector2<T> a, U b) noexcept
 {
     return {

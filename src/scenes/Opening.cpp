@@ -3,12 +3,12 @@
 void Opening::resize()
 {
     auto ws = get_wsize<>();
-    
+
     curtain.resize();
-    author.set_char_size(ws.y / 10); 
+    author.set_char_size(ws.y / 10);
     author.setPosition({ws.x / 2.f, ws.y / 3.f});
-    
-    made_with.set_char_size(ws.y / 12); 
+
+    made_with.set_char_size(ws.y / 12);
     made_with.setPosition({ws.x / 2.f, ws.y / 3.f * 2});
 }
 

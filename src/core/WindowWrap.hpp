@@ -9,7 +9,7 @@
 
 template <typename T>
 concept WindowWrapTC = requires {
-    { T::get_window() } -> std::same_as<sf::RenderWindow&>; 
+    { T::get_window() } -> std::same_as<sf::RenderWindow&>;
 };
 
 class DefaultWindowWrap
@@ -26,5 +26,5 @@ protected:
         return static_cast<sf::Vector2<T>>(get_window().getSize());
     }
 private:
-    inline static sf::RenderWindow *win = nullptr; 
+    inline static sf::RenderWindow *win = nullptr;
 };

@@ -13,7 +13,7 @@ public:
     } current_language = Lang::eng;
 
     using svector = std::vector<sf::String>;
-    
+
     class String
     {
     public:

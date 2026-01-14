@@ -12,11 +12,11 @@ class LabelButton : public BaseButton, public Label
 {
 public:
     using callback_t = std::function<void()>;//should be void(delta)
-    
+
     explicit LabelButton(Label&& label,
                          callback_t on_press = [](){},
                          callback_t on_release = [](){});
-    
+
     callback_t on_press = [](){};
     callback_t on_release = [](){};
     callback_t on_click = [](){};

@@ -9,7 +9,7 @@
 class PausebleClock
 {
 public:
-    PausebleClock() = default;    
+    PausebleClock() = default;
     void start();
     void pause();
     void resume();

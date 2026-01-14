@@ -46,9 +46,9 @@ void BaseStampLabel::base_reset(sf::String string)
 
 StampLabelSound::StampLabelSound(
     Label && label,
-    sf::String text, 
+    sf::String text,
     sf::Sound sound,
-    sf::Time letter_time) 
+    sf::Time letter_time)
     : BaseStampLabel(std::move(label), text, letter_time),
       sound(sound),
       sounds{sound, sound, sound}
@@ -80,7 +80,7 @@ StampLabelMusic::StampLabelMusic(
     Label &&label,
     sf::String text,
     sf::Music &music,
-    sf::Time letter_time) 
+    sf::Time letter_time)
     : BaseStampLabel(std::move(label), text, letter_time),
       voice(music)
 {

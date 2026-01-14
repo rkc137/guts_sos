@@ -21,7 +21,7 @@ void SpriteWithLabel::resize()
     auto wsize = get_wsize<float>();
     auto [bpos, bsize] = sprite.get_global_bounds();
     label.set_char_size(wsize.y / size_coefficient);
-    
+
     sf::Vector2f pos;
     switch(label.get_origin_state())
     {
@@ -47,7 +47,7 @@ void SpriteWithLabel::resize()
     label.setPosition(pos);
 }
 
-SpriteWithLabel::SpriteWithLabel(sf::String text, ui::OriginState text_state, Sprite &&sprite, int size_cf = 21) :
+SpriteWithLabel::SpriteWithLabel(sf::String text, ui::OriginState text_state, Sprite &&sprite, int size_cf) :
     label{
         text,
         res::too_much_ink,

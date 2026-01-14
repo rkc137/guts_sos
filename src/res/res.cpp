@@ -1,7 +1,7 @@
 #include "res.hpp"
 
 template <typename T>
-struct Setup 
+struct Setup
 {
     T& reference;
     res::fspath path;
@@ -13,7 +13,7 @@ void res::load()
         {default_texture,   "place_holder.png"},
         {answer_pepper,     "blocknote/answer_pepper.png"},
         {blocknote_blank,   "blocknote/blocknote_blank.png"},
-        {blocknote_morse,   "blocknote/blocknote_alphabet.png"},
+        {blocknote_morse,   "blocknote/blocknote_alphabet_mini.png"},
         {blocknote_onside,  "blocknote/blocknote_blank_onside.png"},
         {troop,             "faces/troop.png"},
         {commander,         "faces/commander.png"},
