@@ -47,6 +47,11 @@ void SpriteWithLabel::resize()
     label.setPosition(pos);
 }
 
+void SpriteWithLabel::set_string(sf::String str)
+{
+    label.set_string(str);
+}
+
 SpriteWithLabel::SpriteWithLabel(sf::String text, ui::OriginState text_state, Sprite &&sprite, int size_cf) :
     label{
         text,
