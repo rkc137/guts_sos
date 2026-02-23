@@ -79,6 +79,19 @@ void Level1::update(unused double delta_time)
         {
             state++;
             draws = { blocknote_tutorial, blocknote_morse, blocknote_mission, telegraph };
+            blocknote_tutorial.set_string(LC::choose_string({
+                {LC::Lang::eng, {
+                    L"Press space key to use\n"
+                    L"telegraph. Short press\n"
+                    L"makes dots and long\n"
+                    L"makes dash. Combine\n"
+                    L"them to make letters.\n"
+                    L"Wait a little bit to\n"
+                    L"make a space. If you\n"
+                    L"make a mistake, make 8\n"
+                    L"dots to erase last\n" L"letter."
+                }}
+            }));
 
             auto [post, sizet] = blocknote_tutorial.get_global_bounds();
             auto [posm, sizem] = blocknote_morse.get_global_bounds();
@@ -193,8 +206,9 @@ void Level1::update(unused double delta_time)
         if(telegraph.mission_done_pause())
         {
             state++;
+            animation_clock.restart();
         }
-        if(elapsed_time <= blocknote_appear_time)
+        else if(elapsed_time <= blocknote_appear_time)
         {
             blocknote_morse.setPosition({
                 blocknote_animation({-blocknote_morse.get_global_bounds().size.x, 0}),
@@ -207,7 +221,25 @@ void Level1::update(unused double delta_time)
         }
     break;
     case 9:
+        if(elapsed_time <= blocknote_appear_time)
+        {
+            blocknote_morse.setPosition({
+                blocknote_animation({0, -blocknote_morse.get_global_bounds().size.x}),
+                wsize.y
+            });
+            blocknote_mission.setPosition({
+                wsize.x,
+                blocknote_animation({0, -blocknote_mission.get_global_bounds().size.y})
+            });
+        }
+        else
+        {
+            state++;
+            animation_clock.restart();
+            draws = {};
+        }
     break;
+    case 10:
     default:
     break;
     }

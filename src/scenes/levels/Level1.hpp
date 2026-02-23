@@ -31,15 +31,7 @@ private:
     ui::Sprite blocknote_morse{res::blocknote_morse, ui::OriginState::left_down};
     sf::String are_you_ready = "QRV?", we_are_ready = "QRV";
     ui::SpriteWithLabel blocknote_tutorial{
-        L"Press space key to use\n"
-        L"telegraph. Short press\n"
-        L"makes dots and long\n"
-        L"makes dash. Combine\n"
-        L"them to make letters.\n"
-        L"Wait a little bit to\n"
-        L"make a space. If you\n"
-        L"make a mistake, make 8\n"
-        L"dots to erase last\n" L"letter.",
+        "",
         ui::OriginState::left_up,
         {res::blocknote_blank, ui::OriginState::left_down}
     };
