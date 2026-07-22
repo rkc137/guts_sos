@@ -1,5 +1,6 @@
 /build
 /res
+/bin
 .cache
 .vscode
 *.kra~

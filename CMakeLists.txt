@@ -14,19 +14,20 @@ if(DEFINED ENV{CMAKE_LIBS_DIR})
     set(FETCHCONTENT_BASE_DIR "$ENV{CMAKE_LIBS_DIR}")
 endif()
 
-FetchContent_Declare(
-    SFML
-    GIT_REPOSITORY https://github.com/SFML/SFML.git
-    GIT_TAG master
-    GIT_SHALLOW ON
-    EXCLUDE_FROM_ALL
-    SYSTEM
-)
-FetchContent_MakeAvailable(SFML)
+option(USE_FETCHCONTENT "fetching libs" FALSE)
+if(USE_FETCHCONTENT)
+    FetchContent_Declare(
+        SFML
+        GIT_REPOSITORY https://github.com/SFML/SFML.git
+        GIT_TAG 3.0.2
+    )
+    FetchContent_MakeAvailable(SFML)
+else()
+    find_package(SFML REQUIRED COMPONENTS Graphics Audio Window System)
+endif()
 
-set(SFML_STATIC_LIBRARIES TRUE)
 
-add_executable(sos 
+add_executable(sos
     src/core/WindowWrap.cpp
     src/core/Window.cpp
     src/core/Logger/Logger.cpp
@@ -48,12 +49,20 @@ add_executable(sos
     src/scenes/Intro.cpp
     src/scenes/levels/Level1.cpp
     src/main.cpp
-    # src/entitys/entity/Entity.cpp
 )
 target_link_libraries(sos PRIVATE SFML::Graphics SFML::Audio)
 target_compile_features(sos PRIVATE cxx_std_17)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
-    target_compile_definitions(sos PRIVATE SFML_STATIC)
-    target_link_options(sos PRIVATE -mwindows -static)
+    add_compile_options(-O2)
+    target_link_options(sos PRIVATE -mwindows)
+    set_target_properties(sos PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin
+    )
+    add_custom_command(TARGET sos POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            $<TARGET_RUNTIME_DLLS:sos>
+            $<TARGET_FILE_DIR:sos>
+        COMMAND_EXPAND_LISTS
+    )
 endif()
