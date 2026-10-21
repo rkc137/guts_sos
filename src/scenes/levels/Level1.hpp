@@ -21,6 +21,11 @@ public:
     void update(double delta_time) override;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 private:
+
+    const res::TextHolder level_text = res::get_scene_text("Level1");
+    const res::TextHolder::ProxyString level_strings = level_text.proxy_string;
+    const res::TextHolder::ProxyText level_texts = level_text.proxy_text;
+
     int state = 0;
     std::vector<std::reference_wrapper<sf::Drawable>> draws;
     sf::Sound incoming{res::incoming};
