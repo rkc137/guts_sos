@@ -48,7 +48,7 @@ public:
     {
         eng,
         rus
-    } current_language = Lang::eng;
+    } current_language = Lang::rus;
 
     inlstc json text;
 
@@ -61,6 +61,18 @@ public:
 
     inlstc const sf::String app_name = "guts:s.o.s";
     inlstc bool is_loaded() { return loaded; }
+    inlstc sf::Font& get_hand_font()
+    {
+        switch (current_language)
+        {
+        case Lang::eng:
+            return too_much_ink;
+        case Lang::rus:
+            return default_font;
+        default:
+            return default_font;
+        }
+    }
     inlstc auto get_scene_text(std::string_view scene_index)
     {
         struct {
@@ -68,8 +80,11 @@ public:
             std::vector<sf::String> operator[](std::string_view label) const
             {
                 try {
-                    auto t = block.at(label).get<std::vector<std::string>>();
-                    return {t.begin(), t.end()};
+                    std::vector<sf::String> ret;
+                    auto b = block.at(label).get<std::vector<std::string>>();
+                    for(auto s : b)
+                        ret.emplace_back(sf::String::fromUtf8(s.begin(), s.end()));
+                    return ret;
                 } catch (const nlohmann::json::exception& e) {
                     dbg() << e.what();
                     return {"BAD JSON", "BAD JSON", "BAD JSON"};
@@ -82,7 +97,8 @@ public:
                     sf::String operator[](std::string_view label) const
                     {
                         try {
-                            return block.at(label).get<std::string>();
+                            auto s = block.at(label).get<std::string>();
+                            return sf::String::fromUtf8(s.begin(), s.end());
                         } catch (const nlohmann::json::exception& e) {
                             dbg() << e.what() << label << block;
                             return "BAD JSON STRING";
