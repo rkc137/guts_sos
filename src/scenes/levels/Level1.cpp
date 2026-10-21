@@ -28,6 +28,8 @@ void Level1::resize()
 
 void Level1::update(unused double delta_time)
 {
+    static const auto level_text_vecs = res::get_scene_text("Level1");
+
     auto wsize = get_wsize<float>();
     auto elapsed_time = animation_clock.get_elapsed_time();
     // i need c++26 std::bind_back<Fn> sooo bad
@@ -43,7 +45,7 @@ void Level1::update(unused double delta_time)
         if(!shaker.is_done())
             break;
         draws = { troop };
-        troop.restart_with_phrases(res::get_text("L1"));
+        troop.restart_with_phrases(level_text_vecs["L1"]);
         // troop.restart_with_phrases(LC::choose_vector({
         //     {LC::Lang::eng, {L"Sir, it's time for us to retreat", L"They will soon surround us"}},
         //     {LC::Lang::rus, {L"Сэр, нам пора отсупать", L"Они скоро окружат нас"}}

@@ -11,6 +11,8 @@ using json = nlohmann::json;
 #include <array>
 #include <map>
 
+#include "../core/logger/Logger.hpp"
+
 #define inlstc inline static
 
 class res
@@ -41,7 +43,6 @@ public:
         sf::Vector2f ratio = {1.f, 1.f}
     );
 
-    static std::vector<sf::String> get_text(std::string_view label);
 
     inlstc enum class Lang
     {
@@ -49,12 +50,22 @@ public:
         rus
     } current_language = Lang::eng;
 
-    inlstc std::unordered_map<Lang, std::string> lang_json = {
-        {Lang::eng, "{\"L1\": [\"DEBUG TEXT\", \"137137137\"]}"},
-        {Lang::rus, "dwefwefwefewef"}
-    };
-
     inlstc json text;
+
+    static auto get_scene_text(std::string_view scene_index)
+    {
+        struct {
+            json block;
+            std::vector<sf::String> operator[](std::string_view label) const
+            {
+                auto t = block[label].get<std::vector<std::string>>();
+                return {t.begin(), t.end()};
+            }
+        } ret;
+        ret.block = text[scene_index];
+        return ret;
+    }
+
 
     inlstc sf::Texture
         default_texture, blocknote_blank, blocknote_morse, blocknote_onside,

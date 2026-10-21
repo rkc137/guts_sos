@@ -1,5 +1,7 @@
 #include "res.hpp"
 
+#include "battery/embed.hpp"
+
 template <typename T>
 struct Setup
 {
@@ -56,6 +58,10 @@ void res::load()
         if(!music.openFromFile(res_path / path))
             throw std::runtime_error("bruh wha");
 
+    std::unordered_map<Lang, std::string> lang_json = {
+        {Lang::eng, b::embed<"translations/eng.json">() },
+        {Lang::rus, "BAD JSON"}
+    };
     text = json::parse(lang_json[current_language], nullptr, true, true);
 
     loaded = true;
@@ -68,10 +74,4 @@ sf::Vector2f res::get_scale(sf::Vector2f wsize)
         std::abs(wsize.y / res::target_video_mode.y)
     );
     return {scale, scale};
-}
-
-std::vector<sf::String> res::get_text(std::string_view label)
-{
-    auto t = text[label].get<std::vector<std::string>>();
-    return {t.begin(), t.end()};
 }
