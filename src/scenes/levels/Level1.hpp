@@ -1,12 +1,9 @@
 #pragma once
 
 #include "../../core/pauseble_clock/PausebleClock.hpp"
-#include "../../core/Animation.hpp"
-#include "../../core/LocalizedText.hpp"
 #include "../../res/res.hpp"
 #include "../../ui/sprite/Sprite.hpp"
 #include "../../ui/sprite/SpriteWithLabel.hpp"
-#include "../../ui/label/label.hpp"
 #include "../../ui/character/Character.hpp"
 #include "../SceneManager.hpp"
 #include "../local_scenes/Telegraph.hpp"
@@ -41,7 +38,7 @@ private:
         {res::blocknote_blank, ui::OriginState::left_down}
     };
     ui::SpriteWithLabel blocknote_mission{
-        L"try to send a " + are_you_ready,
+        level_strings["Mission"] + are_you_ready,
         ui::OriginState::left_down,
         {res::blocknote_onside, ui::OriginState::right_up}
     };

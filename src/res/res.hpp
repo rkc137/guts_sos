@@ -8,10 +8,6 @@ using json = nlohmann::json;
 
 #include <filesystem>
 #include <vector>
-#include <array>
-#include <map>
-
-#include "../core/logger/Logger.hpp"
 
 #define inlstc inline static
 
@@ -48,7 +44,7 @@ public:
     {
         eng,
         rus
-    } current_language = Lang::rus;
+    } current_language = Lang::eng;
 
     inlstc json text;
 
@@ -63,7 +59,7 @@ public:
     static bool is_loaded() { return loaded; }
     static sf::Font& get_hand_font()
     {
-        switch (current_language)
+        switch(current_language)
         {
         case Lang::eng:
             return too_much_ink;
