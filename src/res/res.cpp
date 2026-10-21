@@ -75,3 +75,37 @@ sf::Vector2f res::get_scale(sf::Vector2f wsize)
     );
     return {scale, scale};
 }
+
+res::TextHolder res::get_scene_text(std::string_view scene_index)
+{
+    TextHolder ret;
+    const auto block = std::make_shared<json>(text[scene_index]);
+    ret.proxy_string.block = block;
+    ret.proxy_text.block = block;
+    return ret;
+}
+
+sf::String res::TextHolder::ProxyString::operator[](std::string_view label) const
+{
+    try {
+        auto s = block->at(label).get<std::string>();
+        return sf::String::fromUtf8(s.begin(), s.end());
+    } catch (const nlohmann::json::exception& e) {
+        dbg() << e.what() << label << block;
+        return "BAD JSON STRING";
+    }
+}
+
+std::vector<sf::String> res::TextHolder::ProxyText::operator[](std::string_view label) const
+{
+    try {
+        std::vector<sf::String> ret;
+        auto b = block->at(label).get<std::vector<std::string>>();
+        for(auto s : b)
+            ret.emplace_back(sf::String::fromUtf8(s.begin(), s.end()));
+        return ret;
+    } catch (const nlohmann::json::exception& e) {
+        dbg() << e.what();
+        return {"BAD JSON", "BAD JSON", "BAD JSON"};
+    }
+}

@@ -60,8 +60,8 @@ public:
     inlstc sf::Music distance_explosions, distance_battle, carterattack, voice, march;
 
     inlstc const sf::String app_name = "guts:s.o.s";
-    inlstc bool is_loaded() { return loaded; }
-    inlstc sf::Font& get_hand_font()
+    static bool is_loaded() { return loaded; }
+    static sf::Font& get_hand_font()
     {
         switch (current_language)
         {
@@ -73,44 +73,20 @@ public:
             return default_font;
         }
     }
-    inlstc auto get_scene_text(std::string_view scene_index)
+    struct TextHolder
     {
-        struct {
-            json block;
-            std::vector<sf::String> operator[](std::string_view label) const
-            {
-                try {
-                    std::vector<sf::String> ret;
-                    auto b = block.at(label).get<std::vector<std::string>>();
-                    for(auto s : b)
-                        ret.emplace_back(sf::String::fromUtf8(s.begin(), s.end()));
-                    return ret;
-                } catch (const nlohmann::json::exception& e) {
-                    dbg() << e.what();
-                    return {"BAD JSON", "BAD JSON", "BAD JSON"};
-                }
-            }
-            auto get_strings() const
-            {
-                struct {
-                    const json& block;
-                    sf::String operator[](std::string_view label) const
-                    {
-                        try {
-                            auto s = block.at(label).get<std::string>();
-                            return sf::String::fromUtf8(s.begin(), s.end());
-                        } catch (const nlohmann::json::exception& e) {
-                            dbg() << e.what() << label << block;
-                            return "BAD JSON STRING";
-                        }
-                    }
-                } ret{block};
-                return ret;
-            }
-        } ret;
-        ret.block = text[scene_index];
-        return ret;
-    }
+        struct ProxyString
+        {
+            std::shared_ptr<json> block;
+            sf::String operator[](std::string_view label) const;
+        } proxy_string;
+        struct ProxyText
+        {
+            std::shared_ptr<json> block;
+            std::vector<sf::String> operator[](std::string_view label) const;
+        } proxy_text;
+    };
+    static TextHolder get_scene_text(std::string_view scene_index);
 };
 
 template <typename T>

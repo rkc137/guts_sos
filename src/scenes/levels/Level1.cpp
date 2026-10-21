@@ -28,8 +28,8 @@ void Level1::resize()
 
 void Level1::update(unused double delta_time)
 {
-    static const auto level_texts = res::get_scene_text("Level1");
-    static const auto level_strings = level_texts.get_strings();
+    static const auto level_text = res::get_scene_text("Level1");
+    static const auto &[level_strings, level_texts] = level_text;
 
     auto wsize = get_wsize<float>();
     auto elapsed_time = animation_clock.get_elapsed_time();
