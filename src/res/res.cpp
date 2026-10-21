@@ -60,7 +60,7 @@ void res::load()
 
     std::unordered_map<Lang, std::string> lang_json = {
         {Lang::eng, b::embed<"translations/eng.json">() },
-        {Lang::rus, "BAD JSON"}
+        {Lang::rus, b::embed<"translations/rus.json">() }
     };
     text = json::parse(lang_json[current_language], nullptr, true, true);
 

@@ -75,6 +75,22 @@ public:
                     return {"BAD JSON", "BAD JSON", "BAD JSON"};
                 }
             }
+            auto get_strings() const
+            {
+                struct {
+                    const json& block;
+                    sf::String operator[](std::string_view label) const
+                    {
+                        try {
+                            return block.at(label).get<std::string>();
+                        } catch (const nlohmann::json::exception& e) {
+                            dbg() << e.what() << label << block;
+                            return "BAD JSON STRING";
+                        }
+                    }
+                } ret{block};
+                return ret;
+            }
         } ret;
         ret.block = text[scene_index];
         return ret;

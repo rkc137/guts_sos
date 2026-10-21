@@ -68,6 +68,7 @@ target_link_libraries(sos PRIVATE SFML::Graphics SFML::Audio nlohmann_json::nloh
 target_compile_features(sos PRIVATE cxx_std_17)
 
 b_embed(sos translations/eng.json)
+b_embed(sos translations/rus.json)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
     add_compile_options(-O2)
