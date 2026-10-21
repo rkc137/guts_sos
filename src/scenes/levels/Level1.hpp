@@ -20,8 +20,8 @@ public:
 private:
 
     const res::TextHolder level_text = res::get_scene_text("Level1");
-    const res::TextHolder::ProxyString level_strings = level_text.proxy_string;
-    const res::TextHolder::ProxyText level_texts = level_text.proxy_text;
+    const res::TextHolder::ProxyStrings level_strings = level_text.proxy_string;
+    const res::TextHolder::ProxyTexts level_texts = level_text.proxy_text;
 
     int state = 0;
     std::vector<std::reference_wrapper<sf::Drawable>> draws;

@@ -6,6 +6,7 @@
 #include "local_scenes/Curtain.hpp"
 #include "../ui/label/StampLabel.hpp"
 #include "levels/Level1.hpp"
+#include "../core/LocalizedText.hpp"
 
 class Intro : public SceneManager::Scene
 {

@@ -44,39 +44,28 @@ public:
     {
         eng,
         rus
-    } current_language = Lang::eng;
+    } current_language = Lang::rus;
 
     inlstc json text;
 
     inlstc sf::Texture
         default_texture, blocknote_blank, blocknote_morse, blocknote_onside,
         answer_pepper, splash, bunker, troop, commander, light;
-    inlstc sf::Font default_font, cybersomething, too_much_ink;
+    inlstc sf::Font default_font, cybersomething, too_much_ink, comicsansMSrus;
     inlstc sf::SoundBuffer morse_noise, stamp, print, incoming;
     inlstc sf::Music distance_explosions, distance_battle, carterattack, voice, march;
 
     inlstc const sf::String app_name = "guts:s.o.s";
     static bool is_loaded() { return loaded; }
-    static sf::Font& get_hand_font()
-    {
-        switch(current_language)
-        {
-        case Lang::eng:
-            return too_much_ink;
-        case Lang::rus:
-            return default_font;
-        default:
-            return default_font;
-        }
-    }
+    static sf::Font& get_hand_font();
     struct TextHolder
     {
-        struct ProxyString
+        struct ProxyStrings
         {
             std::shared_ptr<json> block;
             sf::String operator[](std::string_view label) const;
         } proxy_string;
-        struct ProxyText
+        struct ProxyTexts
         {
             std::shared_ptr<json> block;
             std::vector<sf::String> operator[](std::string_view label) const;

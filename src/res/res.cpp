@@ -2,6 +2,8 @@
 
 #include "battery/embed.hpp"
 
+#include "../core/logger/Logger.hpp"
+
 template <typename T>
 struct Setup
 {
@@ -24,21 +26,22 @@ void res::load()
         {splash,            "splash/splash.png"}
     });
     const auto sounds_load_list = std::to_array<Setup<sf::SoundBuffer>>({
-        {morse_noise, "morse.wav"},
-        {stamp, "stamp.wav"},
-        {print, "blocknote/print.wav"},
-        {incoming, "explosion/incoming.wav"}
+        {morse_noise,       "morse.wav"},
+        {stamp,             "stamp.wav"},
+        {print,             "blocknote/print.wav"},
+        {incoming,          "explosion/incoming.wav"}
     });
     const auto music_load_list = std::to_array<Setup<sf::Music>>({
-        {distance_explosions, "explosion/distance_explosions.wav"},
-        {carterattack, "explosion/carterattack.wav"},
-        {distance_battle, "explosion/distance_battle.wav"},
-        {voice, "faces/voice.wav"},
-        {march, "march.wav"}
+        {distance_explosions,   "explosion/distance_explosions.wav"},
+        {carterattack,          "explosion/carterattack.wav"},
+        {distance_battle,       "explosion/distance_battle.wav"},
+        {voice,                 "faces/voice.wav"},
+        {march,                 "march.wav"}
     });
     const auto fonts_load_list = std::to_array<Setup<sf::Font>>({
         {default_font,   "fonts/dejavu-sans/DejaVuSans.ttf"},
         {cybersomething, "fonts/Cybersomething.ttf"},
+        {comicsansMSrus, "fonts/comic-sans-ms-pixel-rus-eng-legacy.otf"},
         {too_much_ink,   "fonts/TooMuchInk.ttf"}
     });
 
@@ -76,6 +79,19 @@ sf::Vector2f res::get_scale(sf::Vector2f wsize)
     return {scale, scale};
 }
 
+sf::Font& res::get_hand_font()
+{
+    switch(current_language)
+    {
+    case Lang::eng:
+        return too_much_ink;
+    case Lang::rus:
+        return comicsansMSrus;
+    default:
+        return default_font;
+    }
+}
+
 res::TextHolder res::get_scene_text(std::string_view scene_index)
 {
     TextHolder ret;
@@ -85,7 +101,7 @@ res::TextHolder res::get_scene_text(std::string_view scene_index)
     return ret;
 }
 
-sf::String res::TextHolder::ProxyString::operator[](std::string_view label) const
+sf::String res::TextHolder::ProxyStrings::operator[](std::string_view label) const
 {
     try {
         auto s = block->at(label).get<std::string>();
@@ -96,7 +112,7 @@ sf::String res::TextHolder::ProxyString::operator[](std::string_view label) cons
     }
 }
 
-std::vector<sf::String> res::TextHolder::ProxyText::operator[](std::string_view label) const
+std::vector<sf::String> res::TextHolder::ProxyTexts::operator[](std::string_view label) const
 {
     try {
         std::vector<sf::String> ret;
