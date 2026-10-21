@@ -52,21 +52,6 @@ public:
 
     inlstc json text;
 
-    static auto get_scene_text(std::string_view scene_index)
-    {
-        struct {
-            json block;
-            std::vector<sf::String> operator[](std::string_view label) const
-            {
-                auto t = block[label].get<std::vector<std::string>>();
-                return {t.begin(), t.end()};
-            }
-        } ret;
-        ret.block = text[scene_index];
-        return ret;
-    }
-
-
     inlstc sf::Texture
         default_texture, blocknote_blank, blocknote_morse, blocknote_onside,
         answer_pepper, splash, bunker, troop, commander, light;
@@ -76,6 +61,24 @@ public:
 
     inlstc const sf::String app_name = "guts:s.o.s";
     inlstc bool is_loaded() { return loaded; }
+    inlstc auto get_scene_text(std::string_view scene_index)
+    {
+        struct {
+            json block;
+            std::vector<sf::String> operator[](std::string_view label) const
+            {
+                try {
+                    auto t = block.at(label).get<std::vector<std::string>>();
+                    return {t.begin(), t.end()};
+                } catch (const nlohmann::json::exception& e) {
+                    dbg() << e.what();
+                    return {"BAD JSON", "BAD JSON", "BAD JSON"};
+                }
+            }
+        } ret;
+        ret.block = text[scene_index];
+        return ret;
+    }
 };
 
 template <typename T>
