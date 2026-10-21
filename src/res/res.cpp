@@ -4,6 +4,8 @@
 
 #include "../core/logger/Logger.hpp"
 
+#include <fstream>
+
 template <typename T>
 struct Setup
 {
@@ -61,10 +63,21 @@ void res::load()
         if(!music.openFromFile(res_path / path))
             throw std::runtime_error("bruh wha");
 
+#ifdef OUTSOURCE
+    auto get_data = [](fspath path){
+        std::ifstream ifs(path);
+        return std::string(std::istreambuf_iterator<char>{ifs}, {});
+    };
+    std::unordered_map<Lang, std::string> lang_json = {
+        {Lang::eng, get_data("../translations/eng.json") },
+        {Lang::rus, get_data("../translations/rus.json") }
+    };
+#else
     std::unordered_map<Lang, std::string> lang_json = {
         {Lang::eng, b::embed<"translations/eng.json">() },
         {Lang::rus, b::embed<"translations/rus.json">() }
     };
+#endif
     text = json::parse(lang_json[current_language], nullptr, true, true);
 
     loaded = true;

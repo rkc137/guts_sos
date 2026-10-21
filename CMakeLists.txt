@@ -66,6 +66,7 @@ add_executable(sos
 )
 target_link_libraries(sos PRIVATE SFML::Graphics SFML::Audio nlohmann_json::nlohmann_json)
 target_compile_features(sos PRIVATE cxx_std_17)
+target_compile_definitions(sos PRIVATE OUTSOURCE)
 
 b_embed(sos translations/eng.json)
 b_embed(sos translations/rus.json)
