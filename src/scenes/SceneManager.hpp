@@ -28,7 +28,6 @@ public:
     template <typename scene_t>
     static void start_scene()
     requires std::is_base_of_v<Scene, scene_t>;
-    // TODO: language
 
     /// @brief gets front scene of manager that currently (should be) running
     /// @return shared_ptr on current scene

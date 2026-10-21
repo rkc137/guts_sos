@@ -22,8 +22,15 @@ if(USE_FETCHCONTENT)
         GIT_TAG 3.0.2
     )
     FetchContent_MakeAvailable(SFML)
+    FetchContent_Declare(
+        nlohmann_json
+        GIT_REPOSITORY https://github.com/nlohmann/json.git
+        GIT_TAG v3.11.3
+    )
+    FetchContent_MakeAvailable(nlohmann_json)
 else()
     find_package(SFML REQUIRED COMPONENTS Graphics Audio Window System)
+    find_package(nlohmann_json CONFIG REQUIRED)
 endif()
 
 
@@ -50,7 +57,7 @@ add_executable(sos
     src/scenes/levels/Level1.cpp
     src/main.cpp
 )
-target_link_libraries(sos PRIVATE SFML::Graphics SFML::Audio)
+target_link_libraries(sos PRIVATE SFML::Graphics SFML::Audio nlohmann_json::nlohmann_json)
 target_compile_features(sos PRIVATE cxx_std_17)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")

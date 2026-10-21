@@ -3,6 +3,9 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
+
 #include <filesystem>
 #include <vector>
 #include <array>
@@ -37,6 +40,21 @@ public:
         sf::Vector2<T> texture_size,
         sf::Vector2f ratio = {1.f, 1.f}
     );
+
+    static std::vector<sf::String> get_text(std::string_view label);
+
+    inlstc enum class Lang
+    {
+        eng,
+        rus
+    } current_language = Lang::eng;
+
+    inlstc std::unordered_map<Lang, std::string> lang_json = {
+        {Lang::eng, "{\"L1\": [\"DEBUG TEXT\", \"137137137\"]}"},
+        {Lang::rus, "dwefwefwefewef"}
+    };
+
+    inlstc json text;
 
     inlstc sf::Texture
         default_texture, blocknote_blank, blocknote_morse, blocknote_onside,

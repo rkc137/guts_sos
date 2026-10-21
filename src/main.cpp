@@ -6,7 +6,16 @@
 
 int main()
 {
-    res::load();
+    try
+    {
+        res::load();
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+        return 100;
+    }
+
     Window window;
     SceneManager::start_scene<Level1>();
 

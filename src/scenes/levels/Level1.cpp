@@ -43,10 +43,11 @@ void Level1::update(unused double delta_time)
         if(!shaker.is_done())
             break;
         draws = { troop };
-        troop.restart_with_phrases(LC::choose_vector({
-            {LC::Lang::eng, {L"Sir, it's time for us to retreat", L"They will soon surround us"}},
-            {LC::Lang::rus, {L"Сэр, нам пора отсупать", L"Они скоро окружат нас"}}
-        }));
+        troop.restart_with_phrases(res::get_text("L1"));
+        // troop.restart_with_phrases(LC::choose_vector({
+        //     {LC::Lang::eng, {L"Sir, it's time for us to retreat", L"They will soon surround us"}},
+        //     {LC::Lang::rus, {L"Сэр, нам пора отсупать", L"Они скоро окружат нас"}}
+        // }));
         state++;
     [[fallthrough]];
     case 1:
