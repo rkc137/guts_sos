@@ -31,7 +31,8 @@ void res::load()
         {distance_explosions, "explosion/distance_explosions.wav"},
         {carterattack, "explosion/carterattack.wav"},
         {distance_battle, "explosion/distance_battle.wav"},
-        {voice, "faces/voice.wav"}
+        {voice, "faces/voice.wav"},
+        {march, "march.wav"}
     });
     const auto fonts_load_list = std::to_array<Setup<sf::Font>>({
         {default_font,   "fonts/dejavu-sans/DejaVuSans.ttf"},

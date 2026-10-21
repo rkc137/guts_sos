@@ -16,6 +16,7 @@ void Opening::update(double delta_time)
 {
     curtain.update(delta_time);
     if(!curtain.is_done()) return;
+    res::march.play();
     SceneManager::start_scene<MainMenu>();
 }
 

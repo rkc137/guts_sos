@@ -6,6 +6,7 @@ MainMenu::MainMenu()
         curtain.let_go([](){
             // TODO: if(res::is_no_save)
             SceneManager::start_scene<Intro>();
+            res::march.stop();
         });
     };
     exit.on_release = [&](){

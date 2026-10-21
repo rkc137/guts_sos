@@ -6,14 +6,15 @@ by rkc137
 
 Credits:
     programmer and "artist" - rkc137
-    
+
     special thx to
     - Pepsi a.k.a sanya
-    - Danya 
-    
+    - Danya
+    - Volwin
+
 Textures:
-    all textures are created with Krita (https://krita.org/en/) 
-   
+    all textures are created with Krita (https://krita.org/en/)
+
 Sound Files:
     https://freesound.org/people/Garuda1982/sounds/530429/
     https://freesound.org/people/CGEffex/sounds/93845/
@@ -22,7 +23,7 @@ Sound Files:
     https://freesound.org/people/TheBuilder15/sounds/404334/
     https://freesound.org/people/EvanBoyerman/sounds/530886/
     https://freesound.org/people/twisterad3/sounds/413838/
-   
+
 Fonts:
     https://kgpaints.itch.io/cybersomething
     https://kgpaints.itch.io/too-much-ink
