@@ -14,6 +14,13 @@ if(DEFINED ENV{CMAKE_LIBS_DIR})
     set(FETCHCONTENT_BASE_DIR "$ENV{CMAKE_LIBS_DIR}")
 endif()
 
+FetchContent_Declare(
+  battery-embed
+  GIT_REPOSITORY https://github.com/batterycenter/embed.git
+  GIT_TAG        v1.2.19
+)
+FetchContent_MakeAvailable(battery-embed)
+
 option(USE_FETCHCONTENT "fetching libs" FALSE)
 if(USE_FETCHCONTENT)
     FetchContent_Declare(
@@ -59,6 +66,8 @@ add_executable(sos
 )
 target_link_libraries(sos PRIVATE SFML::Graphics SFML::Audio nlohmann_json::nlohmann_json)
 target_compile_features(sos PRIVATE cxx_std_17)
+
+b_embed(sos translations/eng.json)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
     add_compile_options(-O2)
