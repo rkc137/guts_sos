@@ -1,6 +1,11 @@
 #include "SceneManager.hpp"
 
 template <typename WWT>
+BaseSceneManager<WWT>::Scene::Scene(std::string_view LCtag)
+: scene_text(res::get_scene_text(LCtag))
+{}
+
+template <typename WWT>
 BaseSceneManager<WWT>::sc_shptr BaseSceneManager<WWT>::get_current()
 {
     // var exist only for executing validation of window once

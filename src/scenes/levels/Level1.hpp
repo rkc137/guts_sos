@@ -18,11 +18,6 @@ public:
     void update(double delta_time) override;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 private:
-
-    const res::TextHolder level_text = res::get_scene_text("Level1");
-    const res::TextHolder::ProxyStrings level_strings = level_text.proxy_string;
-    const res::TextHolder::ProxyTexts level_texts = level_text.proxy_text;
-
     int state = 0;
     std::vector<std::reference_wrapper<sf::Drawable>> draws;
     sf::Sound incoming{res::incoming};
@@ -38,7 +33,7 @@ private:
         {res::blocknote_blank, ui::OriginState::left_down}
     };
     ui::SpriteWithLabel blocknote_mission{
-        level_strings["Mission"] + are_you_ready,
+        scene_strings["Mission"] + are_you_ready,
         ui::OriginState::left_down,
         {res::blocknote_onside, ui::OriginState::right_up}
     };
