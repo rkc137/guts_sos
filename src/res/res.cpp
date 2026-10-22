@@ -42,9 +42,12 @@ void res::load()
     });
     const auto fonts_load_list = std::to_array<Setup<sf::Font>>({
         {default_font,   "fonts/dejavu-sans/DejaVuSans.ttf"},
-        {cybersomething, "fonts/Cybersomething.ttf"},
-        {comicsansMSrus, "fonts/comic-sans-ms-pixel-rus-eng-legacy.otf"},
-        {too_much_ink,   "fonts/TooMuchInk.ttf"}
+
+        {hand_font.fonts[Lang::eng], "fonts/TooMuchInk.ttf"},
+        {hand_font.fonts[Lang::rus], "fonts/comic-sans-ms-pixel-rus-eng-legacy.otf"},
+
+        {brutal_font.fonts[Lang::eng], "fonts/Cybersomething.ttf"},
+        {brutal_font.fonts[Lang::rus], "fonts/HARREEGHPOPPEDCYRILLIC.TTF"}
     });
 
     for(auto &[texture, path] : texture_load_list)
@@ -90,19 +93,6 @@ sf::Vector2f res::get_scale(sf::Vector2f wsize)
         std::abs(wsize.y / res::target_video_mode.y)
     );
     return {scale, scale};
-}
-
-sf::Font& res::get_hand_font()
-{
-    switch(current_language)
-    {
-    case Lang::eng:
-        return too_much_ink;
-    case Lang::rus:
-        return comicsansMSrus;
-    default:
-        return default_font;
-    }
 }
 
 const res::TextHolder res::get_scene_text(std::string_view scene_index)

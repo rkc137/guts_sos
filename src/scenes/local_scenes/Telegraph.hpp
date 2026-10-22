@@ -21,7 +21,7 @@ public:
     no_discard bool mission_done_pause() const;
 private:
     ui::Label input_label{L"", res::default_font, sf::Color::White, 80, ui::OriginState::center, true};//••—•——
-    ui::Label output_label{L"", res::cybersomething, sf::Color::White, 80, ui::OriginState::center, true};//text
+    ui::Label output_label{L"", res::brutal_font, sf::Color::White, 80, ui::OriginState::center, true};//text
     sf::String mission_text;
 
     bool is_mission_done = false;

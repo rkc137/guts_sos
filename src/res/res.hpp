@@ -48,16 +48,21 @@ public:
 
     inlstc json text;
 
+    struct LCFont {
+        operator sf::Font&() { return fonts[current_language]; }
+        std::unordered_map<Lang, sf::Font> fonts;
+    };
+
+    inlstc LCFont hand_font, brutal_font;
+    inlstc sf::Font default_font;
     inlstc sf::Texture
         default_texture, blocknote_blank, blocknote_morse, blocknote_onside,
         answer_pepper, splash, bunker, troop, commander, light;
-    inlstc sf::Font default_font, cybersomething, too_much_ink, comicsansMSrus;
     inlstc sf::SoundBuffer morse_noise, stamp, print, incoming;
     inlstc sf::Music distance_explosions, distance_battle, carterattack, voice, march;
 
     inlstc const sf::String app_name = "guts:s.o.s";
     static bool is_loaded() { return loaded; }
-    static sf::Font& get_hand_font();
     struct TextHolder
     {
         struct ProxyStrings

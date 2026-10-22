@@ -14,7 +14,7 @@ Character::Character(
       pause_after_talk(pause_after_talk),
       label{
         ui::Label{
-            L"", res::get_hand_font(),
+            L"", res::hand_font,
             sf::Color::White
         },
         phrases.front(),
