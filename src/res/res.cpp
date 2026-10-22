@@ -1,5 +1,11 @@
 #include "res.hpp"
 
+#include "battery/embed.hpp"
+
+#include "../core/logger/Logger.hpp"
+
+#include <fstream>
+
 template <typename T>
 struct Setup
 {
@@ -22,22 +28,26 @@ void res::load()
         {splash,            "splash/splash.png"}
     });
     const auto sounds_load_list = std::to_array<Setup<sf::SoundBuffer>>({
-        {morse_noise, "morse.wav"},
-        {stamp, "stamp.wav"},
-        {print, "blocknote/print.wav"},
-        {incoming, "explosion/incoming.wav"}
+        {morse_noise,       "morse.wav"},
+        {stamp,             "stamp.wav"},
+        {print,             "blocknote/print.wav"},
+        {incoming,          "explosion/incoming.wav"}
     });
     const auto music_load_list = std::to_array<Setup<sf::Music>>({
-        {distance_explosions, "explosion/distance_explosions.wav"},
-        {carterattack, "explosion/carterattack.wav"},
-        {distance_battle, "explosion/distance_battle.wav"},
-        {voice, "faces/voice.wav"},
-        {march, "march.wav"}
+        {distance_explosions,   "explosion/distance_explosions.wav"},
+        {carterattack,          "explosion/carterattack.wav"},
+        {distance_battle,       "explosion/distance_battle.wav"},
+        {voice,                 "faces/voice.wav"},
+        {march,                 "march.wav"}
     });
     const auto fonts_load_list = std::to_array<Setup<sf::Font>>({
         {default_font,   "fonts/dejavu-sans/DejaVuSans.ttf"},
-        {cybersomething, "fonts/Cybersomething.ttf"},
-        {too_much_ink,   "fonts/TooMuchInk.ttf"}
+
+        {hand_font.fonts[Lang::eng], "fonts/TooMuchInk.ttf"},
+        {hand_font.fonts[Lang::rus], "fonts/comic-sans-ms-pixel-rus-eng-legacy.otf"},
+
+        {brutal_font.fonts[Lang::eng], "fonts/Cybersomething.ttf"},
+        {brutal_font.fonts[Lang::rus], "fonts/HARREEGHPOPPEDCYRILLIC.TTF"}
     });
 
     for(auto &[texture, path] : texture_load_list)
@@ -55,7 +65,29 @@ void res::load()
     for(auto &[music, path] : music_load_list)
         if(!music.openFromFile(res_path / path))
             throw std::runtime_error("bruh wha");
+
+#ifdef OUTSOURCE
+    auto get_data = [](fspath path){
+        std::ifstream ifs(path);
+        return std::string(std::istreambuf_iterator<char>{ifs}, {});
+    };
+    lang_json = {
+        {Lang::eng, get_data("../translations/eng.json") },
+        {Lang::rus, get_data("../translations/rus.json") }
+    };
+#else
+    lang_json = {
+        {Lang::eng, b::embed<"translations/eng.json">() },
+        {Lang::rus, b::embed<"translations/rus.json">() }
+    };
+#endif
+
     loaded = true;
+}
+
+void res::load_texts()
+{
+    text = json::parse(lang_json[current_language], nullptr, true, true);
 }
 
 sf::Vector2f res::get_scale(sf::Vector2f wsize)
@@ -65,4 +97,38 @@ sf::Vector2f res::get_scale(sf::Vector2f wsize)
         std::abs(wsize.y / res::target_video_mode.y)
     );
     return {scale, scale};
+}
+
+const res::TextHolder res::get_scene_text(std::string_view scene_index)
+{
+    TextHolder ret;
+    const auto block = std::make_shared<json>(text[scene_index]);
+    ret.proxy_string.block = block;
+    ret.proxy_text.block = block;
+    return ret;
+}
+
+sf::String res::TextHolder::ProxyStrings::operator[](std::string_view label) const
+{
+    try {
+        auto s = block->at(label).get<std::string>();
+        return sf::String::fromUtf8(s.begin(), s.end());
+    } catch (const nlohmann::json::exception& e) {
+        dbg() << e.what() << label << block;
+        return "BAD JSON STRING";
+    }
+}
+
+std::vector<sf::String> res::TextHolder::ProxyTexts::operator[](std::string_view label) const
+{
+    try {
+        std::vector<sf::String> ret;
+        auto b = block->at(label).get<std::vector<std::string>>();
+        for(auto s : b)
+            ret.emplace_back(sf::String::fromUtf8(s.begin(), s.end()));
+        return ret;
+    } catch (const nlohmann::json::exception& e) {
+        dbg() << e.what();
+        return {"BAD JSON", "BAD JSON", "BAD JSON"};
+    }
 }

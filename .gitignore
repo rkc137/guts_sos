@@ -1,6 +1,7 @@
 /build
 /res
 /bin
+/translations
 /docs
 .cache
 .vscode

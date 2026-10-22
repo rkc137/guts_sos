@@ -1,6 +1,6 @@
 #include "Level1.hpp"
 
-Level1::Level1()
+Level1::Level1() : SceneManager::Scene("Level1")
 {
     incoming.play();
     res::distance_battle.setLooping(true);
@@ -43,10 +43,7 @@ void Level1::update(unused double delta_time)
         if(!shaker.is_done())
             break;
         draws = { troop };
-        troop.restart_with_phrases(LC::choose_vector({
-            {LC::Lang::eng, {L"Sir, it's time for us to retreat", L"They will soon surround us"}},
-            {LC::Lang::rus, {L"Сэр, нам пора отсупать", L"Они скоро окружат нас"}}
-        }));
+        troop.restart_with_phrases(scene_texts["L1"]);
         state++;
     [[fallthrough]];
     case 1:
@@ -54,9 +51,7 @@ void Level1::update(unused double delta_time)
         if(!troop.is_end_of_speech())
             break;
         draws = { commander };
-        commander.restart_with_phrases(LC::choose_vector({
-            {LC::Lang::eng, {L"No, we're not backing down", L"artiller support is still with us", L"Commo, check the telegraph!"}}
-        }));
+        commander.restart_with_phrases(scene_texts["M1"]);
         state++;
     [[fallthrough]];
     case 2:
@@ -64,13 +59,7 @@ void Level1::update(unused double delta_time)
         if(!commander.is_end_of_speech())
             break;
         draws = { troop };
-        troop.restart_with_phrases(LC::choose_vector({
-            {LC::Lang::eng, {
-                L"Commo, send them \"QRV?\"",
-                L"that means \"Are you ready?\"",
-                L"we will know they ready, if answer will be same code without \"?\""
-            }}
-        }));
+        troop.restart_with_phrases(scene_texts["L2"]);
         state++;
     break;
     case 3:
@@ -79,19 +68,7 @@ void Level1::update(unused double delta_time)
         {
             state++;
             draws = { blocknote_tutorial, blocknote_morse, blocknote_mission, telegraph };
-            blocknote_tutorial.set_string(LC::choose_string({
-                {LC::Lang::eng, {
-                    L"Press space key to use\n"
-                    L"telegraph. Short press\n"
-                    L"makes dots and long\n"
-                    L"makes dash. Combine\n"
-                    L"them to make letters.\n"
-                    L"Wait a little bit to\n"
-                    L"make a space. If you\n"
-                    L"make a mistake, make 8\n"
-                    L"dots to erase last\n" L"letter."
-                }}
-            }));
+            blocknote_tutorial.set_string(scene_strings["guide"]);
 
             auto [post, sizet] = blocknote_tutorial.get_global_bounds();
             auto [posm, sizem] = blocknote_morse.get_global_bounds();
@@ -174,12 +151,7 @@ void Level1::update(unused double delta_time)
         {
             state++;
             draws = { commander };
-            commander.restart_with_phrases(LC::choose_vector({
-                {LC::Lang::eng, {
-                    L"now send coordinates of these bastards",
-                    L"our guys gonna give em some shake!"
-                }}
-            }));
+            commander.restart_with_phrases(scene_texts["M2"]);
             auto mission = "E67F50";
             telegraph.set_mission(mission);
             blocknote_mission.label.set_string(mission);

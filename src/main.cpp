@@ -2,13 +2,22 @@
 
 #include "res/res.hpp"
 #include "core/Window.hpp"
-#include "scenes/Opening.hpp"
+#include "scenes/Lang.hpp"
 
 int main()
 {
-    res::load();
+    try
+    {
+        res::load();
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+        return 100;
+    }
+
     Window window;
-    SceneManager::start_scene<Level1>();
+    SceneManager::start_scene<ChooseLang>();
 
     ui::Label fps_label;
     fps_label.set_fill_color(sf::Color::White);

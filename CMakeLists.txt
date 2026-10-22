@@ -14,6 +14,13 @@ if(DEFINED ENV{CMAKE_LIBS_DIR})
     set(FETCHCONTENT_BASE_DIR "$ENV{CMAKE_LIBS_DIR}")
 endif()
 
+FetchContent_Declare(
+  battery-embed
+  GIT_REPOSITORY https://github.com/batterycenter/embed.git
+  GIT_TAG        v1.2.19
+)
+FetchContent_MakeAvailable(battery-embed)
+
 option(USE_FETCHCONTENT "fetching libs" FALSE)
 if(USE_FETCHCONTENT)
     FetchContent_Declare(
@@ -22,8 +29,15 @@ if(USE_FETCHCONTENT)
         GIT_TAG 3.0.2
     )
     FetchContent_MakeAvailable(SFML)
+    FetchContent_Declare(
+        nlohmann_json
+        GIT_REPOSITORY https://github.com/nlohmann/json.git
+        GIT_TAG v3.11.3
+    )
+    FetchContent_MakeAvailable(nlohmann_json)
 else()
     find_package(SFML REQUIRED COMPONENTS Graphics Audio Window System)
+    find_package(nlohmann_json CONFIG REQUIRED)
 endif()
 
 
@@ -44,14 +58,19 @@ add_executable(sos
     src/scenes/local_scenes/BasementBackground.cpp
     src/scenes/local_scenes/Shaker.cpp
     src/scenes/local_scenes/Curtain.cpp
+    src/scenes/Lang.cpp
     src/scenes/Opening.cpp
     src/scenes/MainMenu.cpp
     src/scenes/Intro.cpp
     src/scenes/levels/Level1.cpp
     src/main.cpp
 )
-target_link_libraries(sos PRIVATE SFML::Graphics SFML::Audio)
+target_link_libraries(sos PRIVATE SFML::Graphics SFML::Audio nlohmann_json::nlohmann_json)
 target_compile_features(sos PRIVATE cxx_std_17)
+# target_compile_definitions(sos PRIVATE OUTSOURCE)
+
+b_embed(sos translations/eng.json)
+b_embed(sos translations/rus.json)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
     add_compile_options(-O2)

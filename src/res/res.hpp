@@ -3,21 +3,20 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
+
 #include <filesystem>
 #include <vector>
-#include <array>
-#include <map>
 
 #define inlstc inline static
 
 class res
 {
-private:
-    inlstc bool loaded = false;
-
 public:
     res() = delete;
     static void load();
+    static void load_texts();
 
     using fspath = std::filesystem::path;
 #ifndef NDEBUG
@@ -38,15 +37,47 @@ public:
         sf::Vector2f ratio = {1.f, 1.f}
     );
 
+
+    inlstc enum class Lang
+    {
+        eng,
+        rus
+    } current_language = Lang::rus;
+
+    struct LCFont {
+        operator sf::Font&() { return fonts[current_language]; }
+        std::unordered_map<Lang, sf::Font> fonts;
+    };
+
+    inlstc LCFont hand_font, brutal_font;
+    inlstc sf::Font default_font;
     inlstc sf::Texture
         default_texture, blocknote_blank, blocknote_morse, blocknote_onside,
         answer_pepper, splash, bunker, troop, commander, light;
-    inlstc sf::Font default_font, cybersomething, too_much_ink;
     inlstc sf::SoundBuffer morse_noise, stamp, print, incoming;
     inlstc sf::Music distance_explosions, distance_battle, carterattack, voice, march;
 
     inlstc const sf::String app_name = "guts:s.o.s";
-    inlstc bool is_loaded() { return loaded; }
+    static bool is_loaded() { return loaded; }
+    struct TextHolder
+    {
+        struct ProxyStrings
+        {
+            std::shared_ptr<json> block;
+            sf::String operator[](std::string_view label) const;
+        } proxy_string;
+        struct ProxyTexts
+        {
+            std::shared_ptr<json> block;
+            std::vector<sf::String> operator[](std::string_view label) const;
+        } proxy_text;
+    };
+    static const TextHolder get_scene_text(std::string_view scene_index);
+
+private:
+    inlstc bool loaded = false;
+    inlstc json text;
+    inlstc std::unordered_map<Lang, std::string> lang_json;
 };
 
 template <typename T>

@@ -55,7 +55,7 @@ void SpriteWithLabel::set_string(sf::String str)
 SpriteWithLabel::SpriteWithLabel(sf::String text, ui::OriginState text_state, Sprite &&sprite, int size_cf) :
     label{
         text,
-        res::too_much_ink,
+        res::hand_font,
         sf::Color::White
     },
     sprite{std::move(sprite)},

@@ -1,5 +1,7 @@
 #include "Opening.hpp"
 
+Opening::Opening() : SceneManager::Scene("Open") {}
+
 void Opening::resize()
 {
     auto ws = get_wsize<>();

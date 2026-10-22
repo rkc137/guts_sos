@@ -1,12 +1,11 @@
 #include "Intro.hpp"
 
-Intro::Intro()
+Intro::Intro() : SceneManager::Scene("Intro")
 {
-    texts.reserve(intro_texts.size());
     res::carterattack.play();
-    for(auto str : intro_texts)
+    for(auto str : scene_texts["Lore"])
         texts.emplace_back(ui::StampLabelSound{
-            ui::Label{L"", res::too_much_ink, sf::Color::White},
+            ui::Label{L"", res::hand_font, sf::Color::White},
             str,
             sf::Sound(res::stamp)
         });
