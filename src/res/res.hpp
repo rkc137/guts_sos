@@ -13,12 +13,10 @@ using json = nlohmann::json;
 
 class res
 {
-private:
-    inlstc bool loaded = false;
-
 public:
     res() = delete;
     static void load();
+    static void load_texts();
 
     using fspath = std::filesystem::path;
 #ifndef NDEBUG
@@ -45,8 +43,6 @@ public:
         eng,
         rus
     } current_language = Lang::rus;
-
-    inlstc json text;
 
     struct LCFont {
         operator sf::Font&() { return fonts[current_language]; }
@@ -77,6 +73,11 @@ public:
         } proxy_text;
     };
     static const TextHolder get_scene_text(std::string_view scene_index);
+
+private:
+    inlstc bool loaded = false;
+    inlstc json text;
+    inlstc std::unordered_map<Lang, std::string> lang_json;
 };
 
 template <typename T>

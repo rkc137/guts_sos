@@ -58,6 +58,7 @@ add_executable(sos
     src/scenes/local_scenes/BasementBackground.cpp
     src/scenes/local_scenes/Shaker.cpp
     src/scenes/local_scenes/Curtain.cpp
+    src/scenes/Lang.cpp
     src/scenes/Opening.cpp
     src/scenes/MainMenu.cpp
     src/scenes/Intro.cpp

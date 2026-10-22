@@ -71,19 +71,23 @@ void res::load()
         std::ifstream ifs(path);
         return std::string(std::istreambuf_iterator<char>{ifs}, {});
     };
-    std::unordered_map<Lang, std::string> lang_json = {
+    lang_json = {
         {Lang::eng, get_data("../translations/eng.json") },
         {Lang::rus, get_data("../translations/rus.json") }
     };
 #else
-    std::unordered_map<Lang, std::string> lang_json = {
+    lang_json = {
         {Lang::eng, b::embed<"translations/eng.json">() },
         {Lang::rus, b::embed<"translations/rus.json">() }
     };
 #endif
-    text = json::parse(lang_json[current_language], nullptr, true, true);
 
     loaded = true;
+}
+
+void res::load_texts()
+{
+    text = json::parse(lang_json[current_language], nullptr, true, true);
 }
 
 sf::Vector2f res::get_scale(sf::Vector2f wsize)

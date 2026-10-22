@@ -2,7 +2,7 @@
 
 #include "res/res.hpp"
 #include "core/Window.hpp"
-#include "scenes/Opening.hpp"
+#include "scenes/Lang.hpp"
 
 int main()
 {
@@ -17,7 +17,7 @@ int main()
     }
 
     Window window;
-    SceneManager::start_scene<Opening>();
+    SceneManager::start_scene<ChooseLang>();
 
     ui::Label fps_label;
     fps_label.set_fill_color(sf::Color::White);
