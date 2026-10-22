@@ -71,7 +71,7 @@ public:
             std::vector<sf::String> operator[](std::string_view label) const;
         } proxy_text;
     };
-    static TextHolder get_scene_text(std::string_view scene_index);
+    static const TextHolder get_scene_text(std::string_view scene_index);
 };
 
 template <typename T>

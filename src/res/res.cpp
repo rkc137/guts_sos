@@ -105,7 +105,7 @@ sf::Font& res::get_hand_font()
     }
 }
 
-res::TextHolder res::get_scene_text(std::string_view scene_index)
+const res::TextHolder res::get_scene_text(std::string_view scene_index)
 {
     TextHolder ret;
     const auto block = std::make_shared<json>(text[scene_index]);
