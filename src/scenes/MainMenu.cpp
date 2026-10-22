@@ -1,6 +1,6 @@
 #include "MainMenu.hpp"
 
-MainMenu::MainMenu()
+MainMenu::MainMenu() : SceneManager::Scene("Menu")
 {
     start.on_release = [&](){
         curtain.let_go([](){
