@@ -21,7 +21,7 @@ public:
     using fspath = std::filesystem::path;
 #ifndef NDEBUG
     inlstc const fspath res_path = "../res/";
-#elif
+#else
     inlstc const fspath res_path = "./res/";
 #endif
 
