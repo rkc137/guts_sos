@@ -64,7 +64,7 @@ void Character::resize()
 
 bool Character::is_end_of_speech() const
 {
-    return is_end && animation_clock.get_elapsed_time() >= appear_time;
+    return is_end && animation_clock.getElapsedTime() >= appear_time;
 }
 
 void Character::update(double delta_time)
@@ -76,17 +76,17 @@ void Character::update(double delta_time)
         setPosition({
             anim::interpolate<anim::ease_out_cubic>(
                 anim_poses,
-                animation_clock.get_elapsed_time(), appear_time),
+                animation_clock.getElapsedTime(), appear_time),
             wsize.y
         });
-        is_appear = animation_clock.get_elapsed_time() >= appear_time;
+        is_appear = animation_clock.getElapsedTime() >= appear_time;
     }
     else if(is_end)
     {
         setPosition({
             anim::interpolate<anim::ease_out_cubic>(
                 {anim_poses.second, anim_poses.first},
-                animation_clock.get_elapsed_time(), appear_time),
+                animation_clock.getElapsedTime(), appear_time),
             wsize.y
         });
         return;

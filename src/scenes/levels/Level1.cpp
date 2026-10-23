@@ -29,7 +29,7 @@ void Level1::resize()
 void Level1::update(unused double delta_time)
 {
     auto wsize = get_wsize<float>();
-    auto elapsed_time = animation_clock.get_elapsed_time();
+    auto elapsed_time = animation_clock.getElapsedTime();
     // i need c++26 std::bind_back<Fn> sooo bad
     auto blocknote_animation = [&](std::pair<float, float> range){
         return anim::interpolate<anim::ease_out_cubic>(range, elapsed_time, blocknote_appear_time);
@@ -124,14 +124,14 @@ void Level1::update(unused double delta_time)
         }
     break;
     case 6:
-        if(animation_clock.get_elapsed_time() <= blocknote_appear_time)
+        if(animation_clock.getElapsedTime() <= blocknote_appear_time)
         {
             answer_paper.setPosition({
                 blocknote_animation({answer_paper.get_global_bounds().size.x + wsize.x, wsize.x}),
                 blocknote_mission.get_global_bounds().size.y / 2
             });
         }
-        else if(animation_clock.get_elapsed_time() <= blocknote_appear_time + blocknote_appear_time + blocknote_appear_time)
+        else if(animation_clock.getElapsedTime() <= blocknote_appear_time + blocknote_appear_time + blocknote_appear_time)
         {
             elapsed_time -= blocknote_appear_time + blocknote_appear_time;
             answer_paper.setPosition({

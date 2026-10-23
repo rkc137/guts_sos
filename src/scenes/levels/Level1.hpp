@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../../core/pauseble_clock/PausebleClock.hpp"
 #include "../../res/res.hpp"
 #include "../../ui/sprite/Sprite.hpp"
 #include "../../ui/sprite/SpriteWithLabel.hpp"
@@ -43,7 +42,7 @@ private:
         {res::answer_pepper, ui::OriginState::right_up}
     };
 
-    PausebleClock animation_clock;
+    sf::Clock animation_clock;
     const sf::Time blocknote_appear_time = sf::seconds(1.5);
     const sf::Time tutorial_time = sf::seconds(1);
     BasementBackground background;

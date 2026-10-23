@@ -4,7 +4,6 @@
 #include "../sprite/Sprite.hpp"
 #include "../label/StampLabel.hpp"
 #include "../../res/res.hpp"
-#include "../../core/pauseble_clock/PausebleClock.hpp"
 #include "../../core/Animation.hpp"
 #include "../../core/logger/Logger.hpp"
 
@@ -25,7 +24,7 @@ public:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     no_discard sf::FloatRect get_global_bounds() const override;
     no_discard bool is_end_of_speech() const;
-    PausebleClock animation_clock;
+    sf::Clock animation_clock;
 
 private:
     bool is_end;

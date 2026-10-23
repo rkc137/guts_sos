@@ -45,7 +45,6 @@ add_executable(sos
     src/core/WindowWrap.cpp
     src/core/Window.cpp
     src/core/Logger/Logger.cpp
-    src/core/pauseble_clock/PausebleClock.cpp
     src/res/res.cpp
     src/ui/label/label.cpp
     src/ui/label/StampLabel.cpp
