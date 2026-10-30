@@ -72,13 +72,13 @@ void res::load()
         return std::string(std::istreambuf_iterator<char>{ifs}, {});
     };
     lang_json = {
-        {Lang::eng, get_data("../translations/eng.json") },
-        {Lang::rus, get_data("../translations/rus.json") }
+        {Lang::eng, get_data("../translations/eng.jsonc") },
+        {Lang::rus, get_data("../translations/rus.jsonc") }
     };
 #else
     lang_json = {
-        {Lang::eng, b::embed<"translations/eng.json">() },
-        {Lang::rus, b::embed<"translations/rus.json">() }
+        {Lang::eng, b::embed<"translations/eng.jsonc">() },
+        {Lang::rus, b::embed<"translations/rus.jsonc">() }
     };
 #endif
 
