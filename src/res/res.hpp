@@ -14,9 +14,15 @@ using json = nlohmann::json;
 class res
 {
 public:
+    inlstc enum class Lang
+    {
+        eng,
+        rus
+    } current_language = Lang::rus;
+
     res() = delete;
     static void load();
-    static void load_texts();
+    static void load_texts(Lang lang);
 
     using fspath = std::filesystem::path;
 #ifndef NDEBUG
@@ -36,13 +42,6 @@ public:
         sf::Vector2<T> texture_size,
         sf::Vector2f ratio = {1.f, 1.f}
     );
-
-
-    inlstc enum class Lang
-    {
-        eng,
-        rus
-    } current_language = Lang::rus;
 
     struct LCFont {
         operator sf::Font&() { return fonts[current_language]; }

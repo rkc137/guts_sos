@@ -3,17 +3,13 @@
 
 ChooseLang::ChooseLang()
 {
-    auto start = [&]{
-        res::load_texts();
+    rus.on_release = [&]{
+        res::load_texts(res::Lang::rus);
         SceneManager::start_scene<Opening>();
     };
-    rus.on_release = [&]{
-        res::current_language = res::Lang::rus;
-        start();
-    };
     eng.on_release = [&]{
-        res::current_language = res::Lang::eng;
-        start();
+        res::load_texts(res::Lang::eng);
+        SceneManager::start_scene<Opening>();
     };
 }
 

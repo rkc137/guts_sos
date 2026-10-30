@@ -85,8 +85,9 @@ void res::load()
     loaded = true;
 }
 
-void res::load_texts()
+void res::load_texts(res::Lang lang)
 {
+    current_language = lang;
     text = json::parse(lang_json[current_language], nullptr, true, true);
 }
 
